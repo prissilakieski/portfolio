@@ -73,27 +73,54 @@
        beija-flores de John Gould. Arquivos na pasta "decoracao".
        Para deixar mais forte ou mais suave, mude o "opacity" (0 = invisível, 1 = total).
        ========================================================== */
+    /* Buquê da capa em 3 camadas, cada uma balança num ritmo (efeito de brisa) */
     .capa-buque {
       position: absolute; top: 0; left: 0; z-index: 0; pointer-events: none;
-      width: min(60vw, 880px); height: auto; opacity: .6;
+      width: min(60vw, 880px); aspect-ratio: 1000 / 1100; opacity: .6;
       -webkit-mask-image: radial-gradient(ellipse 100% 100% at 0% 0%, #000 52%, transparent 100%);
               mask-image: radial-gradient(ellipse 100% 100% at 0% 0%, #000 52%, transparent 100%);
     }
+    .capa-buque img { position: absolute; inset: 0; width: 100%; height: 100%; transform-origin: 0 0; animation: brisa 12s ease-in-out infinite; }
+    .capa-buque img:nth-child(2) { animation: brisa-b 9s ease-in-out -2s infinite; }
+    .capa-buque img:nth-child(3) { animation-duration: 10s; animation-delay: -5s; }
+    .capa-buque-baixo {
+      position: absolute; right: 0; bottom: 62px; z-index: 0; pointer-events: none;
+      width: min(36vw, 500px); height: auto; opacity: .5; transform-origin: 100% 100%;
+      animation: brisa-b 11s ease-in-out -4s infinite;
+    }
     .capa > .container, .capa > .faixa-marcas { position: relative; z-index: 1; }
     .capa .selo, .capa h1, .capa .frase, .capa-numeros { text-shadow: 0 2px 26px rgba(20, 17, 19, .9), 0 0 2px rgba(20, 17, 19, .6); }
+
+    /* Arranjos nos cantos das seções, também com brisa */
     .secao { overflow: hidden; }
     .secao > .container { position: relative; z-index: 1; }
-    .enfeite { position: absolute; z-index: 0; pointer-events: none; height: auto; opacity: .3; width: min(40vw, 560px); }
-    .enfeite-topo-dir { top: 0; right: 0; -webkit-mask-image: linear-gradient(to bottom, transparent, #000 14%); mask-image: linear-gradient(to bottom, transparent, #000 14%); }
-    .enfeite-topo-esq { top: 0; left: 0; transform: scaleX(-1); -webkit-mask-image: linear-gradient(to bottom, transparent, #000 14%); mask-image: linear-gradient(to bottom, transparent, #000 14%); }
-    .enfeite-base-esq { bottom: 0; left: 0; -webkit-mask-image: linear-gradient(to top, transparent, #000 14%); mask-image: linear-gradient(to top, transparent, #000 14%); }
-    .enfeite-base-dir { bottom: 0; right: 0; transform: scaleX(-1); -webkit-mask-image: linear-gradient(to top, transparent, #000 14%); mask-image: linear-gradient(to top, transparent, #000 14%); }
-    .enfeite-papagaio { bottom: 0; right: 0; width: min(32vw, 440px); -webkit-mask-image: linear-gradient(to top, transparent, #000 12%); mask-image: linear-gradient(to top, transparent, #000 12%); }
-    @media (max-width: 820px) {
-      .capa-buque { width: 96vw; opacity: .42; }
-      .enfeite { width: 62vw; opacity: .18; }
+    .enfeite {
+      position: absolute; z-index: 0; pointer-events: none; height: auto; opacity: .3; width: min(40vw, 560px);
+      animation: brisa 10s ease-in-out infinite;
+    }
+    .enfeite-topo-dir { top: 0; right: 0; transform-origin: 100% 0; -webkit-mask-image: linear-gradient(to bottom, transparent, #000 14%); mask-image: linear-gradient(to bottom, transparent, #000 14%); }
+    .enfeite-topo-esq { top: 0; left: 0; transform-origin: 0 0; animation-duration: 11s; animation-delay: -3s; -webkit-mask-image: linear-gradient(to bottom, transparent, #000 14%); mask-image: linear-gradient(to bottom, transparent, #000 14%); }
+    .enfeite-base-esq { bottom: 0; left: 0; transform-origin: 0 100%; animation-name: brisa-b; animation-duration: 12s; animation-delay: -6s; -webkit-mask-image: linear-gradient(to top, transparent, #000 14%); mask-image: linear-gradient(to top, transparent, #000 14%); }
+    .enfeite-base-dir { bottom: 0; right: 0; transform-origin: 100% 100%; animation-name: brisa-b; animation-duration: 9s; animation-delay: -1s; -webkit-mask-image: linear-gradient(to top, transparent, #000 14%); mask-image: linear-gradient(to top, transparent, #000 14%); }
+    .enfeite-papagaio { width: min(32vw, 440px); }
+
+    /* A brisa: balanço lento e bem pequeno, ancorado no canto de onde as flores "nascem" */
+    @keyframes brisa {
+      0%, 100% { transform: rotate(0deg) translate(0, 0); }
+      30% { transform: rotate(.9deg) translate(2px, 1px); }
+      65% { transform: rotate(-.6deg) translate(-1px, 2px); }
+    }
+    @keyframes brisa-b {
+      0%, 100% { transform: rotate(0deg); }
+      45% { transform: rotate(-1deg) translate(-2px, 1px); }
+      80% { transform: rotate(.5deg); }
     }
 
+    @media (max-width: 820px) {
+      .capa-buque { width: 96vw; opacity: .42; }
+      .capa-buque-baixo { width: 58vw; opacity: .3; }
+      .enfeite { width: 62vw; opacity: .18; }
+    }
     .pular {
       position: absolute; left: 16px; top: -100px; z-index: 200;
       background: var(--milk); color: var(--escuro); padding: 10px 16px;
@@ -666,7 +693,12 @@
   <main id="conteudo">
     <!-- 1. CAPA -->
     <section class="capa" id="inicio" aria-labelledby="titulo-capa">
-      <img class="capa-buque" src="decoracao/buque-capa.png" alt="" aria-hidden="true">
+      <div class="capa-buque" aria-hidden="true">
+        <img src="decoracao/buque-capa-1.png" alt="">
+        <img src="decoracao/buque-capa-2.png" alt="">
+        <img src="decoracao/buque-capa-3.png" alt="">
+      </div>
+      <img class="capa-buque-baixo" src="decoracao/buque-capa-baixo.png" alt="" aria-hidden="true">
       <div class="container capa-grade">
         <div>
           <p class="selo revelar" id="capaSelo"></p>
@@ -686,6 +718,7 @@
     <!-- 2. SOBRE MIM -->
     <section class="secao" id="sobre" aria-labelledby="titulo-sobre">
       <img class="enfeite enfeite-topo-dir" src="decoracao/canto-rosas.png" alt="" aria-hidden="true" loading="lazy">
+      <img class="enfeite enfeite-base-esq" src="decoracao/canto-peonia.png" alt="" aria-hidden="true" loading="lazy">
       <div class="container sobre-grade">
         <div class="sobre-foto revelar" id="sobreFoto"></div>
         <div class="sobre-texto revelar" id="sobreTexto"></div>
@@ -694,7 +727,8 @@
 
     <!-- 3. CONTEÚDOS DE DESTAQUE -->
     <section class="secao" id="destaques" aria-labelledby="titulo-destaques">
-      <img class="enfeite enfeite-papagaio" src="decoracao/canto-papagaio.png" alt="" aria-hidden="true" loading="lazy">
+      <img class="enfeite enfeite-topo-esq" src="decoracao/canto-vinho-esp.png" alt="" aria-hidden="true" loading="lazy">
+      <img class="enfeite enfeite-base-dir enfeite-papagaio" src="decoracao/canto-papagaio.png" alt="" aria-hidden="true" loading="lazy">
       <div class="container">
         <div class="cabecalho-secao revelar" id="destaquesCabecalho"></div>
         <div class="destaques-grade" id="destaquesGrade"></div>
@@ -703,6 +737,7 @@
 
     <!-- 4. TRABALHOS POR NICHO -->
     <section class="secao" id="trabalhos" aria-labelledby="titulo-trabalhos">
+      <img class="enfeite enfeite-topo-dir" src="decoracao/canto-vinho.png" alt="" aria-hidden="true" loading="lazy">
       <img class="enfeite enfeite-base-esq" src="decoracao/canto-peonia.png" alt="" aria-hidden="true" loading="lazy">
       <div class="container">
         <div class="cabecalho-secao revelar" id="trabalhosCabecalho"></div>
@@ -714,7 +749,8 @@
 
     <!-- TIKTOK SHOP: vídeos exclusivos para venda pelo carrinho do TikTok -->
     <section class="secao" id="tiktokshop" aria-labelledby="titulo-tiktokshop">
-      <img class="enfeite enfeite-topo-esq" src="decoracao/canto-rosas.png" alt="" aria-hidden="true" loading="lazy">
+      <img class="enfeite enfeite-topo-esq" src="decoracao/canto-rosas-esp.png" alt="" aria-hidden="true" loading="lazy">
+      <img class="enfeite enfeite-base-dir" src="decoracao/canto-peonia-esp.png" alt="" aria-hidden="true" loading="lazy">
       <div class="container">
         <div class="tts-topo">
           <div class="cabecalho-secao revelar" id="ttsCabecalho"></div>
@@ -726,7 +762,8 @@
 
     <!-- 5. COMO EU TE AJUDO -->
     <section class="secao" id="servicos" aria-labelledby="titulo-servicos">
-      <img class="enfeite enfeite-base-dir" src="decoracao/canto-peonia.png" alt="" aria-hidden="true" loading="lazy">
+      <img class="enfeite enfeite-topo-dir" src="decoracao/canto-rosas.png" alt="" aria-hidden="true" loading="lazy">
+      <img class="enfeite enfeite-base-esq" src="decoracao/canto-peonia.png" alt="" aria-hidden="true" loading="lazy">
       <div class="container">
         <div class="cabecalho-secao revelar" id="servicosCabecalho"></div>
         <div class="servicos-grade" id="servicosGrade"></div>
@@ -735,7 +772,8 @@
 
     <!-- 6. NÚMEROS E DEPOIMENTOS -->
     <section class="secao numeros-secao" id="numeros" aria-labelledby="titulo-numeros">
-      <img class="enfeite enfeite-topo-dir" src="decoracao/canto-rosas.png" alt="" aria-hidden="true" loading="lazy">
+      <img class="enfeite enfeite-topo-esq" src="decoracao/canto-vinho-esp.png" alt="" aria-hidden="true" loading="lazy">
+      <img class="enfeite enfeite-base-dir enfeite-papagaio" src="decoracao/canto-papagaio.png" alt="" aria-hidden="true" loading="lazy">
       <div class="container">
         <div class="cabecalho-secao revelar" id="numerosCabecalho"></div>
         <ul class="contadores" id="contadores"></ul>
@@ -748,6 +786,7 @@
 
     <!-- 7. BORA CRIAR JUNTOS -->
     <section class="secao" id="contato" aria-labelledby="titulo-contato">
+      <img class="enfeite enfeite-topo-dir" src="decoracao/canto-vinho.png" alt="" aria-hidden="true" loading="lazy">
       <img class="enfeite enfeite-base-esq" src="decoracao/canto-peonia.png" alt="" aria-hidden="true" loading="lazy">
       <div class="container">
         <div class="contato-caixa revelar">
@@ -930,7 +969,7 @@
         kicker: "Catálogo",
         titulo: "Trabalhos por nicho",
         texto: "Escolha um nicho e depois o subnicho para ver exatamente o tipo de vídeo que a sua marca precisa.",
-        categorias: ["Beleza", "Moda e acessórios", "Casa", "Comida", "Fitness"],
+        categorias: ["Beleza", "Moda e acessórios", "Casa e decor", "Tech, apps e lançamentos", "Comida", "Fitness"],
         itens: [
           // VÍDEOS DO YOUTUBE: cole no campo "video" o link do vídeo (pode ser o link do YouTube Studio,
           // do youtube.com/watch, do youtube.com/shorts ou do youtu.be). A capa é puxada sozinha do YouTube.
@@ -950,11 +989,13 @@
           { titulo: "Tendências do trendbook", categoria: "Moda e acessórios", subcategoria: "Moda", formato: "Vídeo UGC", descricao: "Folheando um trendbook e apresentando as tendências da estação de um jeito visual.", video: "https://studio.youtube.com/video/XUrzjT86IOk/edit", imagem: "", alt: "Páginas de um trendbook de tendências sendo folheadas" },
           { titulo: "Dica de estilo", categoria: "Moda e acessórios", subcategoria: "Moda", formato: "Vídeo UGC falado", descricao: "Conteúdo falado com legenda, próximo do público e com cara de recomendação de amiga.", video: "https://studio.youtube.com/video/TbDpr_r7S6w/edit", imagem: "", alt: "Prissila de jaqueta de couro falando para a câmera" },
 
-          // Nichos abaixo ainda são exemplos: troque pelos seus vídeos quando tiver
-          { titulo: "Organização da cozinha", categoria: "Casa", formato: "Vídeo UGC · 40s", descricao: "Antes e depois com potes herméticos que viralizou.", imagem: "", alt: "Trabalho de casa com organização de cozinha", gradiente: "linear-gradient(170deg,#f6dfe5,#e3a3b6)" },
-          { titulo: "Aromatizador para o lar", categoria: "Casa", formato: "Fotos + Reels", descricao: "Clima aconchegante para mostrar a experiência do produto.", imagem: "", alt: "Trabalho de casa com aromatizador", gradiente: "linear-gradient(220deg,#f3c9d4,#fdf3f5)" },
-          { titulo: "Robô aspirador em ação", categoria: "Casa", formato: "Unboxing · 60s", descricao: "Unboxing e teste real em casa com pet.", imagem: "", alt: "Trabalho de casa com robô aspirador", gradiente: "linear-gradient(150deg,#e9b4c3,#fff7f9)" },
-          { titulo: "Granola artesanal", categoria: "Comida", formato: "Vídeo UGC · 25s", descricao: "Café da manhã real com foco em sabor e textura.", imagem: "", alt: "Trabalho de comida com granola", gradiente: "linear-gradient(190deg,#f5d0da,#fae9ee)" },
+          // Casa e decor
+          { titulo: "Odorizante de ambientes", categoria: "Casa e decor", formato: "Vídeo UGC falado", descricao: "Formas de usar o odorizante Chá Branco pela casa e nos tecidos, de um jeito leve e convidativo.", video: "https://studio.youtube.com/video/PFzhoWmZ6fY/edit", imagem: "", alt: "Prissila segurando um odorizante de ambientes Chá Branco" },
+
+          // Tech, apps e lançamentos > Apps e lançamentos
+          { titulo: "Lançamento de app", categoria: "Tech, apps e lançamentos", subcategoria: "Apps e lançamentos", formato: "Vídeo UGC falado", descricao: "Conversa direta com a câmera apresentando a novidade, com legenda e chamada para fechar negócio.", video: "https://studio.youtube.com/video/xdVyrysYcyc/edit", imagem: "", alt: "Prissila falando para a câmera com a legenda Fechar o negócio" },
+
+          // Nichos abaixo ainda são exemplos: troque pelos seus vídeos quando tiver          { titulo: "Granola artesanal", categoria: "Comida", formato: "Vídeo UGC · 25s", descricao: "Café da manhã real com foco em sabor e textura.", imagem: "", alt: "Trabalho de comida com granola", gradiente: "linear-gradient(190deg,#f5d0da,#fae9ee)" },
           { titulo: "Receita na air fryer", categoria: "Comida", formato: "Anúncio · 30s", descricao: "Receita prática que vende o eletro e a ideia.", imagem: "", alt: "Trabalho de comida com receita na air fryer", gradiente: "linear-gradient(140deg,#f7dde4,#f3c9d4)" },
           { titulo: "Café especial", categoria: "Comida", formato: "Fotos de produto", descricao: "Ensaio com luz natural para site e redes.", imagem: "", alt: "Trabalho de comida com café especial", gradiente: "linear-gradient(210deg,#fbeef2,#eab0c0)" },
           { titulo: "Treino em casa", categoria: "Fitness", formato: "Reels · 45s", descricao: "Sequência de exercícios com elásticos da marca.", imagem: "", alt: "Trabalho de fitness com treino em casa", gradiente: "linear-gradient(180deg,#f3c9d4,#fbeef2)" },
