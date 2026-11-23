@@ -86,6 +86,8 @@
     .capa-buque img:nth-child(3) { animation-duration: 10s; animation-delay: -5s; }
     .capa > .container, .capa > .faixa-marcas { position: relative; z-index: 1; }
     .capa .selo, .capa h1, .capa .frase, .capa-numeros { text-shadow: 0 2px 26px rgba(20, 17, 19, .9), 0 0 2px rgba(20, 17, 19, .6); }
+    /* "Micro influ" em rosa neon, aceso */
+    .capa .selo-micro { color: var(--neon-texto); font-weight: 700; text-shadow: var(--brilho); }
 
 
     /* Guirlandas: uma pintura contínua de flores que desce pelas laterais da página inteira,
@@ -289,14 +291,21 @@
     .sobre-foto { aspect-ratio: 4 / 5; overflow: hidden; position: relative; }
     .sobre-texto p { color: var(--texto-suave); font-size: 1.06rem; margin-top: 16px; }
     .sobre-texto p:first-of-type { margin-top: 24px; }
-    .entregas { margin-top: 30px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border-top: 1px solid var(--borda); }
+    /* Sobre mim curto: sem foto vira uma faixa compacta, para chegar rápido aos conteúdos */
+    #sobre { padding-block: clamp(44px, 6vw, 72px); }
+    .sobre-grade.sem-foto { display: block; max-width: 860px; }
+    .sobre-grade.sem-foto .cabecalho-secao { margin-bottom: 0; }
+    .sobre-grade.sem-foto .titulo-secao { font-size: clamp(2rem, 4.6vw, 3.2rem); }
+    .sobre-grade.sem-foto .sobre-texto p:first-of-type { margin-top: 14px; }
+    .entregas { margin-top: 22px; display: flex; flex-wrap: wrap; gap: 10px; }
     .entregas li {
-      padding: 14px 10px 14px 0; border-bottom: 1px solid var(--borda);
-      display: flex; gap: 10px; align-items: flex-start; font-weight: 500; font-size: .95rem;
-      transition: color .3s ease, text-shadow .3s ease;
+      padding: 8px 14px; border: 1px solid var(--borda); border-radius: 999px;
+      display: flex; gap: 8px; align-items: center; font-weight: 500; font-size: .9rem;
+      transition: color .3s ease, text-shadow .3s ease, border-color .3s ease;
     }
+    .entregas li:hover { border-color: var(--neon); }
     .entregas li:hover { color: var(--neon-texto); text-shadow: var(--brilho); }
-    .entregas svg { width: 18px; height: 18px; color: var(--salvia); flex-shrink: 0; margin-top: 3px; }
+    .entregas svg { width: 16px; height: 16px; color: var(--salvia); flex-shrink: 0; }
 
     /* ==========================================================
        3. CONTEÚDOS DE DESTAQUE
@@ -395,7 +404,7 @@
     .seta:hover { border-color: var(--neon); color: var(--neon-texto); box-shadow: 0 0 16px rgba(255,45,149,.45); }
     .seta svg { width: 18px; height: 18px; }
     .trilho {
-      display: grid; grid-auto-flow: column; grid-auto-columns: clamp(150px, 21vw, 236px);
+      display: grid; grid-auto-flow: column; grid-auto-columns: clamp(190px, 24vw, 300px);
       gap: 18px; overflow-x: auto; overscroll-behavior-x: contain;
       padding: 26px 14px 30px; margin-inline: -14px;
       scroll-snap-type: x mandatory; scroll-padding-inline: 14px;
@@ -405,12 +414,12 @@
     .trilho::-webkit-scrollbar-thumb { background: var(--salvia-linha); border-radius: 3px; }
     .catalogo.filtrado .trilho {
       grid-auto-flow: row; grid-auto-columns: auto;
-      grid-template-columns: repeat(auto-fill, minmax(min(100%, 170px), 1fr)); overflow: visible;
+      grid-template-columns: repeat(auto-fill, minmax(min(100%, 230px), 300px)); overflow: visible;
     }
     .catalogo.filtrado .setas { display: none; }
 
     .trabalho {
-      scroll-snap-align: start; position: relative; display: block; aspect-ratio: 2 / 3; overflow: hidden;
+      scroll-snap-align: start; position: relative; display: block; aspect-ratio: 9 / 16; overflow: hidden;
       text-decoration: none; color: inherit; background: var(--superficie-2);
       transition: transform .45s cubic-bezier(.2,.7,.2,1), box-shadow .45s ease;
     }
@@ -656,7 +665,7 @@
       .capa-botoes .btn { flex: 1 1 100%; }
       .capa-numeros { gap: 8px; }
       .capa-numeros span { font-size: .62rem; letter-spacing: .1em; line-height: 1.4; display: block; }
-      .entregas { grid-template-columns: 1fr; }
+      .entregas li { font-size: .84rem; }
       .servicos-grade, .resultados, .depoimentos { grid-template-columns: 1fr; }
       .contador { padding: 26px 8px; }
       .setas { display: none; }
@@ -879,20 +888,17 @@
       // EDITE AQUI: seção Sobre mim
       sobre: {
         kicker: "Sobre mim",
-        titulo: "Prazer, eu sou a Prissila",
+        titulo: "Vídeo real, que vende",
         paragrafos: [
-          "Sou criadora de conteúdo UGC e ajudo marcas a venderem mais com vídeos que parecem conversa de amiga, do jeito que o público confia. Cada roteiro nasce pensando no seu cliente: o que ele sente, o que ele precisa ouvir e o que faz ele clicar em comprar.",
-          "Gravo em casa, com luz natural e estúdio próprio, usando o produto de verdade. Nada de atuação forçada: eu testo, mostro o resultado e conto a experiência com sinceridade. É isso que gera conexão e conversão.",
-          "Junto com cada vídeo, você recebe um pacote completo para usar sem dor de cabeça:"
+          "Gravo em casa, com luz natural, usando o produto de verdade. Você recebe pronto para postar ou anunciar:"
         ],
         entregas: [
-          "Roteiro com gancho nos 3 primeiros segundos",
-          "Vídeo editado com legendas",
-          "Versões de gancho para teste A/B",
-          "Arquivo bruto para sua equipe",
-          "Direito de uso para anúncios",
-          "Entrega organizada e no prazo"
+          "Roteiro com gancho forte",
+          "Edição com legenda",
+          "Versões para teste A/B",
+          "Direito de uso para anúncios"
         ],
+        // Foto opcional: deixe "" para a seção ficar só com o texto (mais curta)
         imagem: "",
         alt: "Prissila Kieski gravando um vídeo com o celular no tripé, segurando um produto",
         gradiente: "linear-gradient(200deg, #f7dde4 0%, #efc3cf 50%, #f3c9d4 100%)"
@@ -1105,7 +1111,7 @@
 
     /* ---------- 1. Capa ---------- */
     const cp = CONFIG.capa;
-    $("#capaSelo").innerHTML = `<b>UGC</b> ${esc(CONFIG.perfil.profissao)}`;
+    $("#capaSelo").innerHTML = `<b>UGC</b> <span class="selo-micro">${esc(CONFIG.perfil.profissao)}</span>`;
     $("#titulo-capa").innerHTML = `<span>${esc(CONFIG.perfil.primeiroNome)}</span> <span class="linha-2">${esc(CONFIG.perfil.sobrenome)}</span>`;
     $("#capaFrase").innerHTML = cp.frase;
     $("#capaBotoes").innerHTML = `
@@ -1120,7 +1126,8 @@
 
     /* ---------- 2. Sobre ---------- */
     const sb = CONFIG.sobre;
-    $("#sobreFoto").innerHTML = midia(sb);
+    if (sb.imagem) $("#sobreFoto").innerHTML = midia(sb);
+    else { $("#sobreFoto").remove(); $(".sobre-grade").classList.add("sem-foto"); }
     $("#sobreTexto").innerHTML = `${cabecalho({ kicker: sb.kicker, titulo: sb.titulo }, "titulo-sobre")}
       ${sb.paragrafos.map((p) => `<p>${esc(p)}</p>`).join("")}
       <ul class="entregas">${sb.entregas.map((e) => `<li>${icones.check}<span>${esc(e)}</span></li>`).join("")}</ul>`;
