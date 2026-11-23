@@ -46,7 +46,8 @@
     html { scroll-behavior: smooth; overflow-x: clip; background: var(--fundo); }
     body {
       margin: 0;
-      background: var(--fundo);
+      position: relative;
+      background: transparent;
       color: var(--texto);
       font-family: var(--corpo);
       font-size: 1rem;
@@ -83,29 +84,31 @@
     .capa-buque img { position: absolute; inset: 0; width: 100%; height: 100%; transform-origin: 0 0; animation: brisa 12s ease-in-out infinite; }
     .capa-buque img:nth-child(2) { animation: brisa-b 9s ease-in-out -2s infinite; }
     .capa-buque img:nth-child(3) { animation-duration: 10s; animation-delay: -5s; }
-    .capa-buque-baixo {
-      position: absolute; right: 0; bottom: 62px; z-index: 0; pointer-events: none;
-      width: min(36vw, 500px); height: auto; opacity: .5; transform-origin: 100% 100%;
-      animation: brisa-b 11s ease-in-out -4s infinite;
-    }
     .capa > .container, .capa > .faixa-marcas { position: relative; z-index: 1; }
     .capa .selo, .capa h1, .capa .frase, .capa-numeros { text-shadow: 0 2px 26px rgba(20, 17, 19, .9), 0 0 2px rgba(20, 17, 19, .6); }
 
-    /* Arranjos nos cantos das seções, também com brisa */
-    .secao { overflow: hidden; }
-    .secao > .container { position: relative; z-index: 1; }
-    .enfeite {
-      position: absolute; z-index: 0; pointer-events: none; height: auto; opacity: .3; width: min(40vw, 560px);
-      animation: brisa 10s ease-in-out infinite;
-    }
-    .enfeite-topo-dir { top: 0; right: 0; transform-origin: 100% 0; -webkit-mask-image: linear-gradient(to bottom, transparent, #000 14%); mask-image: linear-gradient(to bottom, transparent, #000 14%); }
-    .enfeite-topo-esq { top: 0; left: 0; transform-origin: 0 0; animation-duration: 11s; animation-delay: -3s; -webkit-mask-image: linear-gradient(to bottom, transparent, #000 14%); mask-image: linear-gradient(to bottom, transparent, #000 14%); }
-    .enfeite-base-esq { bottom: 0; left: 0; transform-origin: 0 100%; animation-name: brisa-b; animation-duration: 12s; animation-delay: -6s; -webkit-mask-image: linear-gradient(to top, transparent, #000 14%); mask-image: linear-gradient(to top, transparent, #000 14%); }
-    .enfeite-base-dir { bottom: 0; right: 0; transform-origin: 100% 100%; animation-name: brisa-b; animation-duration: 9s; animation-delay: -1s; -webkit-mask-image: linear-gradient(to top, transparent, #000 14%); mask-image: linear-gradient(to top, transparent, #000 14%); }
-    .enfeite-papagaio { width: min(32vw, 440px); }
 
-    /* A brisa: balanço lento e bem pequeno, ancorado no canto de onde as flores "nascem" */
-    @keyframes brisa {
+    /* Guirlandas: uma pintura contínua de flores que desce pelas laterais da página inteira,
+       sem começo nem fim (a imagem foi montada para se repetir sem emenda) */
+    .guirlanda { position: absolute; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; }
+    .guirlanda span {
+      position: absolute; top: 0; bottom: 0; width: min(30vw, 470px);
+      background-repeat: repeat-y; background-size: 100% auto; opacity: .42;
+    }
+    .guirlanda .lado-esq {
+      left: -8px; background-image: url("decoracao/guirlanda-esq.png");
+      -webkit-mask-image: linear-gradient(to right, #000 45%, transparent); mask-image: linear-gradient(to right, #000 45%, transparent);
+      animation: balanco-esq 10s ease-in-out infinite;
+    }
+    .guirlanda .lado-dir {
+      right: -8px; background-image: url("decoracao/guirlanda-dir.png"); background-position: right 0 top 600px;
+      -webkit-mask-image: linear-gradient(to left, #000 45%, transparent); mask-image: linear-gradient(to left, #000 45%, transparent);
+      animation: balanco-dir 12s ease-in-out -4s infinite;
+    }
+    @keyframes balanco-esq { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(7px); } }
+    @keyframes balanco-dir { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(-7px); } }
+
+    /* A brisa: balanço lento e bem pequeno, ancorado no canto de onde as flores "nascem" */    @keyframes brisa {
       0%, 100% { transform: rotate(0deg) translate(0, 0); }
       30% { transform: rotate(.9deg) translate(2px, 1px); }
       65% { transform: rotate(-.6deg) translate(-1px, 2px); }
@@ -118,9 +121,9 @@
 
     @media (max-width: 820px) {
       .capa-buque { width: 96vw; opacity: .42; }
-      .capa-buque-baixo { width: 58vw; opacity: .3; }
-      .enfeite { width: 62vw; opacity: .18; }
+      .guirlanda span { width: 38vw; opacity: .26; }
     }
+
     .pular {
       position: absolute; left: 16px; top: -100px; z-index: 200;
       background: var(--milk); color: var(--escuro); padding: 10px 16px;
@@ -216,8 +219,7 @@
       overflow: hidden;
     }
     .capa-grade {
-      display: grid; grid-template-columns: 1.2fr 0.8fr; gap: clamp(28px, 6vw, 80px);
-      align-items: center; padding-bottom: clamp(40px, 6vw, 72px);
+      display: block; padding-bottom: clamp(40px, 6vw, 72px);
     }
     .selo {
       display: inline-flex; align-items: center; gap: 12px; margin-bottom: 22px;
@@ -247,33 +249,19 @@
     .capa-numeros li:hover strong { color: var(--neon-texto); text-shadow: var(--brilho); }
     .capa-numeros span { font-size: .72rem; letter-spacing: .16em; text-transform: uppercase; color: var(--texto-suave); }
 
-    /* Foto da capa flutuando */
-    .capa-foto { position: relative; max-width: 420px; justify-self: end; width: 100%; }
-    .capa-foto .flutua { position: relative; aspect-ratio: 4 / 5; animation: flutuar 7s ease-in-out infinite; }
-    .capa-foto .flutua > .midia {
-      position: relative; z-index: 1;
-      box-shadow: 0 50px 70px -30px rgba(0, 0, 0, .75), 0 0 90px rgba(247, 221, 228, .10);
+    /* Foto da capa integrada: ocupa o lado direito e se funde com o fundo pelas bordas */
+    .capa-texto { max-width: min(640px, 54%); }
+    .capa-foto {
+      position: absolute; top: 0; right: 0; bottom: 0; z-index: 0; width: min(62vw, 1060px); pointer-events: none;
+      -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 40%), linear-gradient(to top, transparent 0%, #000 30%);
+      -webkit-mask-composite: source-in; mask-composite: intersect;
+      mask-image: linear-gradient(to right, transparent 0%, #000 40%), linear-gradient(to top, transparent 0%, #000 30%);
     }
-    .capa-foto img.midia { object-position: 52% 40%; }
-    .capa-foto::after {
-      /* sombra no "chão" que respira junto com a foto */
-      content: ""; position: absolute; left: 12%; right: 12%; bottom: -46px; height: 22px; border-radius: 50%;
-      background: radial-gradient(ellipse at center, rgba(0, 0, 0, .55), transparent 70%);
-      animation: sombra 7s ease-in-out infinite;
-    }
-    @keyframes flutuar {
-      0%, 100% { transform: translateY(0) rotate(-1.2deg); }
-      50% { transform: translateY(-18px) rotate(.8deg); }
-    }
-    @keyframes sombra {
-      0%, 100% { transform: scaleX(1); opacity: .9; }
-      50% { transform: scaleX(.82); opacity: .55; }
-    }
+    .capa-foto .midia { width: 100%; height: 100%; object-fit: cover; object-position: 50% 32%; filter: saturate(.95); }
     .capa-foto .iniciais {
       position: absolute; inset: 0; display: grid; place-items: center; z-index: 2;
       font-family: var(--titulo); font-style: italic; font-size: clamp(6rem, 16vw, 11rem); color: rgba(255,255,255,.5); pointer-events: none;
     }
-
     .faixa-marcas { background: var(--milk); overflow: hidden; position: relative; }
     .faixa-marcas .rotulo {
       position: absolute; left: 0; top: 0; bottom: 0; z-index: 2;
@@ -313,7 +301,6 @@
     /* ==========================================================
        3. CONTEÚDOS DE DESTAQUE
        ========================================================== */
-    #destaques { background: var(--fundo-2); }
     .destaques-grade { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(16px, 3vw, 36px); }
     .destaque {
       display: block; text-decoration: none; color: inherit;
@@ -378,6 +365,8 @@
     .filtro[aria-pressed="true"] { background: var(--milk); border-color: var(--milk); color: var(--escuro); text-shadow: none; }
     .filtro[aria-pressed="true"]:hover { background: var(--neon); border-color: var(--neon); color: #fff; box-shadow: 0 0 20px rgba(255,45,149,.5); }
 
+    .filtro-tts { display: inline-flex; align-items: center; gap: 7px; text-decoration: none; border-color: var(--milk); color: var(--milk); }
+    .filtro-tts svg { width: 14px; height: 14px; fill: currentColor; }
     .filtros:has(+ .subfiltros:not([hidden])) { margin-bottom: 12px; }
     .subfiltros { align-items: center; padding: 12px 14px; background: var(--salvia-fundo); border: 1px solid var(--salvia-linha); }
     .subfiltros[hidden] { display: none; }
@@ -452,7 +441,6 @@
     .play-mini svg { width: 20px; height: 20px; }
 
     /* TikTok Shop */
-    #tiktokshop { background: var(--fundo-2); }
     .tts-topo { display: grid; grid-template-columns: 1.1fr .9fr; gap: clamp(24px, 5vw, 64px); align-items: end; margin-bottom: clamp(20px, 4vw, 36px); }
     .tts-topo .cabecalho-secao { margin-bottom: 0; }
     .tts-selo {
@@ -517,7 +505,6 @@
     /* ==========================================================
        6. NÚMEROS E DEPOIMENTOS
        ========================================================== */
-    #numeros { background: var(--fundo-2); }
     .contadores { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 1px solid var(--milk); border-bottom: 1px solid var(--borda); }
     .contador { text-align: center; padding: 38px 14px; }
     .contador + .contador { border-left: 1px solid var(--borda); }
@@ -596,7 +583,7 @@
     /* ==========================================================
        8. RODAPÉ
        ========================================================== */
-    .rodape { border-top: 1px solid var(--borda); padding-block: 48px; background: rgba(24, 21, 23, .94); }
+    .rodape { border-top: 1px solid var(--borda); padding-block: 48px; background: transparent; }
     .rodape .container { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 20px; }
     .rodape .logo { font-size: 1.4rem; }
     .redes { display: flex; flex-wrap: wrap; gap: 8px; }
@@ -651,9 +638,13 @@
     }
 
     @media (max-width: 820px) {
-      .capa-grade { grid-template-columns: 1fr; }
-      .capa-foto { order: -1; justify-self: center; max-width: min(340px, 78%); margin-bottom: 30px; }
-      .capa-foto .flutua { aspect-ratio: 1 / 1; }
+      .capa-grade { padding-top: 40svh; }
+      .capa-texto { max-width: 100%; }
+      .capa-foto {
+        width: 100%; bottom: auto; height: 66svh;
+        -webkit-mask-image: linear-gradient(to top, transparent 0%, #000 45%); mask-image: linear-gradient(to top, transparent 0%, #000 45%);
+        -webkit-mask-composite: source-over; mask-composite: add;
+      }
       .capa-foto .iniciais { font-size: 7rem; }
       .sobre-grade { grid-template-columns: 1fr; }
       .sobre-foto { aspect-ratio: 4 / 3; }
@@ -676,6 +667,8 @@
 </style>
 </head>
 <body>
+  <!-- GUIRLANDAS: pintura contínua de flores vintage descendo pelas laterais da página inteira -->
+  <div class="guirlanda" aria-hidden="true"><span class="lado-esq"></span><span class="lado-dir"></span></div>
   <a class="pular" href="#conteudo">Pular para o conteúdo</a>
 
 
@@ -698,16 +691,15 @@
         <img src="decoracao/buque-capa-2.png" alt="">
         <img src="decoracao/buque-capa-3.png" alt="">
       </div>
-      <img class="capa-buque-baixo" src="decoracao/buque-capa-baixo.png" alt="" aria-hidden="true">
+      <div class="capa-foto" id="capaFoto"></div>
       <div class="container capa-grade">
-        <div>
+        <div class="capa-texto">
           <p class="selo revelar" id="capaSelo"></p>
           <h1 id="titulo-capa" class="revelar"></h1>
           <p class="frase revelar" id="capaFrase"></p>
           <div class="capa-botoes revelar" id="capaBotoes"></div>
           <ul class="capa-numeros revelar" id="capaNumeros"></ul>
         </div>
-        <div class="capa-foto revelar" id="capaFoto"></div>
       </div>
       <div class="faixa-marcas" aria-label="Marcas com quem já trabalhei">
         <span class="rotulo">Já trabalhei com</span>
@@ -717,8 +709,6 @@
 
     <!-- 2. SOBRE MIM -->
     <section class="secao" id="sobre" aria-labelledby="titulo-sobre">
-      <img class="enfeite enfeite-topo-dir" src="decoracao/canto-rosas.png" alt="" aria-hidden="true" loading="lazy">
-      <img class="enfeite enfeite-base-esq" src="decoracao/canto-peonia.png" alt="" aria-hidden="true" loading="lazy">
       <div class="container sobre-grade">
         <div class="sobre-foto revelar" id="sobreFoto"></div>
         <div class="sobre-texto revelar" id="sobreTexto"></div>
@@ -727,30 +717,14 @@
 
     <!-- 3. CONTEÚDOS DE DESTAQUE -->
     <section class="secao" id="destaques" aria-labelledby="titulo-destaques">
-      <img class="enfeite enfeite-topo-esq" src="decoracao/canto-vinho-esp.png" alt="" aria-hidden="true" loading="lazy">
-      <img class="enfeite enfeite-base-dir enfeite-papagaio" src="decoracao/canto-papagaio.png" alt="" aria-hidden="true" loading="lazy">
       <div class="container">
         <div class="cabecalho-secao revelar" id="destaquesCabecalho"></div>
         <div class="destaques-grade" id="destaquesGrade"></div>
       </div>
     </section>
 
-    <!-- 4. TRABALHOS POR NICHO -->
-    <section class="secao" id="trabalhos" aria-labelledby="titulo-trabalhos">
-      <img class="enfeite enfeite-topo-dir" src="decoracao/canto-vinho.png" alt="" aria-hidden="true" loading="lazy">
-      <img class="enfeite enfeite-base-esq" src="decoracao/canto-peonia.png" alt="" aria-hidden="true" loading="lazy">
-      <div class="container">
-        <div class="cabecalho-secao revelar" id="trabalhosCabecalho"></div>
-        <div class="filtros revelar" id="filtros" role="group" aria-label="Filtrar trabalhos por nicho"></div>
-        <div class="filtros subfiltros" id="subfiltros" role="group" hidden></div>
-        <div class="catalogo" id="catalogo" aria-live="polite"></div>
-      </div>
-    </section>
-
     <!-- TIKTOK SHOP: vídeos exclusivos para venda pelo carrinho do TikTok -->
     <section class="secao" id="tiktokshop" aria-labelledby="titulo-tiktokshop">
-      <img class="enfeite enfeite-topo-esq" src="decoracao/canto-rosas-esp.png" alt="" aria-hidden="true" loading="lazy">
-      <img class="enfeite enfeite-base-dir" src="decoracao/canto-peonia-esp.png" alt="" aria-hidden="true" loading="lazy">
       <div class="container">
         <div class="tts-topo">
           <div class="cabecalho-secao revelar" id="ttsCabecalho"></div>
@@ -760,10 +734,18 @@
       </div>
     </section>
 
+    <!-- 4. TRABALHOS POR NICHO -->
+    <section class="secao" id="trabalhos" aria-labelledby="titulo-trabalhos">
+      <div class="container">
+        <div class="cabecalho-secao revelar" id="trabalhosCabecalho"></div>
+        <div class="filtros revelar" id="filtros" role="group" aria-label="Filtrar trabalhos por nicho"></div>
+        <div class="filtros subfiltros" id="subfiltros" role="group" hidden></div>
+        <div class="catalogo" id="catalogo" aria-live="polite"></div>
+      </div>
+    </section>
+
     <!-- 5. COMO EU TE AJUDO -->
     <section class="secao" id="servicos" aria-labelledby="titulo-servicos">
-      <img class="enfeite enfeite-topo-dir" src="decoracao/canto-rosas.png" alt="" aria-hidden="true" loading="lazy">
-      <img class="enfeite enfeite-base-esq" src="decoracao/canto-peonia.png" alt="" aria-hidden="true" loading="lazy">
       <div class="container">
         <div class="cabecalho-secao revelar" id="servicosCabecalho"></div>
         <div class="servicos-grade" id="servicosGrade"></div>
@@ -772,8 +754,6 @@
 
     <!-- 6. NÚMEROS E DEPOIMENTOS -->
     <section class="secao numeros-secao" id="numeros" aria-labelledby="titulo-numeros">
-      <img class="enfeite enfeite-topo-esq" src="decoracao/canto-vinho-esp.png" alt="" aria-hidden="true" loading="lazy">
-      <img class="enfeite enfeite-base-dir enfeite-papagaio" src="decoracao/canto-papagaio.png" alt="" aria-hidden="true" loading="lazy">
       <div class="container">
         <div class="cabecalho-secao revelar" id="numerosCabecalho"></div>
         <ul class="contadores" id="contadores"></ul>
@@ -786,8 +766,6 @@
 
     <!-- 7. BORA CRIAR JUNTOS -->
     <section class="secao" id="contato" aria-labelledby="titulo-contato">
-      <img class="enfeite enfeite-topo-dir" src="decoracao/canto-vinho.png" alt="" aria-hidden="true" loading="lazy">
-      <img class="enfeite enfeite-base-esq" src="decoracao/canto-peonia.png" alt="" aria-hidden="true" loading="lazy">
       <div class="container">
         <div class="contato-caixa revelar">
           <div class="contato-direto" id="contatoDireto"></div>
@@ -870,8 +848,8 @@
       menu: [
         { texto: "Sobre", alvo: "#sobre" },
         { texto: "Destaques", alvo: "#destaques" },
-        { texto: "Trabalhos", alvo: "#trabalhos" },
         { texto: "TikTok Shop", alvo: "#tiktokshop" },
+        { texto: "Trabalhos", alvo: "#trabalhos" },
         { texto: "Serviços", alvo: "#servicos" },
         { texto: "Números", alvo: "#numeros" },
         { texto: "Contato", alvo: "#contato" }
@@ -880,7 +858,7 @@
       // EDITE AQUI: textos da capa (primeira dobra)
       capa: {
         selo: "Criadora UGC",
-        frase: "Prazer, eu sou a <strong>amiga que vende</strong>. Tenho 32 anos, moro em <span class=\"local\">Barreiras, Bahia</span>, e indico produtos do jeito que eu indicaria para uma amiga: com verdade, carinho e aquele empurrãozinho para comprar.",
+        frase: "Prazer, sou a Prissila, a <strong>amiga que vende</strong>. 32 anos, de <span class=\"local\">Barreiras, Bahia</span>. Indico produto como indico para uma amiga: com verdade.",
         botaoPrincipal: "Falar comigo",
         botaoSecundario: "Ver os trabalhos",
         // Foto da capa: troque "imagem" pelo caminho da sua foto
@@ -969,7 +947,7 @@
         kicker: "Catálogo",
         titulo: "Trabalhos por nicho",
         texto: "Escolha um nicho e depois o subnicho para ver exatamente o tipo de vídeo que a sua marca precisa.",
-        categorias: ["Beleza", "Moda e acessórios", "Casa e decor", "Tech, apps e lançamentos", "Comida", "Fitness"],
+        categorias: ["Beleza", "Moda e acessórios", "Casa e decor", "Tech, apps e lançamentos", "Comida"],
         itens: [
           // VÍDEOS DO YOUTUBE: cole no campo "video" o link do vídeo (pode ser o link do YouTube Studio,
           // do youtube.com/watch, do youtube.com/shorts ou do youtu.be). A capa é puxada sozinha do YouTube.
@@ -998,9 +976,6 @@
           // Nichos abaixo ainda são exemplos: troque pelos seus vídeos quando tiver          { titulo: "Granola artesanal", categoria: "Comida", formato: "Vídeo UGC · 25s", descricao: "Café da manhã real com foco em sabor e textura.", imagem: "", alt: "Trabalho de comida com granola", gradiente: "linear-gradient(190deg,#f5d0da,#fae9ee)" },
           { titulo: "Receita na air fryer", categoria: "Comida", formato: "Anúncio · 30s", descricao: "Receita prática que vende o eletro e a ideia.", imagem: "", alt: "Trabalho de comida com receita na air fryer", gradiente: "linear-gradient(140deg,#f7dde4,#f3c9d4)" },
           { titulo: "Café especial", categoria: "Comida", formato: "Fotos de produto", descricao: "Ensaio com luz natural para site e redes.", imagem: "", alt: "Trabalho de comida com café especial", gradiente: "linear-gradient(210deg,#fbeef2,#eab0c0)" },
-          { titulo: "Treino em casa", categoria: "Fitness", formato: "Reels · 45s", descricao: "Sequência de exercícios com elásticos da marca.", imagem: "", alt: "Trabalho de fitness com treino em casa", gradiente: "linear-gradient(180deg,#f3c9d4,#fbeef2)" },
-          { titulo: "Pré-treino natural", categoria: "Fitness", formato: "Anúncio · 20s", descricao: "Gancho forte e prova social para tráfego pago.", imagem: "", alt: "Trabalho de fitness com suplemento", gradiente: "linear-gradient(225deg,#f6dfe5,#f3c9d4)" },
-          { titulo: "Conjunto de academia", categoria: "Fitness", formato: "Fotos + Vídeo", descricao: "Teste de tecido em movimento durante o treino.", imagem: "", alt: "Trabalho de fitness com roupa de academia", gradiente: "linear-gradient(150deg,#fae9ee,#f5d0da)" }
         ]
       },
 
@@ -1137,7 +1112,7 @@
       <a class="btn btn-vermelho" href="#contato">${icones.play} ${esc(cp.botaoPrincipal)}</a>
       <a class="btn btn-cinza" href="#trabalhos">${esc(cp.botaoSecundario)}</a>`;
     $("#capaNumeros").innerHTML = cp.numeros.map((n) => `<li><strong>${esc(n.valor)}</strong><span>${esc(n.rotulo)}</span></li>`).join("");
-    $("#capaFoto").innerHTML = `<div class="flutua">${midia(cp)}${cp.imagem ? "" : `<span class="iniciais" aria-hidden="true">${esc(CONFIG.perfil.iniciais)}</span>`}</div>`;
+    $("#capaFoto").innerHTML = `${midia(cp)}${cp.imagem ? "" : `<span class="iniciais" aria-hidden="true">${esc(CONFIG.perfil.iniciais)}</span>`}`;
 
     // Faixa de marcas (a segunda cópia existe só para o movimento contínuo)
     const listaMarcas = CONFIG.marcas.map((m) => `<li>${esc(m)}</li>`).join("");
@@ -1195,7 +1170,8 @@
     const tb = CONFIG.trabalhos;
     $("#trabalhosCabecalho").innerHTML = cabecalho(tb, "titulo-trabalhos");
     $("#filtros").innerHTML = ["Todos", ...tb.categorias]
-      .map((cat, i) => `<button type="button" class="filtro" data-filtro="${esc(cat)}" aria-pressed="${i === 0}">${esc(cat)}</button>`).join("");
+      .map((cat, i) => `<button type="button" class="filtro" data-filtro="${esc(cat)}" aria-pressed="${i === 0}">${esc(cat)}</button>`).join("")
+      + `<a class="filtro filtro-tts" href="#tiktokshop">${icones.carrinho} TikTok Shop</a>`;
 
     // Subnichos de cada nicho, na ordem em que aparecem na lista de trabalhos
     const subnichos = {};
@@ -1256,7 +1232,7 @@
       }
     }
     $("#filtros").addEventListener("click", (e) => {
-      const botao = e.target.closest(".filtro");
+      const botao = e.target.closest("button.filtro");
       if (botao) aplicarFiltro(botao.dataset.filtro, "");
     });
     $("#subfiltros").addEventListener("click", (e) => {
