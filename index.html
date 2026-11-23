@@ -287,8 +287,14 @@
     /* ==========================================================
        2. SOBRE MIM
        ========================================================== */
-    .sobre-grade { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: clamp(36px, 7vw, 96px); align-items: center; }
-    .sobre-foto { aspect-ratio: 4 / 5; overflow: hidden; position: relative; }
+    .sobre-grade { display: grid; grid-template-columns: minmax(180px, 300px) 1fr; gap: clamp(24px, 5vw, 64px); align-items: center; }
+    /* Foto do Sobre mim: mesma estética da capa (sem moldura, bordas se dissolvendo no fundo), em tamanho menor */
+    .sobre-foto {
+      aspect-ratio: 4 / 5; position: relative;
+      -webkit-mask-image: radial-gradient(ellipse 62% 62% at 50% 45%, #000 50%, transparent 100%);
+              mask-image: radial-gradient(ellipse 62% 62% at 50% 45%, #000 50%, transparent 100%);
+    }
+    .sobre-foto .midia { width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; filter: saturate(.95); }
     .sobre-texto p { color: var(--texto-suave); font-size: 1.06rem; margin-top: 16px; }
     .sobre-texto p:first-of-type { margin-top: 24px; }
     /* Sobre mim curto: sem foto vira uma faixa compacta, para chegar rápido aos conteúdos */
@@ -359,6 +365,9 @@
     }
     .destaque-titulo { margin-top: 16px; font-family: var(--corpo); font-weight: 600; font-size: 1.08rem; line-height: 1.35; }
     .destaque-contexto { margin-top: 6px; color: var(--texto-suave); font-size: .94rem; }
+    .destaque-insights { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--borda); display: grid; gap: 7px; }
+    .destaque-insights li { display: flex; gap: 8px; align-items: flex-start; font-size: .84rem; line-height: 1.45; color: var(--texto); }
+    .destaque-insights svg { width: 14px; height: 14px; color: var(--neon-texto); flex-shrink: 0; margin-top: 3px; }
 
     /* ==========================================================
        4. TRABALHOS POR NICHO (catálogo) e TIKTOK SHOP
@@ -404,7 +413,7 @@
     .seta:hover { border-color: var(--neon); color: var(--neon-texto); box-shadow: 0 0 16px rgba(255,45,149,.45); }
     .seta svg { width: 18px; height: 18px; }
     .trilho {
-      display: grid; grid-auto-flow: column; grid-auto-columns: clamp(190px, 24vw, 300px);
+      display: grid; grid-auto-flow: column; grid-auto-columns: clamp(176px, 22vw, 272px);
       gap: 18px; overflow-x: auto; overscroll-behavior-x: contain;
       padding: 26px 14px 30px; margin-inline: -14px;
       scroll-snap-type: x mandatory; scroll-padding-inline: 14px;
@@ -414,7 +423,7 @@
     .trilho::-webkit-scrollbar-thumb { background: var(--salvia-linha); border-radius: 3px; }
     .catalogo.filtrado .trilho {
       grid-auto-flow: row; grid-auto-columns: auto;
-      grid-template-columns: repeat(auto-fill, minmax(min(100%, 230px), 300px)); overflow: visible;
+      grid-template-columns: repeat(auto-fill, minmax(min(100%, 210px), 272px)); overflow: visible;
     }
     .catalogo.filtrado .setas { display: none; }
 
@@ -656,7 +665,7 @@
       }
       .capa-foto .iniciais { font-size: 7rem; }
       .sobre-grade { grid-template-columns: 1fr; }
-      .sobre-foto { aspect-ratio: 4 / 3; }
+      .sobre-foto { width: min(220px, 60%); margin-inline: auto; }
       .destaques-grade { grid-template-columns: 1fr; max-width: 380px; margin-inline: auto; }
     }
 
@@ -913,14 +922,21 @@
         texto: "Os vídeos que mais performaram até agora. Clique para assistir.",
         itens: [
           {
-            numero: "+2,4M",
-            rotulo: "views no reels",
-            titulo: "Rotina de skincare em 30 segundos",
-            contexto: "Vídeo orgânico que esgotou o estoque do sérum em 48 horas.",
-            link: "https://www.instagram.com/prissila.kieski",   // LINK DO VÍDEO AQUI
-            imagem: "",                                         // CAPA DO VÍDEO AQUI
-            alt: "Capa do vídeo de rotina de skincare",
-            gradiente: "linear-gradient(170deg, #f3c9d4 0%, #e9b4c3 55%, #fff7f9 100%)"
+            // Vídeo real. Quando tiver os números dele (views, salvamentos, vendas), troque "numero" e "rotulo".
+            numero: "60s",
+            rotulo: "de conversa olho no olho",
+            titulo: "Recomendação olho no olho",
+            contexto: "Fala direta para a câmera, com legenda dinâmica e áudio limpo: o formato que gera confiança e segura o público até o fim.",
+            // "insights": o que faz esse vídeo funcionar (aparece em lista no card)
+            insights: [
+              "Olhar na câmera cria conexão na hora",
+              "Legenda palavra por palavra prende quem assiste sem som",
+              "Microfone de lapela garante áudio pronto para anúncio",
+              "Gestos e expressão natural deixam a indicação mais crível"
+            ],
+            link: "https://youtube.com/shorts/bjfGhOKxedU",       // LINK DO VÍDEO AQUI (YouTube toca dentro do site)
+            imagem: "",                                         // CAPA DO VÍDEO AQUI (vazio = capa do YouTube)
+            alt: "Prissila falando para a câmera, de blusa branca e colar de corações"
           },
           {
             numero: "4,2x",
@@ -969,6 +985,10 @@
           { titulo: "Hidratação facial", categoria: "Beleza", subcategoria: "Skincare", formato: "Vídeo UGC", descricao: "Pele hidratada e com viço, mostrando o resultado do cuidado diário de perto.", video: "https://studio.youtube.com/video/NlWBiOitbHQ/edit", imagem: "", alt: "Prissila sorrindo com a pele hidratada e o texto Hidratação na tela" },
           { titulo: "Resenha de skincare", categoria: "Beleza", subcategoria: "Skincare", formato: "Vídeo UGC falado", descricao: "Conversa direta com a câmera explicando o produto e por que ele é fácil de usar.", video: "https://studio.youtube.com/video/PtehG-xT9Kg/edit", imagem: "", alt: "Prissila falando para a câmera sobre um produto de skincare" },
 
+          // Beleza > Perfume
+          { titulo: "Perfume doce sofisticado", categoria: "Beleza", subcategoria: "Perfume", formato: "Vídeo UGC falado", descricao: "Resenha sincera do perfume Royale, explicando as notas de um jeito que dá vontade de sentir.", video: "https://youtube.com/shorts/PrcM1T-Efpo", imagem: "", alt: "Prissila segurando um frasco de perfume dourado" },
+          { titulo: "Perfume Flor de Sicília", categoria: "Beleza", subcategoria: "Perfume", formato: "Vídeo UGC falado", descricao: "Apresentação do perfume com notas de laranja siciliana, com legenda e muita naturalidade.", video: "https://youtube.com/shorts/Nu6xKbxic-g", imagem: "", alt: "Prissila mostrando um frasco de perfume" },
+          { titulo: "Kit de perfumes VIP", categoria: "Beleza", subcategoria: "Perfume", formato: "Vídeo UGC falado", descricao: "Apresentação do kit gravada no carro, no clima de recomendação do dia a dia.", video: "https://youtube.com/shorts/7LghXMOxTDg", imagem: "", alt: "Prissila segurando três frascos de um kit de perfumes" },
           // Moda e acessórios > Moda
           { titulo: "Tendências do trendbook", categoria: "Moda e acessórios", subcategoria: "Moda", formato: "Vídeo UGC", descricao: "Folheando um trendbook e apresentando as tendências da estação de um jeito visual.", video: "https://studio.youtube.com/video/XUrzjT86IOk/edit", imagem: "", alt: "Páginas de um trendbook de tendências sendo folheadas" },
           { titulo: "Dica de estilo", categoria: "Moda e acessórios", subcategoria: "Moda", formato: "Vídeo UGC falado", descricao: "Conteúdo falado com legenda, próximo do público e com cara de recomendação de amiga.", video: "https://studio.youtube.com/video/TbDpr_r7S6w/edit", imagem: "", alt: "Prissila de jaqueta de couro falando para a câmera" },
@@ -976,6 +996,8 @@
           // Casa e decor
           { titulo: "Odorizante de ambientes", categoria: "Casa e decor", formato: "Vídeo UGC falado", descricao: "Formas de usar o odorizante Chá Branco pela casa e nos tecidos, de um jeito leve e convidativo.", video: "https://studio.youtube.com/video/PFzhoWmZ6fY/edit", imagem: "", alt: "Prissila segurando um odorizante de ambientes Chá Branco" },
 
+          { titulo: "Boleira de bambu", categoria: "Casa e decor", formato: "Vídeo UGC", descricao: "Mesa posta com bolo caseiro destacando o bambu tratado com verniz, num clima aconchegante de casa.", video: "https://youtube.com/shorts/UjPcrUjsobA", imagem: "", alt: "Boleira de bambu com bolo sobre toalha xadrez" },
+          { titulo: "Potes herméticos de bambu", categoria: "Casa e decor", formato: "Vídeo UGC", descricao: "Organização da despensa mostrando fechamento hermético, bambu tratado e material resistente.", video: "https://youtube.com/shorts/A098WedX3Tg", imagem: "", alt: "Mão segurando a tampa de bambu de um pote hermético" },
           // Tech, apps e lançamentos > Apps e lançamentos
           { titulo: "Lançamento de app", categoria: "Tech, apps e lançamentos", subcategoria: "Apps e lançamentos", formato: "Vídeo UGC falado", descricao: "Conversa direta com a câmera apresentando a novidade, com legenda e chamada para fechar negócio.", video: "https://studio.youtube.com/video/xdVyrysYcyc/edit", imagem: "", alt: "Prissila falando para a câmera com a legenda Fechar o negócio" },
 
@@ -1079,6 +1101,12 @@
       tiktok: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.6 5.8A4.3 4.3 0 0 1 15.5 3h-3.1v12.4a2.6 2.6 0 1 1-2.6-2.6c.3 0 .5 0 .8.1V9.8a5.8 5.8 0 1 0 5 5.6V9.1a7.4 7.4 0 0 0 4.3 1.4V7.4a4.3 4.3 0 0 1-3.3-1.6Z"/></svg>'
     };
 
+    function trocarCapa(img) {
+      if (!img.dataset.reserva) return;
+      img.src = img.dataset.reserva;
+      img.removeAttribute("data-reserva");
+    }
+
     // Descobre o código do vídeo a partir de qualquer link do YouTube
     function idYoutube(link) {
       if (!link) return "";
@@ -1089,7 +1117,11 @@
     // Cria a imagem real (se houver) ou o bloco em gradiente no lugar
     function midia(item) {
       if (item.imagem) {
-        return `<img class="midia" src="${esc(item.imagem)}" alt="${esc(item.alt || "")}" loading="lazy">`;
+        // "reserva": se a capa vertical do YouTube não existir, usa a capa padrão no lugar
+        const troca = item.reserva
+          ? ` data-reserva="${esc(item.reserva)}" onerror="trocarCapa(this)" onload="if(this.naturalWidth<=120)trocarCapa(this)"`
+          : "";
+        return `<img class="midia" src="${esc(item.imagem)}" alt="${esc(item.alt || "")}" loading="lazy"${troca}>`;
       }
       return `<div class="midia" role="img" aria-label="${esc(item.alt || "")}" style="background-image:${item.gradiente}"></div>`;
     }
@@ -1135,11 +1167,17 @@
     /* ---------- 3. Destaques ---------- */
     const dt = CONFIG.destaques;
     $("#destaquesCabecalho").innerHTML = cabecalho(dt, "titulo-destaques");
-    $("#destaquesGrade").innerHTML = dt.itens.map((d, i) => `
-      <a class="destaque revelar" href="${esc(d.link)}" target="_blank" rel="noopener" style="transition-delay:${i * 0.12}s"
-         aria-label="Assistir: ${esc(d.titulo)}. ${esc(d.numero)} ${esc(d.rotulo)}. Abre em nova aba.">
+    $("#destaquesGrade").innerHTML = dt.itens.map((d, i) => {
+      // Se o link for do YouTube, o vídeo toca dentro do site; senão, abre em nova aba
+      const id = idYoutube(d.link);
+      const capa = id && !d.imagem ? { ...d, imagem: `https://i.ytimg.com/vi/${id}/oardefault.jpg`, reserva: `https://i.ytimg.com/vi/${id}/hqdefault.jpg` } : d;
+      const abrir = id
+        ? `href="https://www.youtube.com/watch?v=${id}" data-video="${id}" data-titulo="${esc(d.titulo)}" aria-label="Assistir: ${esc(d.titulo)}. ${esc(d.numero)} ${esc(d.rotulo)}."`
+        : `href="${esc(d.link)}" target="_blank" rel="noopener" aria-label="Assistir: ${esc(d.titulo)}. ${esc(d.numero)} ${esc(d.rotulo)}. Abre em nova aba."`;
+      return `
+      <a class="destaque revelar" ${abrir} style="transition-delay:${i * 0.12}s">
         <div class="destaque-capa">
-          ${midia(d)}
+          ${midia(capa)}
           <span class="ranking" aria-hidden="true">${i + 1}</span>
           <span class="tag-alta" aria-hidden="true">Top ${i + 1}</span>
           <span class="play" aria-hidden="true">${icones.play}</span>
@@ -1149,14 +1187,16 @@
           <span class="destaque-rotulo">${esc(d.rotulo)}</span>
           <h3 class="destaque-titulo">${esc(d.titulo)}</h3>
           <p class="destaque-contexto">${esc(d.contexto)}</p>
+          ${d.insights ? `<ul class="destaque-insights">${d.insights.map((x) => `<li>${icones.check}<span>${esc(x)}</span></li>`).join("")}</ul>` : ""}
         </div>
-      </a>`).join("");
+      </a>`;
+    }).join("");
 
     /* ---------- 4. Trabalhos ---------- */
     // Card de um trabalho (usado no catálogo e no TikTok Shop)
     function cardTrabalho(t) {
       const id = idYoutube(t.video);
-      const capa = id && !t.imagem ? { ...t, imagem: `https://i.ytimg.com/vi/${id}/oardefault.jpg` } : t;
+      const capa = id && !t.imagem ? { ...t, imagem: `https://i.ytimg.com/vi/${id}/oardefault.jpg`, reserva: `https://i.ytimg.com/vi/${id}/hqdefault.jpg` } : t;
       const etiqueta = t.subcategoria || t.categoria || "";
       const atributos = id
         ? `href="https://www.youtube.com/watch?v=${id}" data-video="${id}" data-titulo="${esc(t.titulo)}" aria-label="Assistir vídeo: ${esc(t.titulo)}, ${esc(etiqueta)}, ${esc(t.formato)}. ${esc(t.descricao)}"`
