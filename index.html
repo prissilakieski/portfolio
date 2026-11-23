@@ -19,7 +19,7 @@
        ========================================================== */
     :root {
       --branco: #ffffff;
-      --fundo-2: #fdf6f8;          /* branco rosado para seções alternadas */
+      --fundo-2: rgba(253, 246, 248, .62);  /* branco rosado translúcido (deixa a estampa aparecer) */
       --tinta: #141414;            /* texto principal (quase preto, máxima leitura) */
       --tinta-suave: #5a5257;      /* texto de apoio (contraste alto sobre branco) */
       --milk: #f7dde4;             /* rosa milk: fundos, faixas e marca-texto */
@@ -28,7 +28,12 @@
       --neon: #ff2d95;             /* rosa neon: brilho, detalhes e fundos */
       --neon-texto: #d1006b;       /* rosa neon para TEXTO (contraste aprovado sobre branco) */
       --brilho: 0 0 10px rgba(255, 45, 149, .55), 0 0 26px rgba(255, 45, 149, .35);
+      --salvia: #a9bba5;           /* verde sálvia: linhas, molduras e detalhes */
+      --salvia-claro: #eef3ec;     /* sálvia bem clarinho: fundos */
+      --salvia-escuro: #4d644f;    /* sálvia para TEXTO (contraste aprovado sobre branco) */
       --borda: #ebe3e6;
+      /* Estampa botânica de fundo (desenho próprio, traço fino e translúcido) */
+      --estampa: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='380' height='380' viewBox='0 0 380 380'%3E%3Cg fill='none' stroke-linecap='round' stroke-linejoin='round'%3E%3Cg stroke='%237f9a7b' stroke-opacity='.30' stroke-width='1.1' fill='%23a9bba5' fill-opacity='.10'%3E%3Cpath d='M28 322 C78 270 108 214 122 146' fill='none'/%3E%3Cpath d='M58 288 C38 276 28 260 30 240 C48 248 58 266 58 288Z'/%3E%3Cpath d='M86 248 C108 240 122 224 126 204 C106 210 92 226 86 248Z'/%3E%3Cpath d='M104 206 C86 192 80 174 84 156 C100 168 106 186 104 206Z'/%3E%3Cpath d='M118 160 C132 146 148 142 164 144 C152 160 136 166 118 160Z'/%3E%3Cpath d='M70 270 C92 268 106 258 112 244 C94 244 80 254 70 270Z'/%3E%3C/g%3E%3Cg transform='translate(262 96)' stroke='%23e3a3b6' stroke-opacity='.45' stroke-width='1' fill='%23f7dde4' fill-opacity='.35'%3E%3Cellipse cx='0' cy='-17' rx='11' ry='18'/%3E%3Cellipse cx='0' cy='-17' rx='11' ry='18' transform='rotate(72)'/%3E%3Cellipse cx='0' cy='-17' rx='11' ry='18' transform='rotate(144)'/%3E%3Cellipse cx='0' cy='-17' rx='11' ry='18' transform='rotate(216)'/%3E%3Cellipse cx='0' cy='-17' rx='11' ry='18' transform='rotate(288)'/%3E%3Ccircle r='6' fill='%23eec1cd' fill-opacity='.6'/%3E%3C/g%3E%3Cpath d='M262 128 C258 160 246 186 226 206' stroke='%237f9a7b' stroke-opacity='.28' stroke-width='1'/%3E%3Cpath d='M250 170 C266 166 276 156 280 144 C266 146 254 156 250 170Z' stroke='%237f9a7b' stroke-opacity='.28' stroke-width='1' fill='%23a9bba5' fill-opacity='.10'/%3E%3Cg transform='translate(286 286) rotate(-18)' stroke='%237f9a7b' stroke-opacity='.38' stroke-width='1' fill='%23a9bba5' fill-opacity='.10'%3E%3Cpath d='M0 0 C-14 -24 -36 -22 -32 -5 C-29 6 -15 8 0 0Z'/%3E%3Cpath d='M0 0 C14 -24 36 -22 32 -5 C29 6 15 8 0 0Z'/%3E%3Cpath d='M0 0 C-10 10 -22 22 -14 26 C-6 28 -2 15 0 0Z' fill='%23f7dde4' fill-opacity='.35'/%3E%3Cpath d='M0 0 C10 10 22 22 14 26 C6 28 2 15 0 0Z' fill='%23f7dde4' fill-opacity='.35'/%3E%3Cpath d='M0 -8 L0 16 M0 -8 L-5 -18 M0 -8 L5 -18'/%3E%3C/g%3E%3Cg fill='%23eec1cd' fill-opacity='.45'%3E%3Ccircle cx='180' cy='40' r='2.2'/%3E%3Ccircle cx='190' cy='52' r='1.6'/%3E%3Ccircle cx='340' cy='190' r='2'/%3E%3Ccircle cx='150' cy='330' r='2.2'/%3E%3C/g%3E%3Cg transform='translate(196 250)' stroke='%23e3a3b6' stroke-opacity='.4' stroke-width='1' fill='%23f7dde4' fill-opacity='.3'%3E%3Cpath d='M0 0 C-8 -10 -6 -22 0 -26 C6 -22 8 -10 0 0Z'/%3E%3Cpath d='M0 0 C2 14 -2 26 -10 34' fill='none' stroke='%237f9a7b'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
       --titulo: "Bodoni Moda", "Didot", "Times New Roman", serif;
       --corpo: "Archivo", system-ui, -apple-system, "Segoe UI", sans-serif;
       --largura: 1240px;
@@ -41,7 +46,7 @@
     html { scroll-behavior: smooth; overflow-x: clip; }
     body {
       margin: 0;
-      background: var(--branco);
+      background: var(--estampa) 0 0 / 380px 380px repeat, var(--branco);
       color: var(--tinta);
       font-family: var(--corpo);
       font-size: 1rem;
@@ -85,8 +90,9 @@
 
     .kicker {
       display: inline-block;
-      background: var(--milk);
-      color: var(--tinta);
+      background: var(--salvia-claro);
+      color: var(--salvia-escuro);
+      border: 1px solid var(--salvia);
       font-weight: 600; font-size: .72rem;
       letter-spacing: .28em; text-transform: uppercase;
       padding: 6px 12px 5px;
@@ -185,8 +191,8 @@
       display: flex; flex-direction: column; justify-content: flex-end;
       padding-top: calc(var(--header-h) + 36px);
       background:
-        radial-gradient(ellipse 55% 55% at 88% 20%, var(--milk-claro), transparent 70%),
-        var(--branco);
+        radial-gradient(ellipse 55% 55% at 88% 20%, rgba(251, 238, 242, .85), transparent 70%),
+        radial-gradient(ellipse 45% 45% at 0% 95%, rgba(238, 243, 236, .9), transparent 70%);
       overflow: hidden;
     }
     .capa-grade {
@@ -243,6 +249,10 @@
       /* moldura rosa milk deslocada, efeito editorial */
       content: ""; position: absolute; inset: 18px -18px -18px 18px; background: var(--milk); z-index: 0;
     }
+    .capa-foto::after {
+      /* fio verde sálvia deslocado para o outro lado */
+      content: ""; position: absolute; inset: -12px 12px 12px -12px; border: 1px solid var(--salvia); z-index: 0; pointer-events: none;
+    }
     .capa-foto > .midia { position: relative; z-index: 1; }
     .capa-foto img.midia { object-position: 52% 40%; }
     .capa-foto .iniciais {
@@ -285,7 +295,8 @@
       transition: color .3s ease, text-shadow .3s ease;
     }
     .faixa-trilho li:hover { color: var(--neon-texto); text-shadow: var(--brilho); }
-    .faixa-trilho li::after { content: ""; width: 5px; height: 5px; background: var(--neon); border-radius: 50%; }
+    .faixa-trilho li::after { content: ""; width: 5px; height: 5px; background: var(--salvia-escuro); border-radius: 50%; }
+    .faixa-trilho li:nth-child(even)::after { background: var(--neon); }
     @keyframes deslizar { to { transform: translateX(-50%); } }
 
     /* ==========================================================
@@ -307,23 +318,49 @@
       transition: color .3s ease, text-shadow .3s ease;
     }
     .entregas li:hover { color: var(--neon-texto); text-shadow: var(--brilho); }
-    .entregas svg { width: 18px; height: 18px; color: var(--neon-texto); flex-shrink: 0; margin-top: 3px; }
+    .entregas svg { width: 18px; height: 18px; color: var(--salvia-escuro); flex-shrink: 0; margin-top: 3px; }
 
     /* ==========================================================
        3. CONTEÚDOS DE DESTAQUE
        ========================================================== */
-    #destaques { background: var(--fundo-2); }
-    .destaques-grade { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(16px, 3vw, 36px); }
+    /* Moldura botânica vintage em volta dos destaques */
+    .moldura-botanica {
+      position: relative;
+      padding: clamp(40px, 6vw, 72px) clamp(18px, 4vw, 56px);
+      background: rgba(238, 243, 236, .72);
+      border: 1px solid var(--salvia-escuro);
+      box-shadow: inset 0 0 0 9px rgba(247, 221, 228, .9), inset 0 0 0 10px var(--salvia-escuro), 0 30px 70px rgba(77, 100, 79, .10);
+    }
+    .moldura-botanica::before, .moldura-botanica::after {
+      /* ramos nos cantos da moldura */
+      content: ""; position: absolute; width: clamp(90px, 14vw, 150px); aspect-ratio: 1; pointer-events: none;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 150 150'%3E%3Cg fill='none' stroke='%234d644f' stroke-width='1.2' stroke-linecap='round'%3E%3Cpath d='M14 14 C50 22 86 40 120 80'/%3E%3Cpath d='M14 14 C22 50 40 86 80 120'/%3E%3Cg fill='%23a9bba5' fill-opacity='.45'%3E%3Cpath d='M44 22 C52 8 68 6 78 12 C70 24 56 28 44 22Z'/%3E%3Cpath d='M74 38 C84 26 100 26 108 34 C98 44 84 46 74 38Z'/%3E%3Cpath d='M22 44 C8 52 6 68 12 78 C24 70 28 56 22 44Z'/%3E%3Cpath d='M38 74 C26 84 26 100 34 108 C44 98 46 84 38 74Z'/%3E%3C/g%3E%3C/g%3E%3Cg transform='translate(22 22)' stroke='%23d98aa3' stroke-width='1' fill='%23f7dde4'%3E%3Cellipse cy='-8' rx='6' ry='9'/%3E%3Cellipse cy='-8' rx='6' ry='9' transform='rotate(72)'/%3E%3Cellipse cy='-8' rx='6' ry='9' transform='rotate(144)'/%3E%3Cellipse cy='-8' rx='6' ry='9' transform='rotate(216)'/%3E%3Cellipse cy='-8' rx='6' ry='9' transform='rotate(288)'/%3E%3Ccircle r='3.5' fill='%23eec1cd'/%3E%3C/g%3E%3C/svg%3E") no-repeat center / contain;
+    }
+    .moldura-botanica::before { top: -14px; left: -14px; }
+    .moldura-botanica::after { bottom: -14px; right: -14px; transform: rotate(180deg); }
+    .moldura-botanica .cabecalho-secao { text-align: center; }
+    .moldura-botanica .sub-secao { margin-inline: auto; }
+    .moldura-botanica .cabecalho-secao::after {
+      /* pequeno ornamento abaixo do título: folha, flor, folha */
+      content: "❦"; display: block; margin-top: 14px; color: var(--salvia-escuro); font-size: 1.3rem; line-height: 1;
+    }
+
+    /* Tamanho dos vídeos: a altura acompanha a tela, para o vídeo inteiro caber sem rolar */
+    .destaques-grade {
+      display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: clamp(16px, 3vw, 36px); justify-items: center;
+    }
     .destaque {
       display: block; text-decoration: none; color: inherit;
-      background: var(--branco); overflow: hidden; position: relative;
-      border: 1px solid var(--borda);
-      transition: transform .4s ease, box-shadow .4s ease, border-color .4s ease;
+      width: min(100%, calc(48vh * 0.5625), 300px);
+      background: var(--branco); position: relative;
+      border: 1px solid var(--salvia);
+      transition: transform .45s cubic-bezier(.2,.7,.2,1), box-shadow .45s ease, border-color .45s ease;
     }
     .destaque:hover, .destaque:focus-visible {
-      transform: translateY(-6px);
+      transform: translateY(-6px) scale(1.07); z-index: 2;
       border-color: var(--neon);
-      box-shadow: 0 0 0 1px var(--neon), 0 24px 50px rgba(255, 45, 149, .18);
+      box-shadow: 0 0 0 1px var(--neon), 0 28px 60px rgba(255, 45, 149, .22);
     }
     .destaque-capa { aspect-ratio: 9 / 16; position: relative; overflow: hidden; }
     .destaque-capa .midia { transition: transform .7s ease; }
@@ -353,9 +390,9 @@
     }
     .destaque:hover .play svg, .destaque:focus-visible .play svg,
     .trabalho:hover .play-mini svg, .trabalho:focus-visible .play-mini svg { fill: #fff; }
-    .destaque-info { padding: 22px 22px 26px; }
+    .destaque-info { padding: 16px 16px 20px; }
     .destaque-numero {
-      font-family: var(--titulo); font-weight: 500; font-size: clamp(2.4rem, 4.4vw, 3.3rem); line-height: 1;
+      font-family: var(--titulo); font-weight: 500; font-size: clamp(2rem, 3.4vw, 2.6rem); line-height: 1;
       transition: color .3s ease, text-shadow .3s ease;
     }
     .destaque:hover .destaque-numero { color: var(--neon-texto); text-shadow: var(--brilho); }
@@ -363,8 +400,8 @@
       display: inline-block; margin-top: 10px; background: var(--milk); color: var(--tinta);
       font-weight: 600; font-size: .66rem; letter-spacing: .2em; text-transform: uppercase; padding: 4px 9px 3px;
     }
-    .destaque-titulo { margin-top: 16px; font-family: var(--corpo); font-weight: 600; font-size: 1.08rem; line-height: 1.35; }
-    .destaque-contexto { margin-top: 6px; color: var(--tinta-suave); font-size: .94rem; }
+    .destaque-titulo { margin-top: 12px; font-family: var(--corpo); font-weight: 600; font-size: 1rem; line-height: 1.35; }
+    .destaque-contexto { margin-top: 4px; color: var(--tinta-suave); font-size: .88rem; line-height: 1.5; }
 
     /* ==========================================================
        4. TRABALHOS POR NICHO (catálogo)
@@ -381,7 +418,7 @@
     .filtro[aria-pressed="true"]:hover { color: var(--neon); text-shadow: var(--brilho); }
 
     .filtros:has(+ .subfiltros:not([hidden])) { margin-bottom: 12px; }
-    .subfiltros { align-items: center; padding: 12px 14px; background: var(--milk-claro); }
+    .subfiltros { align-items: center; padding: 12px 14px; background: var(--salvia-claro); border: 1px solid var(--salvia); }
     .subfiltros[hidden] { display: none; }
     .subfiltros-rotulo { font-size: .68rem; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--tinta-suave); margin-right: 4px; }
     .filtro-sub { padding: 8px 14px; }
@@ -397,7 +434,7 @@
     .fileira-nicho {
       display: block; width: fit-content; font-family: var(--corpo);
       font-size: .64rem; font-weight: 600; letter-spacing: .24em; text-transform: uppercase;
-      background: var(--milk); color: var(--tinta); padding: 3px 8px 2px; margin-bottom: 8px;
+      background: var(--salvia-claro); color: var(--salvia-escuro); padding: 3px 8px 2px; margin-bottom: 8px;
     }
     .setas { display: flex; gap: 8px; }
     .seta {
@@ -409,9 +446,9 @@
     .seta svg { width: 18px; height: 18px; }
     .trilho {
       display: grid; grid-auto-flow: column; grid-auto-columns: clamp(150px, 21vw, 236px);
-      gap: 16px; overflow-x: auto; overscroll-behavior-x: contain;
-      padding: 18px 4px 22px; margin-inline: -4px;
-      scroll-snap-type: x mandatory; scroll-padding-inline: 4px;
+      gap: 18px; overflow-x: auto; overscroll-behavior-x: contain;
+      padding: 26px 14px 30px; margin-inline: -14px;
+      scroll-snap-type: x mandatory; scroll-padding-inline: 14px;
       scrollbar-width: thin; scrollbar-color: var(--milk-forte) transparent;
     }
     .trilho::-webkit-scrollbar { height: 5px; }
@@ -427,10 +464,10 @@
       scroll-snap-align: start; position: relative; display: block;
       aspect-ratio: 2 / 3; overflow: hidden;
       text-decoration: none; color: inherit; background: var(--milk);
-      transition: transform .35s ease, box-shadow .35s ease;
+      transition: transform .45s cubic-bezier(.2,.7,.2,1), box-shadow .45s ease;
     }
     .trabalho:hover, .trabalho:focus-visible {
-      transform: translateY(-4px) scale(1.03); z-index: 3;
+      transform: scale(1.09); z-index: 3;
       box-shadow: 0 0 0 2px var(--neon), 0 18px 40px rgba(255, 45, 149, .28);
     }
     .trabalho .midia { position: absolute; inset: 0; }
@@ -457,7 +494,7 @@
 
     /* Janela do player de vídeo */
     .janela-video {
-      width: min(420px, calc(100vw - 32px)); max-height: calc(100vh - 32px);
+      width: fit-content; max-width: calc(100vw - 32px); max-height: calc(100vh - 24px);
       padding: 16px; border: 0; background: var(--branco); color: var(--tinta); overflow: auto;
       box-shadow: 0 30px 80px rgba(0,0,0,.25);
     }
@@ -470,17 +507,20 @@
       transition: color .3s ease, border-color .3s ease, box-shadow .3s ease;
     }
     .fechar-video:hover { color: var(--neon-texto); border-color: var(--neon); box-shadow: 0 0 16px rgba(255,45,149,.35); }
+    /* Player menor: a altura acompanha a tela, então o vídeo aparece inteiro sem rolar */
     .moldura-video {
-      aspect-ratio: 9 / 16; max-height: calc(100vh - 150px); margin-inline: auto;
+      height: min(calc(100vh - 130px), 640px); aspect-ratio: 9 / 16; width: auto;
+      max-width: calc(100vw - 64px); margin-inline: auto;
       overflow: hidden; background: var(--tinta);
     }
+    .janela-topo h2 { max-width: 22ch; }
     .moldura-video iframe { width: 100%; height: 100%; border: 0; display: block; }
     .aviso-local { height: 100%; display: grid; place-items: center; padding: 24px; text-align: center; color: #fff; background: var(--tinta); }
 
     /* ==========================================================
        5. SERVIÇOS
        ========================================================== */
-    #servicos { background: var(--fundo-2); }
+    #servicos { background: rgba(238, 243, 236, .6); }
     .servicos-grade {
       display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 1px; background: var(--borda); border: 1px solid var(--borda);
@@ -496,7 +536,7 @@
     }
     .servico:hover { background: var(--milk-claro); }
     .servico:hover::before { transform: scaleX(1); }
-    .servico-num { font-family: var(--titulo); font-style: italic; font-size: 2.6rem; line-height: 1; color: var(--milk-forte); }
+    .servico-num { font-family: var(--titulo); font-style: italic; font-size: 2.6rem; line-height: 1; color: var(--salvia); }
     .servico h3 { font-family: var(--titulo); font-weight: 500; font-size: 1.7rem; margin-top: 16px; transition: color .3s ease, text-shadow .3s ease; }
     .servico:hover h3 { color: var(--neon-texto); text-shadow: var(--brilho); }
     .servico p { color: var(--tinta-suave); margin-top: 10px; }
@@ -525,7 +565,7 @@
     .subtitulo-bloco::after { content: ""; flex: 1; height: 1px; background: var(--borda); }
     .resultados { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
     .resultado {
-      padding: 28px; background: var(--milk-claro); border-top: 2px solid var(--neon);
+      padding: 28px; background: rgba(251, 238, 242, .8); border-top: 2px solid var(--salvia-escuro);
       transition: box-shadow .3s ease;
     }
     .resultado:hover { box-shadow: 0 16px 40px rgba(255, 45, 149, .15); }
@@ -541,7 +581,7 @@
       transition: border-color .3s ease, box-shadow .3s ease;
     }
     .depoimento:hover { border-color: var(--neon); box-shadow: 0 16px 40px rgba(255, 45, 149, .14); }
-    .depoimento .aspas { font-family: var(--titulo); font-size: 4.4rem; line-height: .6; color: var(--milk-forte); height: 28px; }
+    .depoimento .aspas { font-family: var(--titulo); font-size: 4.4rem; line-height: .6; color: var(--salvia); height: 28px; }
     .estrelas { color: var(--neon-texto); letter-spacing: 3px; font-size: .95rem; }
     .depoimento blockquote { margin: 0; color: var(--tinta); font-size: 1.02rem; }
     .depoimento figcaption { margin-top: auto; display: flex; align-items: center; gap: 12px; }
@@ -617,6 +657,12 @@
     /* ---------- Animação de entrada ---------- */
     .revelar { opacity: 0; transform: translateY(26px); transition: opacity .9s ease, transform .9s cubic-bezier(.2,.7,.2,1); }
     .revelar.visivel { opacity: 1; transform: none; }
+    /* depois de aparecer, o card de vídeo responde ao mouse sem atraso */
+    .destaque.revelar.visivel {
+      transition: transform .45s cubic-bezier(.2,.7,.2,1), box-shadow .45s ease, border-color .45s ease, opacity .9s ease;
+      transition-delay: 0s !important;
+    }
+    .destaque.revelar.visivel:hover, .destaque.revelar.visivel:focus-visible { transform: translateY(-6px) scale(1.07); }
 
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
@@ -652,7 +698,8 @@
       .capa-foto .iniciais { font-size: 7rem; }
       .sobre-grade { grid-template-columns: 1fr; }
       .sobre-foto { aspect-ratio: 4 / 3; }
-      .destaques-grade { grid-template-columns: 1fr; max-width: 380px; margin-inline: auto; }
+      .destaques-grade { grid-template-columns: 1fr; max-width: 380px; margin-inline: auto; gap: 40px; }
+      .destaque { width: min(100%, calc(62vh * 0.5625), 300px); }
     }
 
     @media (max-width: 600px) {
@@ -714,8 +761,10 @@
     <!-- 3. CONTEÚDOS DE DESTAQUE -->
     <section class="secao" id="destaques" aria-labelledby="titulo-destaques">
       <div class="container">
-        <div class="cabecalho-secao revelar" id="destaquesCabecalho"></div>
-        <div class="destaques-grade" id="destaquesGrade"></div>
+        <div class="moldura-botanica revelar">
+          <div class="cabecalho-secao" id="destaquesCabecalho"></div>
+          <div class="destaques-grade" id="destaquesGrade"></div>
+        </div>
       </div>
     </section>
 
@@ -814,6 +863,7 @@
         primeiroNome: "PRISSILA",
         sobrenome: "KIESKI",
         profissao: "Criadora de conteúdo UGC",
+        textoLogo: "Portfólio",          // texto do canto esquerdo do menu
         iniciais: "PK"
       },
 
@@ -1063,8 +1113,8 @@
     const linkEmail = `mailto:${c.email}?subject=${encodeURIComponent("Parceria UGC para minha marca")}`;
 
     /* ---------- Menu ---------- */
-    $("#logo").textContent = CONFIG.perfil.nome;
-    $("#logo").setAttribute("aria-label", `${CONFIG.perfil.nome}, voltar ao início`);
+    $("#logo").textContent = CONFIG.perfil.textoLogo;
+    $("#logo").setAttribute("aria-label", `${CONFIG.perfil.textoLogo} de ${CONFIG.perfil.nome}, voltar ao início`);
     $("#menu").innerHTML = CONFIG.menu.map((m) => `<li><a href="${m.alvo}">${esc(m.texto)}</a></li>`).join("");
 
     /* ---------- 1. Capa ---------- */
