@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Prissila Kieski | Criadora de Conteúdo UGC</title>
   <meta name="description" content="Prissila Kieski, criadora de conteúdo UGC. Vídeos autênticos que vendem para marcas de beleza, casa, comida, moda e fitness.">
-  <meta name="theme-color" content="#ffffff">
+  <meta name="theme-color" content="#1f1b1e">
 
   <!-- Fontes do Google: Bodoni Moda (títulos, estilo editorial) e Archivo (corpo) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,37 +15,39 @@
   <style>
     /* ==========================================================
        CORES E MEDIDAS DO SITE (troque aqui para mudar o visual)
-       Estilo: editorial de moda, base branca, rosa milk e rosa neon
+       Estilo: editorial vintage, base grafite (preto suave),
+       rosa milk, verde sálvia e rosa neon
        ========================================================== */
     :root {
-      --branco: #ffffff;
-      --fundo-2: rgba(253, 246, 248, .62);  /* branco rosado translúcido (deixa a estampa aparecer) */
-      --tinta: #141414;            /* texto principal (quase preto, máxima leitura) */
-      --tinta-suave: #5a5257;      /* texto de apoio (contraste alto sobre branco) */
-      --milk: #f7dde4;             /* rosa milk: fundos, faixas e marca-texto */
-      --milk-claro: #fbeef2;
+      --fundo: #1f1b1e;            /* preto suave, puxado para o grafite */
+      --fundo-2: rgba(44, 38, 42, .55);  /* seções alternadas, translúcidas (deixa as ilustrações aparecerem) */
+      --superficie: #2a2528;       /* cards */
+      --superficie-2: #342e32;
+      --texto: #f6eef1;            /* texto principal (quase branco, leitura máxima) */
+      --texto-suave: #cbbfc5;      /* texto de apoio */
+      --escuro: #1f1b1e;           /* texto escuro sobre rosa milk */
+      --milk: #f7dde4;             /* rosa milk: destaques, faixas e botões */
       --milk-forte: #eec1cd;
-      --neon: #ff2d95;             /* rosa neon: brilho, detalhes e fundos */
-      --neon-texto: #d1006b;       /* rosa neon para TEXTO (contraste aprovado sobre branco) */
-      --brilho: 0 0 10px rgba(255, 45, 149, .55), 0 0 26px rgba(255, 45, 149, .35);
-      --salvia: #a9bba5;           /* verde sálvia: linhas, molduras e detalhes */
-      --salvia-claro: #eef3ec;     /* sálvia bem clarinho: fundos */
-      --salvia-escuro: #4d644f;    /* sálvia para TEXTO (contraste aprovado sobre branco) */
-      --borda: #ebe3e6;
+      --neon: #ff2d95;             /* rosa neon: brilho e detalhes */
+      --neon-texto: #ff5cad;       /* rosa neon para TEXTO (contraste alto sobre o grafite) */
+      --brilho: 0 0 10px rgba(255, 45, 149, .7), 0 0 28px rgba(255, 45, 149, .45);
+      --salvia: #b3c4ae;           /* verde sálvia para textos e detalhes */
+      --salvia-linha: #6f8a6c;     /* verde sálvia para linhas */
+      --salvia-fundo: rgba(169, 187, 165, .12);
+      --borda: rgba(255, 255, 255, .1);
       --titulo: "Bodoni Moda", "Didot", "Times New Roman", serif;
       --corpo: "Archivo", system-ui, -apple-system, "Segoe UI", sans-serif;
       --largura: 1240px;
       --gutter: clamp(16px, 4vw, 40px);
-      --raio: 2px;
       --header-h: 72px;
     }
 
     *, *::before, *::after { box-sizing: border-box; }
-    html { scroll-behavior: smooth; overflow-x: clip; }
+    html { scroll-behavior: smooth; overflow-x: clip; background: var(--fundo); }
     body {
       margin: 0;
-      background: var(--branco);
-      color: var(--tinta);
+      background: var(--fundo);
+      color: var(--texto);
       font-family: var(--corpo);
       font-size: 1rem;
       line-height: 1.65;
@@ -58,136 +60,102 @@
     p { margin: 0; }
     ul { margin: 0; padding: 0; list-style: none; }
     button, input, textarea { font: inherit; color: inherit; }
-    ::selection { background: var(--milk); color: var(--tinta); }
+    ::selection { background: var(--milk); color: var(--escuro); }
 
-    :focus-visible {
-      outline: 2px solid var(--neon-texto);
-      outline-offset: 3px;
-    }
+    :focus-visible { outline: 2px solid var(--neon-texto); outline-offset: 3px; }
 
     /* Ilustrações botânicas vintage no fundo: translúcidas para não competir com o conteúdo.
        Para deixar mais forte ou mais suave, mude o "opacity" abaixo (0 = invisível, 1 = total). */
     .jardim { position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; }
-    .jardim img { position: absolute; height: auto; opacity: .3; filter: saturate(.85); }
-    .jardim-rosa { width: clamp(220px, 27vw, 440px); top: 40px; right: -5vw; transform: rotate(-10deg); }
-    .jardim-peonia { width: clamp(210px, 25vw, 400px); bottom: -60px; left: -5vw; transform: rotate(8deg); }
-    .jardim-borboleta-azul { width: clamp(64px, 7vw, 120px); top: 44%; left: 2.5vw; transform: rotate(-16deg); opacity: .36 !important; }
-    .jardim-borboleta-dourada { width: clamp(60px, 6.5vw, 110px); bottom: 20%; right: 4vw; transform: rotate(14deg); opacity: .36 !important; }
+    .jardim img { position: absolute; height: auto; opacity: .34; filter: saturate(.9); }
+    .jardim-rosa { width: clamp(220px, 25vw, 420px); top: 40px; right: -5vw; transform: rotate(-10deg); }
+    .jardim-rosa-gigante { width: clamp(220px, 24vw, 400px); top: 60px; left: -7vw; transform: rotate(12deg); }
+    .jardim-peonia { width: clamp(210px, 24vw, 400px); bottom: -70px; left: -5vw; transform: rotate(8deg); }
+    .jardim-papagaio { width: clamp(150px, 15vw, 260px); bottom: 6%; right: -2vw; transform: scaleX(-1) rotate(4deg); }
+    .jardim-beija-flores { width: clamp(150px, 15vw, 250px); top: 42%; left: -1vw; transform: rotate(-6deg); }
+    .jardim-borboleta-azul { width: clamp(60px, 6vw, 110px); top: 30%; right: 9vw; transform: rotate(-16deg); }
+    .jardim-borboleta-dourada { width: clamp(56px, 5.5vw, 100px); bottom: 34%; left: 14vw; transform: rotate(14deg); }
     @media (max-width: 820px) {
-      .jardim img { opacity: .18; }
-      .jardim-borboleta-azul, .jardim-borboleta-dourada { opacity: .24 !important; }
+      .jardim img { opacity: .2; }
+      .jardim-papagaio, .jardim-beija-flores, .jardim-rosa-gigante { display: none; }
     }
-
-    /* Efeito "acender": o texto vira rosa neon com brilho ao passar o mouse */
-    .acende { transition: color .3s ease, text-shadow .3s ease; }
-    .acende:hover, .acende:focus-visible { color: var(--neon-texto); text-shadow: var(--brilho); }
 
     .pular {
       position: absolute; left: 16px; top: -100px; z-index: 200;
-      background: var(--tinta); color: #fff; padding: 10px 16px;
+      background: var(--milk); color: var(--escuro); padding: 10px 16px;
       font-weight: 600; text-decoration: none;
     }
     .pular:focus { top: 12px; }
 
-    .container {
-      width: 100%;
-      max-width: var(--largura);
-      margin-inline: auto;
-      padding-inline: var(--gutter);
-    }
+    .container { width: 100%; max-width: var(--largura); margin-inline: auto; padding-inline: var(--gutter); }
 
     section { scroll-margin-top: var(--header-h); }
     .secao { padding-block: clamp(72px, 11vw, 140px); position: relative; }
 
     .kicker {
       display: inline-block;
-      background: var(--salvia-claro);
-      color: var(--salvia-escuro);
-      border: 1px solid var(--salvia);
-      font-weight: 600; font-size: .72rem;
-      letter-spacing: .28em; text-transform: uppercase;
-      padding: 6px 12px 5px;
-      margin-bottom: 20px;
+      background: var(--salvia-fundo); color: var(--salvia); border: 1px solid var(--salvia-linha);
+      font-weight: 600; font-size: .72rem; letter-spacing: .28em; text-transform: uppercase;
+      padding: 6px 12px 5px; margin-bottom: 20px;
     }
     .titulo-secao {
-      font-family: var(--titulo);
-      font-size: clamp(2.4rem, 6.2vw, 4.6rem);
-      line-height: 1.02;
-      letter-spacing: -0.01em;
+      font-family: var(--titulo); font-size: clamp(2.4rem, 6.2vw, 4.6rem);
+      line-height: 1.02; letter-spacing: -0.01em;
       transition: color .3s ease, text-shadow .3s ease;
     }
     .titulo-secao:hover { color: var(--neon-texto); text-shadow: var(--brilho); }
-    .sub-secao {
-      color: var(--tinta-suave);
-      max-width: 600px;
-      margin-top: 18px;
-      font-size: 1.05rem;
-    }
+    .sub-secao { color: var(--texto-suave); max-width: 600px; margin-top: 18px; font-size: 1.05rem; }
     .cabecalho-secao { margin-bottom: clamp(36px, 6vw, 64px); }
 
     /* ---------- Botões ---------- */
     .btn {
       display: inline-flex; align-items: center; justify-content: center; gap: 10px;
-      min-height: 52px; padding: 14px 30px;
-      border-radius: 0; border: 1px solid var(--tinta);
+      min-height: 52px; padding: 14px 30px; border-radius: 0; border: 1px solid var(--milk);
       font-weight: 600; font-size: .8rem; letter-spacing: .2em; text-transform: uppercase;
       text-decoration: none; cursor: pointer;
       transition: color .3s ease, background-color .3s ease, border-color .3s ease, text-shadow .3s ease, box-shadow .3s ease;
     }
     .btn svg { width: 16px; height: 16px; flex-shrink: 0; fill: currentColor; }
-    .btn-vermelho { background: var(--tinta); color: #fff; }
+    .btn-vermelho { background: var(--milk); color: var(--escuro); }
     .btn-vermelho:hover, .btn-vermelho:focus-visible {
-      color: var(--neon); text-shadow: var(--brilho);
-      box-shadow: 0 10px 30px rgba(255, 45, 149, .25);
+      background: var(--neon); border-color: var(--neon); color: #fff;
+      box-shadow: 0 0 26px rgba(255, 45, 149, .55);
     }
-    .btn-cinza { background: transparent; color: var(--tinta); }
-    .btn-cinza:hover, .btn-cinza:focus-visible {
-      color: var(--neon-texto); border-color: var(--neon); text-shadow: var(--brilho);
-      background: var(--milk-claro);
-    }
+    .btn-cinza { background: transparent; color: var(--texto); border-color: rgba(255,255,255,.35); }
+    .btn-cinza:hover, .btn-cinza:focus-visible { color: var(--neon-texto); border-color: var(--neon); text-shadow: var(--brilho); }
 
     /* ---------- Blocos de imagem em gradiente ---------- */
-    .midia {
-      position: relative; overflow: hidden; width: 100%; height: 100%;
-      background-color: var(--milk);
-      background-size: cover; background-position: center;
-    }
+    .midia { position: relative; overflow: hidden; width: 100%; height: 100%; background-color: var(--superficie-2); background-size: cover; background-position: center; }
     img.midia { object-fit: cover; }
 
     /* ==========================================================
        1. CAPA
        ========================================================== */
     .topo {
-      position: fixed; inset: 0 0 auto 0; z-index: 100;
-      height: var(--header-h);
-      background: rgba(255, 255, 255, .7);
+      position: fixed; inset: 0 0 auto 0; z-index: 100; height: var(--header-h);
+      background: rgba(31, 27, 30, .6);
       backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
       transition: background-color .3s ease, box-shadow .3s ease;
     }
-    .topo.rolado { background-color: rgba(255, 255, 255, .94); box-shadow: 0 1px 0 var(--borda); }
-    .topo .container {
-      height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 16px;
-    }
+    .topo.rolado { background-color: rgba(31, 27, 30, .94); box-shadow: 0 1px 0 var(--borda); }
+    .topo .container { height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
     .logo {
       font-family: var(--titulo); font-size: 1.55rem; font-weight: 500; letter-spacing: .06em;
-      color: var(--tinta); text-decoration: none; text-transform: uppercase; line-height: 1;
-      white-space: nowrap; transition: color .3s ease, text-shadow .3s ease;
+      color: var(--texto); text-decoration: none; text-transform: uppercase; line-height: 1; white-space: nowrap;
+      transition: color .3s ease, text-shadow .3s ease;
     }
     .logo:hover, .logo:focus-visible { color: var(--neon-texto); text-shadow: var(--brilho); }
-    .menu { display: flex; gap: 4px; }
+    .menu { display: flex; gap: 2px; }
     .menu a {
-      display: block; padding: 8px 12px;
-      text-decoration: none; font-weight: 500; font-size: .74rem; letter-spacing: .2em; text-transform: uppercase;
-      color: var(--tinta); transition: color .3s ease, text-shadow .3s ease;
+      display: block; padding: 8px 11px; text-decoration: none;
+      font-weight: 500; font-size: .72rem; letter-spacing: .18em; text-transform: uppercase;
+      color: var(--texto); transition: color .3s ease, text-shadow .3s ease;
     }
     .menu a:hover, .menu a:focus-visible { color: var(--neon-texto); text-shadow: var(--brilho); }
-    .menu a.ativo { color: var(--neon-texto); }
-    .btn-menu {
-      display: none; width: 46px; height: 46px; border: 0; background: transparent;
-      cursor: pointer; position: relative;
-    }
+    .menu a.ativo { color: var(--milk); }
+    .btn-menu { display: none; width: 46px; height: 46px; border: 0; background: transparent; cursor: pointer; position: relative; }
     .btn-menu span, .btn-menu span::before, .btn-menu span::after {
-      position: absolute; left: 11px; width: 24px; height: 1.5px; background: var(--tinta);
+      position: absolute; left: 11px; width: 24px; height: 1.5px; background: var(--texto);
       transition: transform .25s ease, background-color .25s ease;
     }
     .btn-menu span { top: 22px; }
@@ -202,8 +170,8 @@
       display: flex; flex-direction: column; justify-content: flex-end;
       padding-top: calc(var(--header-h) + 36px);
       background:
-        radial-gradient(ellipse 55% 55% at 88% 20%, rgba(251, 238, 242, .85), transparent 70%),
-        radial-gradient(ellipse 45% 45% at 0% 95%, rgba(238, 243, 236, .9), transparent 70%);
+        radial-gradient(ellipse 50% 50% at 80% 40%, rgba(247, 221, 228, .10), transparent 70%),
+        radial-gradient(ellipse 40% 40% at 5% 95%, rgba(169, 187, 165, .10), transparent 70%);
       overflow: hidden;
     }
     .capa-grade {
@@ -212,124 +180,94 @@
     }
     .selo {
       display: inline-flex; align-items: center; gap: 12px; margin-bottom: 22px;
-      font-weight: 500; font-size: .74rem; letter-spacing: .26em; text-transform: uppercase; color: var(--tinta);
+      font-weight: 500; font-size: .76rem; letter-spacing: .26em; text-transform: uppercase; color: var(--salvia);
     }
-    .selo b {
-      font-weight: 600; color: #fff; background: var(--tinta);
-      padding: 5px 9px 4px; letter-spacing: .2em; font-size: .7rem;
-    }
+    .selo b { font-weight: 700; color: var(--escuro); background: var(--milk); padding: 5px 10px 4px; letter-spacing: .22em; font-size: .74rem; }
     .capa h1 {
       font-family: var(--titulo); text-transform: uppercase; font-weight: 500;
       font-size: clamp(3.3rem, 10.5vw, 9rem); line-height: .9; letter-spacing: -0.015em;
     }
     .capa h1 span { transition: color .35s ease, text-shadow .35s ease; }
     .capa h1 span:hover { color: var(--neon-texto); text-shadow: var(--brilho); }
-    .capa h1 .linha-2 {
-      display: inline-block; font-style: italic; font-weight: 400;
-      background: linear-gradient(180deg, transparent 58%, var(--milk) 58%, var(--milk) 92%, transparent 92%);
-      padding-right: .08em;
-    }
-    .capa .frase {
-      margin-top: 28px; max-width: 540px;
-      font-size: clamp(1.05rem, 2vw, 1.22rem); color: var(--tinta-suave); line-height: 1.65;
-    }
-    .capa .frase strong {
-      color: var(--tinta); font-weight: 600;
-      background: linear-gradient(180deg, transparent 62%, var(--milk) 62%);
-      transition: color .3s ease, text-shadow .3s ease;
-    }
+    .capa h1 .linha-2 { display: inline-block; font-style: italic; font-weight: 400; color: var(--milk); padding-right: .08em; }
+    .capa .frase { margin-top: 28px; max-width: 540px; font-size: clamp(1.05rem, 2vw, 1.22rem); color: var(--texto-suave); line-height: 1.7; }
+    .capa .frase strong { color: var(--milk); font-weight: 600; font-style: italic; transition: color .3s ease, text-shadow .3s ease; }
     .capa .frase strong:hover { color: var(--neon-texto); text-shadow: var(--brilho); }
+    .capa .frase .local { color: var(--salvia); white-space: nowrap; }
     .capa-botoes { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 34px; }
     .capa-numeros {
       display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px;
-      margin-top: 48px; max-width: 540px; border-top: 1px solid var(--borda); padding-top: 24px;
+      margin-top: 48px; max-width: 560px; border-top: 1px solid var(--borda); padding-top: 24px;
     }
     .capa-numeros strong {
-      display: block; font-family: var(--titulo); font-weight: 500;
-      font-size: clamp(1.8rem, 4vw, 2.6rem); line-height: 1.05;
-      transition: color .3s ease, text-shadow .3s ease;
+      display: block; font-family: var(--titulo); font-weight: 500; color: var(--milk);
+      font-size: clamp(1.8rem, 4vw, 2.6rem); line-height: 1.05; transition: color .3s ease, text-shadow .3s ease;
     }
     .capa-numeros li:hover strong { color: var(--neon-texto); text-shadow: var(--brilho); }
-    .capa-numeros span { font-size: .72rem; letter-spacing: .16em; text-transform: uppercase; color: var(--tinta-suave); }
+    .capa-numeros span { font-size: .72rem; letter-spacing: .16em; text-transform: uppercase; color: var(--texto-suave); }
 
-    .capa-foto {
-      position: relative; aspect-ratio: 4 / 5;
-      max-width: 430px; justify-self: end; width: 100%;
+    /* Foto da capa flutuando */
+    .capa-foto { position: relative; max-width: 420px; justify-self: end; width: 100%; }
+    .capa-foto .flutua { position: relative; aspect-ratio: 4 / 5; animation: flutuar 7s ease-in-out infinite; }
+    .capa-foto .flutua > .midia {
+      position: relative; z-index: 1;
+      box-shadow: 0 50px 70px -30px rgba(0, 0, 0, .75), 0 0 90px rgba(247, 221, 228, .10);
     }
-    .capa-foto::before {
-      /* moldura rosa milk deslocada, efeito editorial */
-      content: ""; position: absolute; inset: 18px -18px -18px 18px; background: var(--milk); z-index: 0;
-    }
-    .capa-foto::after {
-      /* fio verde sálvia deslocado para o outro lado */
-      content: ""; position: absolute; inset: -12px 12px 12px -12px; border: 1px solid var(--salvia); z-index: 0; pointer-events: none;
-    }
-    .capa-foto > .midia { position: relative; z-index: 1; }
     .capa-foto img.midia { object-position: 52% 40%; }
+    .capa-foto::after {
+      /* sombra no "chão" que respira junto com a foto */
+      content: ""; position: absolute; left: 12%; right: 12%; bottom: -46px; height: 22px; border-radius: 50%;
+      background: radial-gradient(ellipse at center, rgba(0, 0, 0, .55), transparent 70%);
+      animation: sombra 7s ease-in-out infinite;
+    }
+    @keyframes flutuar {
+      0%, 100% { transform: translateY(0) rotate(-1.2deg); }
+      50% { transform: translateY(-18px) rotate(.8deg); }
+    }
+    @keyframes sombra {
+      0%, 100% { transform: scaleX(1); opacity: .9; }
+      50% { transform: scaleX(.82); opacity: .55; }
+    }
     .capa-foto .iniciais {
-      position: absolute; inset: 0; display: grid; place-items: center; z-index: 1;
-      font-family: var(--titulo); font-style: italic; font-size: clamp(6rem, 16vw, 11rem); color: rgba(255,255,255,.6);
-      pointer-events: none;
-    }
-    .capa-foto .etiqueta {
-      position: absolute; left: 14px; bottom: 14px; z-index: 2;
-      background: rgba(255,255,255,.92); color: var(--tinta);
-      padding: 9px 13px; font-size: .68rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase;
-      display: flex; align-items: center; gap: 9px;
-    }
-    .ponto-ao-vivo {
-      width: 8px; height: 8px; border-radius: 50%; background: var(--neon);
-      box-shadow: 0 0 0 0 rgba(255,45,149,.7); animation: pulso 2s infinite;
-    }
-    @keyframes pulso {
-      0% { box-shadow: 0 0 0 0 rgba(255,45,149,.7); }
-      70% { box-shadow: 0 0 0 10px rgba(255,45,149,0); }
-      100% { box-shadow: 0 0 0 0 rgba(255,45,149,0); }
+      position: absolute; inset: 0; display: grid; place-items: center; z-index: 2;
+      font-family: var(--titulo); font-style: italic; font-size: clamp(6rem, 16vw, 11rem); color: rgba(255,255,255,.5); pointer-events: none;
     }
 
-    .faixa-marcas {
-      background: var(--milk); overflow: hidden; position: relative;
-    }
+    .faixa-marcas { background: var(--milk); overflow: hidden; position: relative; }
     .faixa-marcas .rotulo {
       position: absolute; left: 0; top: 0; bottom: 0; z-index: 2;
       display: flex; align-items: center; padding: 0 22px 0 var(--gutter);
       background: linear-gradient(90deg, var(--milk) 78%, transparent);
-      font-size: .68rem; font-weight: 600; letter-spacing: .26em; text-transform: uppercase; color: var(--tinta);
+      font-size: .68rem; font-weight: 600; letter-spacing: .26em; text-transform: uppercase; color: var(--escuro);
     }
     .faixa-trilho { display: flex; width: max-content; animation: deslizar 42s linear infinite; }
     .faixa-marcas:hover .faixa-trilho { animation-play-state: paused; }
     .faixa-trilho ul { display: flex; }
     .faixa-trilho li {
       padding: 18px 30px; white-space: nowrap;
-      font-family: var(--titulo); font-style: italic; font-size: 1.35rem;
-      color: var(--tinta); display: flex; align-items: center; gap: 30px;
-      transition: color .3s ease, text-shadow .3s ease;
+      font-family: var(--titulo); font-style: italic; font-size: 1.35rem; color: var(--escuro);
+      display: flex; align-items: center; gap: 30px; transition: color .3s ease;
     }
-    .faixa-trilho li:hover { color: var(--neon-texto); text-shadow: var(--brilho); }
-    .faixa-trilho li::after { content: ""; width: 5px; height: 5px; background: var(--salvia-escuro); border-radius: 50%; }
+    .faixa-trilho li:hover { color: #b1005d; }
+    .faixa-trilho li::after { content: ""; width: 5px; height: 5px; background: var(--salvia-linha); border-radius: 50%; }
     .faixa-trilho li:nth-child(even)::after { background: var(--neon); }
     @keyframes deslizar { to { transform: translateX(-50%); } }
 
     /* ==========================================================
        2. SOBRE MIM
        ========================================================== */
-    .sobre-grade {
-      display: grid; grid-template-columns: 0.85fr 1.15fr; gap: clamp(36px, 7vw, 96px); align-items: center;
-    }
+    .sobre-grade { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: clamp(36px, 7vw, 96px); align-items: center; }
     .sobre-foto { aspect-ratio: 4 / 5; overflow: hidden; position: relative; }
-    .sobre-texto p { color: var(--tinta-suave); font-size: 1.06rem; margin-top: 16px; }
+    .sobre-texto p { color: var(--texto-suave); font-size: 1.06rem; margin-top: 16px; }
     .sobre-texto p:first-of-type { margin-top: 24px; }
-    .entregas {
-      margin-top: 30px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
-      border-top: 1px solid var(--borda);
-    }
+    .entregas { margin-top: 30px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border-top: 1px solid var(--borda); }
     .entregas li {
       padding: 14px 10px 14px 0; border-bottom: 1px solid var(--borda);
       display: flex; gap: 10px; align-items: flex-start; font-weight: 500; font-size: .95rem;
       transition: color .3s ease, text-shadow .3s ease;
     }
     .entregas li:hover { color: var(--neon-texto); text-shadow: var(--brilho); }
-    .entregas svg { width: 18px; height: 18px; color: var(--salvia-escuro); flex-shrink: 0; margin-top: 3px; }
+    .entregas svg { width: 18px; height: 18px; color: var(--salvia); flex-shrink: 0; margin-top: 3px; }
 
     /* ==========================================================
        3. CONTEÚDOS DE DESTAQUE
@@ -338,14 +276,12 @@
     .destaques-grade { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(16px, 3vw, 36px); }
     .destaque {
       display: block; text-decoration: none; color: inherit;
-      background: var(--branco); overflow: hidden; position: relative;
-      border: 1px solid var(--borda);
+      background: var(--superficie); overflow: hidden; position: relative; border: 1px solid var(--borda);
       transition: transform .4s ease, box-shadow .4s ease, border-color .4s ease;
     }
     .destaque:hover, .destaque:focus-visible {
-      transform: translateY(-6px);
-      border-color: var(--neon);
-      box-shadow: 0 0 0 1px var(--neon), 0 24px 50px rgba(255, 45, 149, .18);
+      transform: translateY(-6px); border-color: var(--neon);
+      box-shadow: 0 0 0 1px var(--neon), 0 24px 50px rgba(255, 45, 149, .22);
     }
     .destaque-capa { aspect-ratio: 9 / 16; position: relative; overflow: hidden; }
     .destaque-capa .midia { transition: transform .7s ease; }
@@ -353,59 +289,58 @@
     .ranking {
       position: absolute; top: 8px; left: 16px; z-index: 2;
       font-family: var(--titulo); font-style: italic; font-size: 4.2rem; line-height: 1; color: #fff;
-      text-shadow: 0 2px 14px rgba(0,0,0,.25);
+      text-shadow: 0 2px 14px rgba(0,0,0,.35);
     }
     .tag-alta {
       position: absolute; top: 16px; right: 16px; z-index: 2;
-      background: var(--tinta); color: #fff; font-size: .64rem; font-weight: 600;
+      background: var(--milk); color: var(--escuro); font-size: .64rem; font-weight: 700;
       letter-spacing: .2em; text-transform: uppercase; padding: 6px 10px 5px;
     }
     .play {
       position: absolute; left: 50%; top: 50%; z-index: 2;
       width: 72px; height: 72px; margin: -36px 0 0 -36px; border-radius: 50%;
-      background: rgba(255,255,255,.88); border: 1px solid rgba(255,255,255,.9);
+      background: rgba(31, 27, 30, .55); border: 1px solid var(--milk);
       display: grid; place-items: center; backdrop-filter: blur(4px);
-      transition: background-color .3s ease, transform .3s ease, box-shadow .3s ease;
+      transition: background-color .3s ease, transform .3s ease, box-shadow .3s ease, border-color .3s ease;
     }
-    .play svg { width: 26px; height: 26px; margin-left: 4px; fill: var(--tinta); transition: fill .3s ease; }
+    .play svg { width: 26px; height: 26px; margin-left: 4px; fill: var(--milk); transition: fill .3s ease; }
     .destaque:hover .play, .destaque:focus-visible .play,
     .trabalho:hover .play-mini, .trabalho:focus-visible .play-mini {
-      background: var(--neon); border-color: var(--neon); transform: scale(1.08);
-      box-shadow: 0 0 24px rgba(255, 45, 149, .6);
+      background: var(--neon); border-color: var(--neon); transform: scale(1.08); box-shadow: 0 0 26px rgba(255, 45, 149, .7);
     }
     .destaque:hover .play svg, .destaque:focus-visible .play svg,
     .trabalho:hover .play-mini svg, .trabalho:focus-visible .play-mini svg { fill: #fff; }
     .destaque-info { padding: 22px 22px 26px; }
     .destaque-numero {
-      font-family: var(--titulo); font-weight: 500; font-size: clamp(2.4rem, 4.4vw, 3.3rem); line-height: 1;
+      font-family: var(--titulo); font-weight: 500; font-size: clamp(2.4rem, 4.4vw, 3.3rem); line-height: 1; color: var(--milk);
       transition: color .3s ease, text-shadow .3s ease;
     }
     .destaque:hover .destaque-numero { color: var(--neon-texto); text-shadow: var(--brilho); }
     .destaque-rotulo {
-      display: inline-block; margin-top: 10px; background: var(--milk); color: var(--tinta);
+      display: inline-block; margin-top: 10px; color: var(--salvia); border: 1px solid var(--salvia-linha);
       font-weight: 600; font-size: .66rem; letter-spacing: .2em; text-transform: uppercase; padding: 4px 9px 3px;
     }
     .destaque-titulo { margin-top: 16px; font-family: var(--corpo); font-weight: 600; font-size: 1.08rem; line-height: 1.35; }
-    .destaque-contexto { margin-top: 6px; color: var(--tinta-suave); font-size: .94rem; }
+    .destaque-contexto { margin-top: 6px; color: var(--texto-suave); font-size: .94rem; }
 
     /* ==========================================================
-       4. TRABALHOS POR NICHO (catálogo)
+       4. TRABALHOS POR NICHO (catálogo) e TIKTOK SHOP
        ========================================================== */
     .filtros { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 40px; }
     .filtro {
-      border: 1px solid var(--borda); background: var(--branco); color: var(--tinta);
+      border: 1px solid rgba(255,255,255,.22); background: transparent; color: var(--texto);
       padding: 10px 18px; border-radius: 999px; cursor: pointer;
       font-weight: 500; font-size: .72rem; letter-spacing: .18em; text-transform: uppercase;
       transition: background-color .3s ease, border-color .3s ease, color .3s ease, text-shadow .3s ease;
     }
     .filtro:hover { border-color: var(--neon); color: var(--neon-texto); text-shadow: var(--brilho); }
-    .filtro[aria-pressed="true"] { background: var(--tinta); border-color: var(--tinta); color: #fff; text-shadow: none; }
-    .filtro[aria-pressed="true"]:hover { color: var(--neon); text-shadow: var(--brilho); }
+    .filtro[aria-pressed="true"] { background: var(--milk); border-color: var(--milk); color: var(--escuro); text-shadow: none; }
+    .filtro[aria-pressed="true"]:hover { background: var(--neon); border-color: var(--neon); color: #fff; box-shadow: 0 0 20px rgba(255,45,149,.5); }
 
     .filtros:has(+ .subfiltros:not([hidden])) { margin-bottom: 12px; }
-    .subfiltros { align-items: center; padding: 12px 14px; background: var(--salvia-claro); border: 1px solid var(--salvia); }
+    .subfiltros { align-items: center; padding: 12px 14px; background: var(--salvia-fundo); border: 1px solid var(--salvia-linha); }
     .subfiltros[hidden] { display: none; }
-    .subfiltros-rotulo { font-size: .68rem; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--tinta-suave); margin-right: 4px; }
+    .subfiltros-rotulo { font-size: .68rem; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--salvia); margin-right: 4px; }
     .filtro-sub { padding: 8px 14px; }
 
     .fileira { margin-bottom: 34px; }
@@ -413,61 +348,59 @@
     .fileira-topo { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; margin-bottom: 4px; }
     .fileira-titulo { font-family: var(--titulo); font-weight: 500; font-size: 1.7rem; line-height: 1.1; }
     .fileira-titulo small {
-      font-family: var(--corpo); color: var(--tinta-suave); font-weight: 500;
+      font-family: var(--corpo); color: var(--texto-suave); font-weight: 500;
       font-size: .7rem; letter-spacing: .16em; text-transform: uppercase; margin-left: 12px;
     }
     .fileira-nicho {
       display: block; width: fit-content; font-family: var(--corpo);
       font-size: .64rem; font-weight: 600; letter-spacing: .24em; text-transform: uppercase;
-      background: var(--salvia-claro); color: var(--salvia-escuro); padding: 3px 8px 2px; margin-bottom: 8px;
+      color: var(--salvia); border: 1px solid var(--salvia-linha); padding: 3px 8px 2px; margin-bottom: 8px;
     }
     .setas { display: flex; gap: 8px; }
     .seta {
-      width: 42px; height: 42px; border-radius: 50%; border: 1px solid var(--borda);
-      background: var(--branco); color: var(--tinta); cursor: pointer; display: grid; place-items: center;
+      width: 42px; height: 42px; border-radius: 50%; border: 1px solid rgba(255,255,255,.22);
+      background: var(--superficie); color: var(--texto); cursor: pointer; display: grid; place-items: center;
       transition: background-color .3s ease, border-color .3s ease, color .3s ease, box-shadow .3s ease;
     }
-    .seta:hover { border-color: var(--neon); color: var(--neon-texto); box-shadow: 0 0 16px rgba(255,45,149,.35); }
+    .seta:hover { border-color: var(--neon); color: var(--neon-texto); box-shadow: 0 0 16px rgba(255,45,149,.45); }
     .seta svg { width: 18px; height: 18px; }
     .trilho {
       display: grid; grid-auto-flow: column; grid-auto-columns: clamp(150px, 21vw, 236px);
       gap: 18px; overflow-x: auto; overscroll-behavior-x: contain;
       padding: 26px 14px 30px; margin-inline: -14px;
       scroll-snap-type: x mandatory; scroll-padding-inline: 14px;
-      scrollbar-width: thin; scrollbar-color: var(--milk-forte) transparent;
+      scrollbar-width: thin; scrollbar-color: var(--salvia-linha) transparent;
     }
     .trilho::-webkit-scrollbar { height: 5px; }
-    .trilho::-webkit-scrollbar-thumb { background: var(--milk-forte); border-radius: 3px; }
+    .trilho::-webkit-scrollbar-thumb { background: var(--salvia-linha); border-radius: 3px; }
     .catalogo.filtrado .trilho {
       grid-auto-flow: row; grid-auto-columns: auto;
-      grid-template-columns: repeat(auto-fill, minmax(min(100%, 170px), 1fr));
-      overflow: visible;
+      grid-template-columns: repeat(auto-fill, minmax(min(100%, 170px), 1fr)); overflow: visible;
     }
     .catalogo.filtrado .setas { display: none; }
 
     .trabalho {
-      scroll-snap-align: start; position: relative; display: block;
-      aspect-ratio: 2 / 3; overflow: hidden;
-      text-decoration: none; color: inherit; background: var(--milk);
+      scroll-snap-align: start; position: relative; display: block; aspect-ratio: 2 / 3; overflow: hidden;
+      text-decoration: none; color: inherit; background: var(--superficie-2);
       transition: transform .45s cubic-bezier(.2,.7,.2,1), box-shadow .45s ease;
     }
     .trabalho:hover, .trabalho:focus-visible {
       transform: scale(1.09); z-index: 3;
-      box-shadow: 0 0 0 2px var(--neon), 0 18px 40px rgba(255, 45, 149, .28);
+      box-shadow: 0 0 0 2px var(--neon), 0 18px 40px rgba(255, 45, 149, .32);
     }
     .trabalho .midia { position: absolute; inset: 0; }
     .trabalho img.midia { object-position: 50% 30%; }
     .trabalho-tag {
       position: absolute; top: 10px; left: 10px; z-index: 2;
-      font-size: .6rem; font-weight: 600; letter-spacing: .2em; text-transform: uppercase;
-      color: var(--tinta); background: rgba(255,255,255,.92); padding: 5px 8px 4px;
+      font-size: .6rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase;
+      color: var(--escuro); background: var(--milk); padding: 5px 8px 4px;
     }
     .trabalho-info {
       position: absolute; inset: auto 0 0 0; z-index: 2; padding: 44px 12px 12px; color: #fff;
-      background: linear-gradient(0deg, rgba(20,20,20,.9) 0%, rgba(20,20,20,.6) 55%, transparent 100%);
+      background: linear-gradient(0deg, rgba(20,17,19,.92) 0%, rgba(20,17,19,.6) 55%, transparent 100%);
     }
     .trabalho-info h4 { margin: 0; font-family: var(--titulo); font-weight: 500; font-size: 1.12rem; line-height: 1.2; transition: color .3s ease, text-shadow .3s ease; }
-    .trabalho:hover .trabalho-info h4 { color: #ff8cc4; text-shadow: 0 0 12px rgba(255,45,149,.8); }
+    .trabalho:hover .trabalho-info h4 { color: var(--neon-texto); text-shadow: var(--brilho); }
     .trabalho-info .formato { font-size: .66rem; letter-spacing: .16em; text-transform: uppercase; color: rgba(255,255,255,.85); font-weight: 500; margin-top: 5px; }
     .trabalho-info .desc {
       font-size: .8rem; color: #fff; line-height: 1.4;
@@ -477,172 +410,168 @@
     .play-mini { width: 52px; height: 52px; margin: -26px 0 0 -26px; }
     .play-mini svg { width: 20px; height: 20px; }
 
+    /* TikTok Shop */
+    #tiktokshop { background: var(--fundo-2); }
+    .tts-topo { display: grid; grid-template-columns: 1.1fr .9fr; gap: clamp(24px, 5vw, 64px); align-items: end; margin-bottom: clamp(20px, 4vw, 36px); }
+    .tts-topo .cabecalho-secao { margin-bottom: 0; }
+    .tts-selo {
+      display: inline-flex; align-items: center; gap: 8px; margin-bottom: 16px;
+      background: var(--milk); color: var(--escuro); padding: 6px 12px 5px;
+      font-size: .7rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase;
+    }
+    .tts-selo svg { width: 16px; height: 16px; fill: currentColor; }
+    .tts-lista { display: grid; gap: 0; border-top: 1px solid var(--borda); }
+    .tts-lista li {
+      display: flex; gap: 12px; align-items: flex-start; padding: 13px 0; border-bottom: 1px solid var(--borda);
+      font-weight: 500; transition: color .3s ease, text-shadow .3s ease;
+    }
+    .tts-lista li:hover { color: var(--neon-texto); text-shadow: var(--brilho); }
+    .tts-lista svg { width: 18px; height: 18px; color: var(--salvia); flex-shrink: 0; margin-top: 3px; }
+    .tts-aviso { color: var(--texto-suave); font-size: .9rem; margin-top: 6px; }
+
     /* Janela do player de vídeo */
     .janela-video {
       width: fit-content; max-width: calc(100vw - 32px); max-height: calc(100vh - 24px);
-      padding: 16px; border: 0; background: var(--branco); color: var(--tinta); overflow: auto;
-      box-shadow: 0 30px 80px rgba(0,0,0,.25);
+      padding: 16px; border: 1px solid var(--borda); background: var(--superficie); color: var(--texto); overflow: auto;
+      box-shadow: 0 30px 80px rgba(0,0,0,.6);
     }
-    .janela-video::backdrop { background: rgba(253, 246, 248, .82); backdrop-filter: blur(6px); }
+    .janela-video::backdrop { background: rgba(20, 17, 19, .82); backdrop-filter: blur(6px); }
     .janela-topo { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
-    .janela-topo h2 { font-family: var(--titulo); font-weight: 500; font-size: 1.45rem; }
+    .janela-topo h2 { font-family: var(--titulo); font-weight: 500; font-size: 1.45rem; max-width: 22ch; }
     .fechar-video {
-      width: 42px; height: 42px; flex-shrink: 0; border-radius: 50%; border: 1px solid var(--borda); cursor: pointer;
-      background: var(--branco); color: var(--tinta); font-size: 1.6rem; line-height: 1;
+      width: 42px; height: 42px; flex-shrink: 0; border-radius: 50%; border: 1px solid rgba(255,255,255,.22); cursor: pointer;
+      background: transparent; color: var(--texto); font-size: 1.6rem; line-height: 1;
       transition: color .3s ease, border-color .3s ease, box-shadow .3s ease;
     }
-    .fechar-video:hover { color: var(--neon-texto); border-color: var(--neon); box-shadow: 0 0 16px rgba(255,45,149,.35); }
-    /* Player menor: a altura acompanha a tela, então o vídeo aparece inteiro sem rolar */
+    .fechar-video:hover { color: var(--neon-texto); border-color: var(--neon); box-shadow: 0 0 16px rgba(255,45,149,.45); }
+    /* Player: a altura acompanha a tela, então o vídeo aparece inteiro sem rolar */
     .moldura-video {
       height: min(calc(100vh - 130px), 640px); aspect-ratio: 9 / 16; width: auto;
-      max-width: calc(100vw - 64px); margin-inline: auto;
-      overflow: hidden; background: var(--tinta);
+      max-width: calc(100vw - 64px); margin-inline: auto; overflow: hidden; background: #000;
     }
-    .janela-topo h2 { max-width: 22ch; }
     .moldura-video iframe { width: 100%; height: 100%; border: 0; display: block; }
-    .aviso-local { height: 100%; display: grid; place-items: center; padding: 24px; text-align: center; color: #fff; background: var(--tinta); }
+    .aviso-local { height: 100%; display: grid; place-items: center; padding: 24px; text-align: center; color: #fff; }
 
     /* ==========================================================
        5. SERVIÇOS
        ========================================================== */
-    #servicos { background: rgba(238, 243, 236, .6); }
     .servicos-grade {
       display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 1px; background: var(--borda); border: 1px solid var(--borda);
     }
-    .servico {
-      background: var(--branco); padding: 34px 28px;
-      position: relative; overflow: hidden; transition: background-color .4s ease;
-    }
+    .servico { background: rgba(42, 37, 40, .92); padding: 34px 28px; position: relative; overflow: hidden; transition: background-color .4s ease; }
     .servico::before {
       content: ""; position: absolute; left: 0; top: 0; width: 100%; height: 2px;
       background: var(--neon); box-shadow: 0 0 12px var(--neon);
       transform: scaleX(0); transform-origin: left; transition: transform .45s ease;
     }
-    .servico:hover { background: var(--milk-claro); }
+    .servico:hover { background: var(--superficie-2); }
     .servico:hover::before { transform: scaleX(1); }
-    .servico-num { font-family: var(--titulo); font-style: italic; font-size: 2.6rem; line-height: 1; color: var(--salvia); }
+    .servico-num { font-family: var(--titulo); font-style: italic; font-size: 2.6rem; line-height: 1; color: var(--salvia-linha); }
     .servico h3 { font-family: var(--titulo); font-weight: 500; font-size: 1.7rem; margin-top: 16px; transition: color .3s ease, text-shadow .3s ease; }
     .servico:hover h3 { color: var(--neon-texto); text-shadow: var(--brilho); }
-    .servico p { color: var(--tinta-suave); margin-top: 10px; }
-    .servico .inclui { margin-top: 16px; font-size: .7rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--tinta); }
+    .servico p { color: var(--texto-suave); margin-top: 10px; }
+    .servico .inclui { margin-top: 16px; font-size: .7rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--milk); }
 
     /* ==========================================================
        6. NÚMEROS E DEPOIMENTOS
        ========================================================== */
-    .contadores {
-      display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
-      border-top: 1px solid var(--tinta); border-bottom: 1px solid var(--borda);
-    }
+    #numeros { background: var(--fundo-2); }
+    .contadores { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 1px solid var(--milk); border-bottom: 1px solid var(--borda); }
     .contador { text-align: center; padding: 38px 14px; }
     .contador + .contador { border-left: 1px solid var(--borda); }
     .contador strong {
-      display: block; font-family: var(--titulo); font-weight: 500;
-      font-size: clamp(2.6rem, 5.5vw, 4.2rem); line-height: 1;
-      transition: color .3s ease, text-shadow .3s ease;
+      display: block; font-family: var(--titulo); font-weight: 500; color: var(--milk);
+      font-size: clamp(2.6rem, 5.5vw, 4.2rem); line-height: 1; transition: color .3s ease, text-shadow .3s ease;
     }
     .contador:hover strong { color: var(--neon-texto); text-shadow: var(--brilho); }
-    .contador span { display: block; margin-top: 12px; color: var(--tinta-suave); font-weight: 500; font-size: .74rem; letter-spacing: .14em; text-transform: uppercase; }
-    .subtitulo-bloco {
-      font-family: var(--titulo); font-style: italic; font-weight: 400; font-size: 1.8rem; margin: 72px 0 24px;
-      display: flex; align-items: center; gap: 16px;
-    }
+    .contador span { display: block; margin-top: 12px; color: var(--texto-suave); font-weight: 500; font-size: .74rem; letter-spacing: .14em; text-transform: uppercase; }
+    .subtitulo-bloco { font-family: var(--titulo); font-style: italic; font-weight: 400; font-size: 1.8rem; margin: 72px 0 24px; display: flex; align-items: center; gap: 16px; }
     .subtitulo-bloco::after { content: ""; flex: 1; height: 1px; background: var(--borda); }
     .resultados { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
-    .resultado {
-      padding: 28px; background: rgba(251, 238, 242, .8); border-top: 2px solid var(--salvia-escuro);
-      transition: box-shadow .3s ease;
-    }
-    .resultado:hover { box-shadow: 0 16px 40px rgba(255, 45, 149, .15); }
-    .resultado .nicho { font-size: .66rem; font-weight: 600; letter-spacing: .22em; text-transform: uppercase; color: var(--tinta-suave); }
-    .resultado strong { display: block; font-family: var(--titulo); font-weight: 500; font-size: 3rem; line-height: 1.1; margin-top: 10px; transition: color .3s ease, text-shadow .3s ease; }
+    .resultado { padding: 28px; background: var(--superficie); border-top: 2px solid var(--salvia-linha); transition: box-shadow .3s ease, border-color .3s ease; }
+    .resultado:hover { border-color: var(--neon); box-shadow: 0 16px 40px rgba(255, 45, 149, .18); }
+    .resultado .nicho { font-size: .66rem; font-weight: 600; letter-spacing: .22em; text-transform: uppercase; color: var(--salvia); }
+    .resultado strong { display: block; font-family: var(--titulo); font-weight: 500; font-size: 3rem; line-height: 1.1; margin-top: 10px; color: var(--milk); transition: color .3s ease, text-shadow .3s ease; }
     .resultado:hover strong { color: var(--neon-texto); text-shadow: var(--brilho); }
     .resultado .metrica { font-weight: 600; }
-    .resultado p { color: var(--tinta-suave); margin-top: 8px; font-size: .95rem; }
+    .resultado p { color: var(--texto-suave); margin-top: 8px; font-size: .95rem; }
     .depoimentos { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
     .depoimento {
-      margin: 0; background: var(--branco); border: 1px solid var(--borda);
+      margin: 0; background: var(--superficie); border: 1px solid var(--borda);
       padding: 30px 26px; display: flex; flex-direction: column; gap: 18px;
       transition: border-color .3s ease, box-shadow .3s ease;
     }
-    .depoimento:hover { border-color: var(--neon); box-shadow: 0 16px 40px rgba(255, 45, 149, .14); }
-    .depoimento .aspas { font-family: var(--titulo); font-size: 4.4rem; line-height: .6; color: var(--salvia); height: 28px; }
+    .depoimento:hover { border-color: var(--neon); box-shadow: 0 16px 40px rgba(255, 45, 149, .16); }
+    .depoimento .aspas { font-family: var(--titulo); font-size: 4.4rem; line-height: .6; color: var(--salvia-linha); height: 28px; }
     .estrelas { color: var(--neon-texto); letter-spacing: 3px; font-size: .95rem; }
-    .depoimento blockquote { margin: 0; color: var(--tinta); font-size: 1.02rem; }
+    .depoimento blockquote { margin: 0; color: var(--texto); font-size: 1.02rem; }
     .depoimento figcaption { margin-top: auto; display: flex; align-items: center; gap: 12px; }
     .avatar {
       width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; flex-shrink: 0;
-      font-family: var(--titulo); font-style: italic; font-size: 1.05rem; color: var(--tinta); background: var(--milk);
+      font-family: var(--titulo); font-style: italic; font-size: 1.05rem; color: var(--escuro); background: var(--milk);
     }
     .depoimento figcaption b { display: block; font-weight: 600; }
-    .depoimento figcaption span { color: var(--tinta-suave); font-size: .86rem; }
+    .depoimento figcaption span { color: var(--texto-suave); font-size: .86rem; }
 
     /* ==========================================================
        7. CONTATO
        ========================================================== */
     .contato-caixa {
-      position: relative; background: var(--milk);
+      position: relative; background: rgba(42, 37, 40, .94); border: 1px solid var(--borda); border-top: 2px solid var(--milk);
       padding: clamp(26px, 6vw, 72px);
       display: grid; grid-template-columns: 1fr 1fr; gap: clamp(30px, 6vw, 80px);
     }
-    .contato-caixa .kicker { background: var(--branco); }
     .form { display: grid; gap: 18px; }
-    .campo label { display: block; font-weight: 600; font-size: .7rem; letter-spacing: .18em; text-transform: uppercase; margin-bottom: 8px; }
+    .campo label { display: block; font-weight: 600; font-size: .7rem; letter-spacing: .18em; text-transform: uppercase; margin-bottom: 8px; color: var(--milk); }
     .campo input, .campo textarea {
-      width: 100%; background: var(--branco); border: 1px solid transparent; border-bottom: 1px solid var(--tinta);
-      border-radius: 0; padding: 14px; font-size: 1rem; color: var(--tinta);
+      width: 100%; background: var(--fundo); border: 1px solid transparent; border-bottom: 1px solid rgba(255,255,255,.4);
+      border-radius: 0; padding: 14px; font-size: 1rem; color: var(--texto);
       transition: border-color .3s ease, box-shadow .3s ease;
     }
     .campo textarea { min-height: 140px; resize: vertical; }
-    .campo input::placeholder, .campo textarea::placeholder { color: #7a7176; }
-    .campo input:focus, .campo textarea:focus { outline: none; border-color: var(--neon); box-shadow: 0 0 0 3px rgba(255,45,149,.25), 0 0 18px rgba(255,45,149,.2); }
+    .campo input::placeholder, .campo textarea::placeholder { color: #9d9096; }
+    .campo input:focus, .campo textarea:focus { outline: none; border-color: var(--neon); box-shadow: 0 0 0 3px rgba(255,45,149,.3), 0 0 18px rgba(255,45,149,.25); }
     .form .btn { justify-self: start; }
-    .aviso-form {
-      display: none; background: #eaf7ee; border: 1px solid #6cc08a;
-      color: #135c2e; padding: 12px 14px; font-weight: 600;
-    }
+    .aviso-form { display: none; background: rgba(46,160,67,.15); border: 1px solid rgba(108,192,138,.7); color: #d4f5dd; padding: 12px 14px; font-weight: 600; }
     .aviso-form.mostrar { display: block; }
-    .contato-direto p { color: var(--tinta); margin-top: 16px; }
+    .contato-direto p { color: var(--texto-suave); margin-top: 16px; }
     .botoes-contato { display: grid; gap: 10px; margin-top: 28px; }
     .botao-contato {
       display: flex; align-items: center; gap: 14px; text-decoration: none;
-      background: var(--branco); border: 1px solid transparent; padding: 14px 16px;
-      transition: border-color .3s ease, transform .3s ease, box-shadow .3s ease;
-      min-width: 0;
+      background: var(--fundo); border: 1px solid var(--borda); padding: 14px 16px;
+      transition: border-color .3s ease, transform .3s ease, box-shadow .3s ease; min-width: 0;
     }
-    .botao-contato:hover { border-color: var(--neon); transform: translateX(4px); box-shadow: 0 0 22px rgba(255,45,149,.25); }
+    .botao-contato:hover { border-color: var(--neon); transform: translateX(4px); box-shadow: 0 0 22px rgba(255,45,149,.3); }
     .botao-contato:hover b { color: var(--neon-texto); text-shadow: var(--brilho); }
-    .botao-contato .icone {
-      width: 44px; height: 44px; background: var(--tinta);
-      display: grid; place-items: center; flex-shrink: 0; transition: background-color .3s ease;
-    }
+    .botao-contato .icone { width: 44px; height: 44px; background: var(--milk); display: grid; place-items: center; flex-shrink: 0; transition: background-color .3s ease; }
     .botao-contato:hover .icone { background: var(--neon); }
-    .botao-contato .icone svg { width: 20px; height: 20px; fill: #fff; }
+    .botao-contato .icone svg { width: 20px; height: 20px; fill: var(--escuro); transition: fill .3s ease; }
+    .botao-contato:hover .icone svg { fill: #fff; }
     .botao-contato b { display: block; font-weight: 600; font-size: .78rem; letter-spacing: .16em; text-transform: uppercase; transition: color .3s ease, text-shadow .3s ease; }
-    .botao-contato span { color: var(--tinta-suave); font-size: .92rem; overflow-wrap: anywhere; }
+    .botao-contato span { color: var(--texto-suave); font-size: .92rem; overflow-wrap: anywhere; }
     .botao-contato > div { min-width: 0; }
 
     /* ==========================================================
        8. RODAPÉ
        ========================================================== */
-    .rodape { border-top: 1px solid var(--borda); padding-block: 48px; background: var(--branco); }
+    .rodape { border-top: 1px solid var(--borda); padding-block: 48px; background: rgba(24, 21, 23, .94); }
     .rodape .container { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 20px; }
     .rodape .logo { font-size: 1.4rem; }
     .redes { display: flex; flex-wrap: wrap; gap: 8px; }
     .redes a {
       display: inline-flex; align-items: center; gap: 8px; text-decoration: none;
-      padding: 9px 14px; border: 1px solid var(--borda); border-radius: 999px;
+      padding: 9px 14px; border: 1px solid rgba(255,255,255,.22); border-radius: 999px;
       font-weight: 500; font-size: .7rem; letter-spacing: .16em; text-transform: uppercase;
       transition: border-color .3s ease, color .3s ease, text-shadow .3s ease;
     }
     .redes a:hover { border-color: var(--neon); color: var(--neon-texto); text-shadow: var(--brilho); }
     .redes svg { width: 15px; height: 15px; fill: currentColor; }
-    .direitos { width: 100%; color: var(--tinta-suave); font-size: .78rem; letter-spacing: .06em; }
+    .direitos { width: 100%; color: var(--texto-suave); font-size: .78rem; letter-spacing: .06em; }
 
     /* ---------- Animação de entrada ---------- */
     .revelar { opacity: 0; transform: translateY(26px); transition: opacity .9s ease, transform .9s cubic-bezier(.2,.7,.2,1); }
     .revelar.visivel { opacity: 1; transform: none; }
-    /* depois de aparecer, o card de vídeo responde ao mouse sem atraso */
     .destaque.revelar.visivel {
       transition: transform .45s cubic-bezier(.2,.7,.2,1), box-shadow .45s ease, border-color .45s ease, opacity .9s ease;
       transition-delay: 0s !important;
@@ -658,28 +587,32 @@
     /* ==========================================================
        RESPONSIVO
        ========================================================== */
-    @media (max-width: 980px) {
+    @media (max-width: 1120px) {
       .btn-menu { display: block; }
       .menu {
         position: fixed; top: var(--header-h); left: 0; right: 0;
         flex-direction: column; gap: 0; padding: 8px var(--gutter) 24px;
-        background: rgba(255,255,255,.98); border-bottom: 1px solid var(--borda);
+        background: rgba(31, 27, 30, .98); border-bottom: 1px solid var(--borda);
         transform: translateY(-8px); opacity: 0; visibility: hidden;
         transition: opacity .25s ease, transform .25s ease, visibility .25s;
       }
       .menu.aberto { opacity: 1; transform: none; visibility: visible; }
       .menu a { padding: 16px 4px; font-size: .82rem; border-bottom: 1px solid var(--borda); }
+    }
 
+    @media (max-width: 980px) {
       .servicos-grade, .resultados, .depoimentos { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .contadores { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .contador:nth-child(3) { border-left: 0; }
       .contador:nth-child(n+3) { border-top: 1px solid var(--borda); }
       .contato-caixa { grid-template-columns: 1fr; }
+      .tts-topo { grid-template-columns: 1fr; }
     }
 
     @media (max-width: 820px) {
       .capa-grade { grid-template-columns: 1fr; }
-      .capa-foto { order: -1; justify-self: start; max-width: min(400px, calc(100% - 18px)); aspect-ratio: 1 / 1; }
+      .capa-foto { order: -1; justify-self: center; max-width: min(340px, 78%); margin-bottom: 30px; }
+      .capa-foto .flutua { aspect-ratio: 1 / 1; }
       .capa-foto .iniciais { font-size: 7rem; }
       .sobre-grade { grid-template-columns: 1fr; }
       .sobre-foto { aspect-ratio: 4 / 3; }
@@ -705,12 +638,16 @@
   <a class="pular" href="#conteudo">Pular para o conteúdo</a>
 
   <!-- ILUSTRAÇÕES BOTÂNICAS DE FUNDO (decorativas, ficam paradas enquanto a página rola)
-       Gravuras antigas em domínio público: rosa e peônia de Pierre-Joseph Redouté,
-       borboletas de Maria Sibylla Merian (via Wikimedia Commons).
+       Gravuras antigas em domínio público (via Wikimedia Commons): rosas e peônia de
+       Pierre-Joseph Redouté, borboletas de Maria Sibylla Merian, papagaio de Jacques Barraband
+       e beija-flores de John Gould.
        Para trocar, substitua os arquivos da pasta "decoracao" mantendo os mesmos nomes. -->
   <div class="jardim" aria-hidden="true">
     <img class="jardim-rosa" src="decoracao/rosa.png" alt="">
+    <img class="jardim-rosa-gigante" src="decoracao/rosa-gigante.png" alt="">
     <img class="jardim-peonia" src="decoracao/peonia.png" alt="">
+    <img class="jardim-papagaio" src="decoracao/papagaio.png" alt="">
+    <img class="jardim-beija-flores" src="decoracao/beija-flores.png" alt="">
     <img class="jardim-borboleta-azul" src="decoracao/borboleta-azul.png" alt="">
     <img class="jardim-borboleta-dourada" src="decoracao/borboleta-dourada.png" alt="">
   </div>
@@ -768,6 +705,17 @@
         <div class="filtros revelar" id="filtros" role="group" aria-label="Filtrar trabalhos por nicho"></div>
         <div class="filtros subfiltros" id="subfiltros" role="group" hidden></div>
         <div class="catalogo" id="catalogo" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <!-- TIKTOK SHOP: vídeos exclusivos para venda pelo carrinho do TikTok -->
+    <section class="secao" id="tiktokshop" aria-labelledby="titulo-tiktokshop">
+      <div class="container">
+        <div class="tts-topo">
+          <div class="cabecalho-secao revelar" id="ttsCabecalho"></div>
+          <ul class="tts-lista revelar" id="ttsLista"></ul>
+        </div>
+        <div class="trilho revelar" id="ttsTrilho"></div>
       </div>
     </section>
 
@@ -855,7 +803,7 @@
         nome: "PRISSILA KIESKI",
         primeiroNome: "PRISSILA",
         sobrenome: "KIESKI",
-        profissao: "Criadora de conteúdo UGC",
+        profissao: "Micro influ",       // aparece ao lado do selo UGC, acima do nome
         textoLogo: "Portfólio",          // texto do canto esquerdo do menu
         iniciais: "PK"
       },
@@ -876,6 +824,7 @@
         { texto: "Sobre", alvo: "#sobre" },
         { texto: "Destaques", alvo: "#destaques" },
         { texto: "Trabalhos", alvo: "#trabalhos" },
+        { texto: "TikTok Shop", alvo: "#tiktokshop" },
         { texto: "Serviços", alvo: "#servicos" },
         { texto: "Números", alvo: "#numeros" },
         { texto: "Contato", alvo: "#contato" }
@@ -884,19 +833,18 @@
       // EDITE AQUI: textos da capa (primeira dobra)
       capa: {
         selo: "Criadora UGC",
-        frase: "Eu transformo o seu produto em <strong>vídeos autênticos que param o scroll</strong> e fazem o cliente comprar. Conteúdo com cara de recomendação real, pronto para anúncio e entregue no prazo.",
+        frase: "Prazer, eu sou a <strong>amiga que vende</strong>. Tenho 32 anos, moro em <span class=\"local\">Barreiras, Bahia</span>, e indico produtos do jeito que eu indicaria para uma amiga: com verdade, carinho e aquele empurrãozinho para comprar.",
         botaoPrincipal: "Falar comigo",
         botaoSecundario: "Ver os trabalhos",
         // Foto da capa: troque "imagem" pelo caminho da sua foto
         imagem: "fotos/IMG_6986.jpg",
         alt: "Prissila Kieski, criadora de conteúdo UGC, de cabelo escuro, olhos claros e blazer cinza risca de giz, olhando para a câmera",
         gradiente: "linear-gradient(160deg, #fbeef2 0%, #f3c9d4 45%, #fdf3f5 100%)",
-        etiqueta: "Agenda aberta para novas marcas",
         // Os três números curtos abaixo dos botões
         numeros: [
-          { valor: "+150", rotulo: "vídeos entregues" },
-          { valor: "+40", rotulo: "marcas atendidas" },
-          { valor: "+12M", rotulo: "views somadas" }
+          { valor: "+360", rotulo: "vídeos entregues" },
+          { valor: "+150", rotulo: "marcas atendidas" },
+          { valor: "+10M", rotulo: "views no TikTok" }
         ]
       },
 
@@ -1007,6 +955,26 @@
         ]
       },
 
+      // EDITE AQUI: seção TikTok Shop (vídeos exclusivos para venda pelo carrinho do TikTok)
+      // Para cada vídeo, cole o link do YouTube no campo "video", igual aos trabalhos.
+      // Os três itens abaixo ainda são EXEMPLOS: troque pelos seus vídeos de TikTok Shop.
+      tiktokShop: {
+        selo: "TikTok Shop",
+        titulo: "Vídeos que vendem no TikTok Shop",
+        texto: "Conteúdos exclusivos para quem vende pelo carrinho do TikTok: rápidos, verdadeiros e feitos para levar o público direto para a compra.",
+        diferenciais: [
+          "Gancho forte nos primeiros 2 segundos",
+          "Produto em uso, sem enrolação",
+          "Chamada clara para o carrinho",
+          "Formato vertical nativo, com legenda"
+        ],
+        itens: [
+          { titulo: "Demonstração com carrinho", formato: "Vídeo TikTok Shop", descricao: "Mostro o produto funcionando e levo o público direto para o carrinho.", video: "", imagem: "", alt: "Exemplo de vídeo de demonstração para TikTok Shop", gradiente: "linear-gradient(165deg,#3b2a31,#a8546f)" },
+          { titulo: "Antes e depois que vende", formato: "Vídeo TikTok Shop", descricao: "Resultado real na tela em poucos segundos, com chamada para compra.", video: "", imagem: "", alt: "Exemplo de vídeo de antes e depois para TikTok Shop", gradiente: "linear-gradient(200deg,#2c3a2c,#7f9a7b)" },
+          { titulo: "Unboxing com oferta", formato: "Vídeo TikTok Shop", descricao: "Primeira impressão sincera destacando preço, cupom e frete.", video: "", imagem: "", alt: "Exemplo de vídeo de unboxing para TikTok Shop", gradiente: "linear-gradient(140deg,#4a2234,#ff2d95)" }
+        ]
+      },
+
       // EDITE AQUI: seus serviços
       servicos: {
         kicker: "Como eu te ajudo",
@@ -1071,6 +1039,7 @@
 
     const icones = {
       play: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>',
+      carrinho: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 18a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm10 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4ZM5.2 4l.4 2H21l-2.2 8.2a2 2 0 0 1-1.9 1.5H8.4a2 2 0 0 1-2-1.6L4.4 4H2V2h3.1a1 1 0 0 1 1 .8Z"/></svg>',
       check: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>',
       esquerda: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>',
       direita: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>',
@@ -1119,8 +1088,7 @@
       <a class="btn btn-vermelho" href="#contato">${icones.play} ${esc(cp.botaoPrincipal)}</a>
       <a class="btn btn-cinza" href="#trabalhos">${esc(cp.botaoSecundario)}</a>`;
     $("#capaNumeros").innerHTML = cp.numeros.map((n) => `<li><strong>${esc(n.valor)}</strong><span>${esc(n.rotulo)}</span></li>`).join("");
-    $("#capaFoto").innerHTML = `${midia(cp)}${cp.imagem ? "" : `<span class="iniciais" aria-hidden="true">${esc(CONFIG.perfil.iniciais)}</span>`}
-      <span class="etiqueta"><span class="ponto-ao-vivo" aria-hidden="true"></span>${esc(cp.etiqueta)}</span>`;
+    $("#capaFoto").innerHTML = `<div class="flutua">${midia(cp)}${cp.imagem ? "" : `<span class="iniciais" aria-hidden="true">${esc(CONFIG.perfil.iniciais)}</span>`}</div>`;
 
     // Faixa de marcas (a segunda cópia existe só para o movimento contínuo)
     const listaMarcas = CONFIG.marcas.map((m) => `<li>${esc(m)}</li>`).join("");
@@ -1154,6 +1122,27 @@
       </a>`).join("");
 
     /* ---------- 4. Trabalhos ---------- */
+    // Card de um trabalho (usado no catálogo e no TikTok Shop)
+    function cardTrabalho(t) {
+      const id = idYoutube(t.video);
+      const capa = id && !t.imagem ? { ...t, imagem: `https://i.ytimg.com/vi/${id}/oardefault.jpg` } : t;
+      const etiqueta = t.subcategoria || t.categoria || "";
+      const atributos = id
+        ? `href="https://www.youtube.com/watch?v=${id}" data-video="${id}" data-titulo="${esc(t.titulo)}" aria-label="Assistir vídeo: ${esc(t.titulo)}, ${esc(etiqueta)}, ${esc(t.formato)}. ${esc(t.descricao)}"`
+        : `href="#contato" aria-label="${esc(t.titulo)}, ${esc(etiqueta)}, ${esc(t.formato)}. ${esc(t.descricao)}"`;
+      return `
+        <a class="trabalho${id ? " com-video" : ""}" ${atributos}>
+          ${midia(capa)}
+          ${id ? `<span class="play play-mini" aria-hidden="true">${icones.play}</span>` : ""}
+          <span class="trabalho-tag" aria-hidden="true">${esc(etiqueta)}</span>
+          <div class="trabalho-info" aria-hidden="true">
+            <h4>${esc(t.titulo)}</h4>
+            <p class="formato">${esc(t.formato)}</p>
+            <p class="desc">${esc(t.descricao)}</p>
+          </div>
+        </a>`;
+    }
+
     const tb = CONFIG.trabalhos;
     $("#trabalhosCabecalho").innerHTML = cabecalho(tb, "titulo-trabalhos");
     $("#filtros").innerHTML = ["Todos", ...tb.categorias]
@@ -1188,24 +1177,7 @@
             </div>
           </div>
           <div class="trilho" id="${idTrilho}">
-            ${itens.map((t) => {
-              const id = idYoutube(t.video);
-              const capa = id && !t.imagem ? { ...t, imagem: `https://i.ytimg.com/vi/${id}/oardefault.jpg` } : t;
-              const atributos = id
-                ? `href="https://www.youtube.com/watch?v=${id}" data-video="${id}" data-titulo="${esc(t.titulo)}" aria-label="Assistir vídeo: ${esc(t.titulo)}, ${esc(t.subcategoria || t.categoria)}, ${esc(t.formato)}. ${esc(t.descricao)}"`
-                : `href="#contato" aria-label="${esc(t.titulo)}, ${esc(t.categoria)}, ${esc(t.formato)}. ${esc(t.descricao)}"`;
-              return `
-              <a class="trabalho${id ? " com-video" : ""}" ${atributos}>
-                ${midia(capa)}
-                ${id ? `<span class="play play-mini" aria-hidden="true">${icones.play}</span>` : ""}
-                <span class="trabalho-tag" aria-hidden="true">${esc(t.subcategoria || t.categoria)}</span>
-                <div class="trabalho-info" aria-hidden="true">
-                  <h4>${esc(t.titulo)}</h4>
-                  <p class="formato">${esc(t.formato)}</p>
-                  <p class="desc">${esc(t.descricao)}</p>
-                </div>
-              </a>`;
-            }).join("")}
+            ${itens.map(cardTrabalho).join("")}
           </div>
         </div>`;
     }).join("");
@@ -1266,7 +1238,16 @@
     $("#fecharVideo").addEventListener("click", () => janela.close());
     janela.addEventListener("click", (e) => { if (e.target === janela) janela.close(); });
 
-    $("#catalogo").addEventListener("click", (e) => {
+    /* ---------- TikTok Shop ---------- */
+    const tts = CONFIG.tiktokShop;
+    $("#ttsCabecalho").innerHTML = `<p class="tts-selo">${icones.carrinho} ${esc(tts.selo)}</p>
+      <h2 class="titulo-secao" id="titulo-tiktokshop">${esc(tts.titulo)}</h2>
+      <p class="sub-secao">${esc(tts.texto)}</p>`;
+    $("#ttsLista").innerHTML = tts.diferenciais.map((d) => `<li>${icones.check}<span>${esc(d)}</span></li>`).join("");
+    $("#ttsTrilho").innerHTML = tts.itens.map((t) => cardTrabalho({ categoria: tts.selo, ...t })).join("");
+
+    // Cliques nos cards com vídeo (em qualquer parte do site) e nas setas das fileiras
+    document.addEventListener("click", (e) => {
       const cardVideo = e.target.closest("[data-video]");
       if (cardVideo) {
         e.preventDefault();
@@ -1357,7 +1338,7 @@
       const aviso = $("#avisoForm");
       const invalido = [...form.elements].find((el) => el.willValidate && !el.checkValidity());
       if (invalido) {
-        aviso.style.cssText = "background:#fff0f6;border-color:#d1006b;color:#8a0047";
+        aviso.style.cssText = "background:rgba(255,45,149,.12);border-color:#ff5cad;color:#ffd1e6";
         aviso.textContent = invalido.type === "email" && invalido.value
           ? "Confira o e-mail digitado, parece que falta alguma coisa."
           : "Preencha nome, e-mail e mensagem para eu poder te responder.";
@@ -1409,7 +1390,7 @@
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape" && menu.classList.contains("aberto")) { fecharMenu(); btnMenu.focus(); }
     });
-    window.addEventListener("resize", () => { if (window.innerWidth > 980) fecharMenu(); });
+    window.addEventListener("resize", () => { if (window.innerWidth > 1120) fecharMenu(); });
 
     const linksMenu = [...menu.querySelectorAll("a")];
     const observadorSecoes = new IntersectionObserver((entradas) => {
