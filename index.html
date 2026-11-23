@@ -354,6 +354,18 @@
     .fileira-topo { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 4px; }
     .fileira-titulo { font-family: var(--corpo); font-weight: 800; font-size: 1.3rem; }
     .fileira-titulo small { color: var(--texto-suave); font-weight: 500; font-size: .9rem; margin-left: 8px; }
+    .fileira-nicho {
+      display: block; font-size: .72rem; font-weight: 800; letter-spacing: .16em; text-transform: uppercase;
+      color: var(--vermelho-texto); margin-bottom: 2px;
+    }
+    .filtros:has(+ .subfiltros:not([hidden])) { margin-bottom: 14px; }
+    .subfiltros {
+      align-items: center; padding: 12px 14px; border-radius: 10px;
+      background: var(--card); border: 1px solid var(--borda);
+    }
+    .subfiltros[hidden] { display: none; }
+    .subfiltros-rotulo { font-size: .8rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--texto-suave); margin-right: 4px; }
+    .filtro-sub { padding: 7px 14px; font-size: .88rem; }
     .setas { display: flex; gap: 8px; }
     .seta {
       width: 40px; height: 40px; border-radius: 50%; border: 1px solid rgba(255,255,255,.25);
@@ -672,6 +684,7 @@
       <div class="container">
         <div class="cabecalho-secao revelar" id="trabalhosCabecalho"></div>
         <div class="filtros revelar" id="filtros" role="group" aria-label="Filtrar trabalhos por nicho"></div>
+        <div class="filtros subfiltros" id="subfiltros" role="group" hidden></div>
         <div class="catalogo" id="catalogo" aria-live="polite"></div>
       </div>
     </section>
@@ -871,29 +884,40 @@
       },
 
       // EDITE AQUI: galeria de trabalhos por nicho
-      // "categorias" são os botões de filtro. Cada trabalho precisa ter uma "categoria" igual a uma delas.
+      // "categorias" são os botões de filtro (nichos). Cada trabalho precisa ter uma "categoria" igual a uma delas.
+      // "subcategoria" é o subnicho (ex.: Maquiagem, Skincare). É opcional: cada subnicho vira uma fileira
+      // própria no catálogo e um botão extra de filtro quando a marca escolhe aquele nicho.
       trabalhos: {
         kicker: "Catálogo",
         titulo: "Trabalhos por nicho",
-        texto: "Escolha um nicho e veja como eu adapto a linguagem para cada tipo de produto e público.",
-        categorias: ["Beleza", "Casa", "Comida", "Moda", "Fitness"],
+        texto: "Escolha um nicho e depois o subnicho para ver exatamente o tipo de vídeo que a sua marca precisa.",
+        categorias: ["Beleza", "Moda e acessórios", "Casa", "Comida", "Fitness"],
         itens: [
           // VÍDEOS DO YOUTUBE: cole no campo "video" o link do vídeo (pode ser o link do YouTube Studio,
           // do youtube.com/watch, do youtube.com/shorts ou do youtu.be). A capa é puxada sozinha do YouTube.
           // Se quiser outra capa, coloque o caminho da foto no campo "imagem".
           // Os vídeos podem ficar como "Não listado" no YouTube, mas precisam permitir incorporação.
-          { titulo: "Blush em bastão", categoria: "Beleza", formato: "Maquiagem · Vídeo UGC", descricao: "Aplicação real do blush em bastão, mostrando cor, textura e acabamento na pele.", video: "https://studio.youtube.com/video/onPMLcEqadA/edit", imagem: "", alt: "Prissila aplicando blush em bastão na bochecha" },
-          { titulo: "Base em bastão", categoria: "Beleza", formato: "Maquiagem · Vídeo UGC", descricao: "Teste da base em bastão do zero, com cobertura e acabamento natural.", video: "https://studio.youtube.com/video/orGF0wIZwAo/edit", imagem: "", alt: "Prissila mostrando a base em bastão para a câmera" },
-          { titulo: "Corretivo para olheiras", categoria: "Beleza", formato: "Maquiagem · Vídeo UGC", descricao: "Aplicação do corretivo na região dos olhos, mostrando cobertura e como fica na pele.", video: "https://studio.youtube.com/video/qQLcM92ZqBE/edit", imagem: "", alt: "Prissila aplicando corretivo na olheira" },
+
+          // Beleza > Maquiagem
+          { titulo: "Blush em bastão", categoria: "Beleza", subcategoria: "Maquiagem", formato: "Vídeo UGC", descricao: "Aplicação real do blush em bastão, mostrando cor, textura e acabamento na pele.", video: "https://studio.youtube.com/video/onPMLcEqadA/edit", imagem: "", alt: "Prissila aplicando blush em bastão na bochecha" },
+          { titulo: "Base em bastão", categoria: "Beleza", subcategoria: "Maquiagem", formato: "Vídeo UGC", descricao: "Teste da base em bastão do zero, com cobertura e acabamento natural.", video: "https://studio.youtube.com/video/orGF0wIZwAo/edit", imagem: "", alt: "Prissila mostrando a base em bastão para a câmera" },
+          { titulo: "Corretivo para olheiras", categoria: "Beleza", subcategoria: "Maquiagem", formato: "Vídeo UGC", descricao: "Aplicação do corretivo na região dos olhos, mostrando cobertura e como fica na pele.", video: "https://studio.youtube.com/video/qQLcM92ZqBE/edit", imagem: "", alt: "Prissila aplicando corretivo na olheira" },
+
+          // Beleza > Skincare
+          { titulo: "Hidratação facial", categoria: "Beleza", subcategoria: "Skincare", formato: "Vídeo UGC", descricao: "Pele hidratada e com viço, mostrando o resultado do cuidado diário de perto.", video: "https://studio.youtube.com/video/NlWBiOitbHQ/edit", imagem: "", alt: "Prissila sorrindo com a pele hidratada e o texto Hidratação na tela" },
+          { titulo: "Resenha de skincare", categoria: "Beleza", subcategoria: "Skincare", formato: "Vídeo UGC falado", descricao: "Conversa direta com a câmera explicando o produto e por que ele é fácil de usar.", video: "https://studio.youtube.com/video/PtehG-xT9Kg/edit", imagem: "", alt: "Prissila falando para a câmera sobre um produto de skincare" },
+
+          // Moda e acessórios > Moda
+          { titulo: "Tendências do trendbook", categoria: "Moda e acessórios", subcategoria: "Moda", formato: "Vídeo UGC", descricao: "Folheando um trendbook e apresentando as tendências da estação de um jeito visual.", video: "https://studio.youtube.com/video/XUrzjT86IOk/edit", imagem: "", alt: "Páginas de um trendbook de tendências sendo folheadas" },
+          { titulo: "Dica de estilo", categoria: "Moda e acessórios", subcategoria: "Moda", formato: "Vídeo UGC falado", descricao: "Conteúdo falado com legenda, próximo do público e com cara de recomendação de amiga.", video: "https://studio.youtube.com/video/TbDpr_r7S6w/edit", imagem: "", alt: "Prissila de jaqueta de couro falando para a câmera" },
+
+          // Nichos abaixo ainda são exemplos: troque pelos seus vídeos quando tiver
           { titulo: "Organização da cozinha", categoria: "Casa", formato: "Vídeo UGC · 40s", descricao: "Antes e depois com potes herméticos que viralizou.", imagem: "", alt: "Trabalho de casa com organização de cozinha", gradiente: "linear-gradient(170deg,#2b2b2b,#8a050c)" },
           { titulo: "Aromatizador para o lar", categoria: "Casa", formato: "Fotos + Reels", descricao: "Clima aconchegante para mostrar a experiência do produto.", imagem: "", alt: "Trabalho de casa com aromatizador", gradiente: "linear-gradient(220deg,#e50914,#1a0102)" },
           { titulo: "Robô aspirador em ação", categoria: "Casa", formato: "Unboxing · 60s", descricao: "Unboxing e teste real em casa com pet.", imagem: "", alt: "Trabalho de casa com robô aspirador", gradiente: "linear-gradient(150deg,#6b0309,#0b0b0b)" },
           { titulo: "Granola artesanal", categoria: "Comida", formato: "Vídeo UGC · 25s", descricao: "Café da manhã real com foco em sabor e textura.", imagem: "", alt: "Trabalho de comida com granola", gradiente: "linear-gradient(190deg,#ff2a35,#4a0207)" },
           { titulo: "Receita na air fryer", categoria: "Comida", formato: "Anúncio · 30s", descricao: "Receita prática que vende o eletro e a ideia.", imagem: "", alt: "Trabalho de comida com receita na air fryer", gradiente: "linear-gradient(140deg,#1c1c1c,#e50914)" },
           { titulo: "Café especial", categoria: "Comida", formato: "Fotos de produto", descricao: "Ensaio com luz natural para site e redes.", imagem: "", alt: "Trabalho de comida com café especial", gradiente: "linear-gradient(210deg,#3a0306,#b0070f)" },
-          { titulo: "Provador de jeans", categoria: "Moda", formato: "Reels · 35s", descricao: "Provador com três modelagens e dicas de caimento.", imagem: "", alt: "Trabalho de moda com calças jeans", gradiente: "linear-gradient(165deg,#e50914,#2a2a2a)" },
-          { titulo: "Bolsa do dia a dia", categoria: "Moda", formato: "Unboxing · 40s", descricao: "O que cabe na bolsa, com detalhes de acabamento.", imagem: "", alt: "Trabalho de moda com bolsa", gradiente: "linear-gradient(200deg,#1a0102,#ff4d55)" },
-          { titulo: "Look de trabalho", categoria: "Moda", formato: "Vídeo UGC · 30s", descricao: "Montagem de look com transição que prende a atenção.", imagem: "", alt: "Trabalho de moda com look de trabalho", gradiente: "linear-gradient(130deg,#8a050c,#0b0b0b)" },
           { titulo: "Treino em casa", categoria: "Fitness", formato: "Reels · 45s", descricao: "Sequência de exercícios com elásticos da marca.", imagem: "", alt: "Trabalho de fitness com treino em casa", gradiente: "linear-gradient(180deg,#e50914,#3a0306)" },
           { titulo: "Pré-treino natural", categoria: "Fitness", formato: "Anúncio · 20s", descricao: "Gancho forte e prova social para tráfego pago.", imagem: "", alt: "Trabalho de fitness com suplemento", gradiente: "linear-gradient(225deg,#2b2b2b,#e50914)" },
           { titulo: "Conjunto de academia", categoria: "Fitness", formato: "Fotos + Vídeo", descricao: "Teste de tecido em movimento durante o treino.", imagem: "", alt: "Trabalho de fitness com roupa de academia", gradiente: "linear-gradient(150deg,#4a0207,#ff2a35)" }
@@ -1052,16 +1076,32 @@
     $("#filtros").innerHTML = ["Todos", ...tb.categorias]
       .map((cat, i) => `<button type="button" class="filtro" data-filtro="${esc(cat)}" aria-pressed="${i === 0}">${esc(cat)}</button>`).join("");
 
-    $("#catalogo").innerHTML = tb.categorias.map((cat, idx) => {
-      const itens = tb.itens.filter((t) => t.categoria === cat);
+    // Subnichos de cada nicho, na ordem em que aparecem na lista de trabalhos
+    const subnichos = {};
+    tb.categorias.forEach((cat) => {
+      subnichos[cat] = [...new Set(tb.itens.filter((t) => t.categoria === cat && t.subcategoria).map((t) => t.subcategoria))];
+    });
+
+    // Uma fileira para cada subnicho (ou uma só para o nicho, se ele não tiver subnichos)
+    const fileiras = [];
+    tb.categorias.forEach((cat) => {
+      const doNicho = tb.itens.filter((t) => t.categoria === cat);
+      if (!doNicho.length) return;
+      const semSub = doNicho.filter((t) => !t.subcategoria);
+      subnichos[cat].forEach((sub) => fileiras.push({ cat, sub, itens: doNicho.filter((t) => t.subcategoria === sub) }));
+      if (semSub.length) fileiras.push({ cat, sub: "", itens: semSub });
+    });
+
+    $("#catalogo").innerHTML = fileiras.map(({ cat, sub, itens }, idx) => {
       const idTrilho = `trilho-${idx}`;
+      const nomeFileira = sub ? `${cat}: ${sub}` : cat;
       return `
-        <div class="fileira revelar" data-categoria="${esc(cat)}">
+        <div class="fileira revelar" data-categoria="${esc(cat)}" data-sub="${esc(sub)}">
           <div class="fileira-topo">
-            <h3 class="fileira-titulo">${esc(cat)}<small>${itens.length} trabalhos</small></h3>
+            <h3 class="fileira-titulo">${sub ? `<span class="fileira-nicho">${esc(cat)}</span>${esc(sub)}` : esc(cat)}<small>${itens.length} ${itens.length === 1 ? "trabalho" : "trabalhos"}</small></h3>
             <div class="setas">
-              <button type="button" class="seta" data-trilho="${idTrilho}" data-dir="-1" aria-label="Ver trabalhos anteriores de ${esc(cat)}">${icones.esquerda}</button>
-              <button type="button" class="seta" data-trilho="${idTrilho}" data-dir="1" aria-label="Ver mais trabalhos de ${esc(cat)}">${icones.direita}</button>
+              <button type="button" class="seta" data-trilho="${idTrilho}" data-dir="-1" aria-label="Ver trabalhos anteriores de ${esc(nomeFileira)}">${icones.esquerda}</button>
+              <button type="button" class="seta" data-trilho="${idTrilho}" data-dir="1" aria-label="Ver mais trabalhos de ${esc(nomeFileira)}">${icones.direita}</button>
             </div>
           </div>
           <div class="trilho" id="${idTrilho}">
@@ -1069,13 +1109,13 @@
               const id = idYoutube(t.video);
               const capa = id && !t.imagem ? { ...t, imagem: `https://i.ytimg.com/vi/${id}/oardefault.jpg` } : t;
               const atributos = id
-                ? `href="https://www.youtube.com/watch?v=${id}" data-video="${id}" data-titulo="${esc(t.titulo)}" aria-label="Assistir vídeo: ${esc(t.titulo)}, ${esc(t.formato)}. ${esc(t.descricao)}"`
+                ? `href="https://www.youtube.com/watch?v=${id}" data-video="${id}" data-titulo="${esc(t.titulo)}" aria-label="Assistir vídeo: ${esc(t.titulo)}, ${esc(t.subcategoria || t.categoria)}, ${esc(t.formato)}. ${esc(t.descricao)}"`
                 : `href="#contato" aria-label="${esc(t.titulo)}, ${esc(t.categoria)}, ${esc(t.formato)}. ${esc(t.descricao)}"`;
               return `
               <a class="trabalho${id ? " com-video" : ""}" ${atributos}>
                 ${midia(capa)}
                 ${id ? `<span class="play play-mini" aria-hidden="true">${icones.play}</span>` : ""}
-                <span class="trabalho-tag" aria-hidden="true">${esc(t.categoria)}</span>
+                <span class="trabalho-tag" aria-hidden="true">${esc(t.subcategoria || t.categoria)}</span>
                 <div class="trabalho-info" aria-hidden="true">
                   <h4>${esc(t.titulo)}</h4>
                   <p class="formato">${esc(t.formato)}</p>
@@ -1087,16 +1127,37 @@
         </div>`;
     }).join("");
 
-    $("#filtros").addEventListener("click", (e) => {
-      const botao = e.target.closest(".filtro");
-      if (!botao) return;
-      const filtro = botao.dataset.filtro;
-      document.querySelectorAll(".filtro").forEach((b) => b.setAttribute("aria-pressed", String(b === botao)));
+    // Filtros: primeiro o nicho; se ele tiver subnichos, aparece uma segunda linha de botões
+    let nichoAtual = "Todos";
+    function aplicarFiltro(nicho, sub) {
+      nichoAtual = nicho;
+      document.querySelectorAll("#filtros .filtro").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.filtro === nicho)));
       document.querySelectorAll(".fileira").forEach((f) => {
-        f.hidden = filtro !== "Todos" && f.dataset.categoria !== filtro;
+        f.hidden = (nicho !== "Todos" && f.dataset.categoria !== nicho) || (sub && f.dataset.sub !== sub);
         f.classList.add("visivel");
       });
-      $("#catalogo").classList.toggle("filtrado", filtro !== "Todos");
+      $("#catalogo").classList.toggle("filtrado", nicho !== "Todos");
+
+      const caixaSub = $("#subfiltros");
+      const lista = nicho !== "Todos" ? subnichos[nicho] || [] : [];
+      if (lista.length) {
+        caixaSub.hidden = false;
+        caixaSub.setAttribute("aria-label", `Filtrar ${nicho} por subnicho`);
+        caixaSub.innerHTML = `<span class="subfiltros-rotulo">Subnicho:</span>` +
+          [{ valor: "", texto: `Tudo de ${nicho}` }, ...lista.map((s) => ({ valor: s, texto: s }))]
+            .map((o) => `<button type="button" class="filtro filtro-sub" data-sub="${esc(o.valor)}" aria-pressed="${o.valor === (sub || "")}">${esc(o.texto)}</button>`).join("");
+      } else {
+        caixaSub.hidden = true;
+        caixaSub.innerHTML = "";
+      }
+    }
+    $("#filtros").addEventListener("click", (e) => {
+      const botao = e.target.closest(".filtro");
+      if (botao) aplicarFiltro(botao.dataset.filtro, "");
+    });
+    $("#subfiltros").addEventListener("click", (e) => {
+      const botao = e.target.closest(".filtro-sub");
+      if (botao) aplicarFiltro(nichoAtual, botao.dataset.sub);
     });
 
     /* ---------- Player de vídeo (janela que abre por cima do site) ---------- */
