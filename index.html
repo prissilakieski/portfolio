@@ -19,24 +19,26 @@
        rosa milk, verde sálvia e rosa neon
        ========================================================== */
     :root {
-      /* Paleta: pink elétrico, lilás envelhecido, verde botânico, branco e preto. Fundo todo branco. */
-      --fundo: #f6f3f1;            /* branco quente (fundo da página) */
-      --branco: #f6f3f1;
+      /* Paleta gamer girly: branco, verde lima pastel aceso, lilás neon e preto */
+      --fundo: #f8f7fb;            /* branco levemente lilás */
+      --branco: #f8f7fb;
       --fundo-2: rgba(255, 255, 255, .6);
       --superficie: #ffffff;       /* cards */
-      --superficie-2: #efe9ec;
-      --texto: #141214;            /* preto: texto principal */
-      --texto-suave: #5a525d;      /* texto de apoio */
-      --escuro: #141214;
-      --milk: #6f5a78;             /* lilás envelhecido (tom escuro, legível no branco) */
-      --milk-forte: #a68eae;
-      --neon: #ff2d95;             /* pink elétrico: botões, brilho e detalhes */
-      --neon-texto: #d1006b;       /* pink elétrico para TEXTO (contraste aprovado no branco) */
-      --brilho: 0 0 10px rgba(255, 45, 149, .35), 0 0 24px rgba(255, 45, 149, .22);
-      --salvia: #4b6844;           /* verde botânico para textos */
-      --salvia-linha: #8aa37f;     /* verde botânico para linhas */
-      --salvia-fundo: rgba(95, 124, 86, .1);
-      --borda: rgba(20, 18, 20, .12);
+      --superficie-2: #f0ebf8;
+      --texto: #17141c;            /* preto: texto principal */
+      --texto-suave: #5b5566;      /* texto de apoio */
+      --escuro: #17141c;
+      --milk: #6a35c9;             /* lilás (tom escuro, legível no branco): números e destaques */
+      --milk-forte: #b57cff;
+      --neon: #b57cff;             /* lilás neon: botões, brilho e detalhes */
+      --neon-texto: #7d3ddb;       /* lilás neon para TEXTO no branco */
+      --brilho: 0 0 10px rgba(181, 124, 255, .6), 0 0 26px rgba(181, 124, 255, .38);
+      --salvia: #4e7a1c;           /* verde lima escuro, legível no branco */
+      --salvia-linha: #b8e86a;     /* verde lima aceso: linhas */
+      --salvia-fundo: rgba(198, 243, 107, .2);
+      --verde-neon: #c6f36b;       /* verde lima das luzes */
+      --luz: #ffd76a;              /* luzinhas do fio de fada */
+      --borda: rgba(23, 20, 28, .1);
       --titulo: "Anton", "Impact", "Arial Narrow", sans-serif;
       --corpo: "Archivo", system-ui, -apple-system, "Segoe UI", sans-serif;
       --largura: 1240px;
@@ -63,7 +65,7 @@
     p { margin: 0; }
     ul { margin: 0; padding: 0; list-style: none; }
     button, input, textarea { font: inherit; color: inherit; }
-    ::selection { background: #f6c6dc; color: var(--escuro); }
+    ::selection { background: #e3d2ff; color: var(--escuro); }
 
     :focus-visible { outline: 2px solid var(--neon-texto); outline-offset: 3px; }
 
@@ -92,26 +94,13 @@
     .capa .selo-micro { color: var(--neon-texto); font-weight: 700; text-shadow: var(--brilho); }
 
 
-    /* Guirlandas: uma pintura contínua de flores que desce pelas laterais da página inteira,
-       sem começo nem fim (a imagem foi montada para se repetir sem emenda) */
-    .guirlanda { position: absolute; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; }
-    .guirlanda span {
-      position: absolute; top: 0; bottom: 0; width: min(30vw, 470px);
-      background-repeat: repeat-y; background-size: 100% auto; opacity: .3;
-    }
-    .guirlanda .lado-esq {
-      left: -8px; background-image: url("decoracao/guirlanda-esq.png");
-      -webkit-mask-image: linear-gradient(to right, #000 45%, transparent); mask-image: linear-gradient(to right, #000 45%, transparent);
-      animation: balanco-esq 10s ease-in-out infinite;
-    }
-    .guirlanda .lado-dir {
-      right: -8px; background-image: url("decoracao/guirlanda-dir.png"); background-position: right 0 top 600px;
-      -webkit-mask-image: linear-gradient(to left, #000 45%, transparent); mask-image: linear-gradient(to left, #000 45%, transparent);
-      animation: balanco-dir 12s ease-in-out -4s infinite;
-    }
-    @keyframes balanco-esq { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(7px); } }
-    @keyframes balanco-dir { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(-7px); } }
-
+    /* Cordão do lado direito: fio fininho com folhinhas de jiboia e luzinhas de fada piscando */
+    .cordao { position: absolute; top: 0; right: 2px; width: 64px; z-index: 5; pointer-events: none; }
+    .cordao svg { display: block; overflow: visible; }
+    .cordao .folha-g { transform-box: fill-box; transform-origin: 0% 50%; animation: folha-balanca 7s ease-in-out infinite; }
+    .cordao .luz { animation: piscar 3s ease-in-out infinite; }
+    @keyframes folha-balanca { 0%, 100% { transform: rotate(0deg); } 50% { transform: rotate(5deg); } }
+    @keyframes piscar { 0%, 100% { opacity: .3; } 45% { opacity: 1; } 60% { opacity: .85; } }
     /* A brisa: balanço lento e bem pequeno, ancorado no canto de onde as flores "nascem" */    @keyframes brisa {
       0%, 100% { transform: rotate(0deg) translate(0, 0); }
       30% { transform: rotate(.9deg) translate(2px, 1px); }
@@ -125,7 +114,6 @@
 
     @media (max-width: 820px) {
       .capa-buque { width: 96vw; opacity: .32; }
-      .guirlanda span { width: 38vw; opacity: .2; }
     }
 
     .pular {
@@ -167,7 +155,7 @@
     .btn-vermelho { background: var(--neon); border-color: var(--neon); color: var(--escuro); }
     .btn-vermelho:hover, .btn-vermelho:focus-visible {
       background: var(--btn-hover-bg, #141214); border-color: var(--btn-hover-bg, #141214); color: var(--btn-hover-cor, #fff);
-      box-shadow: 0 0 30px rgba(255, 45, 149, .7);
+      box-shadow: 0 0 30px rgba(181, 124, 255, .7);
     }
     .btn-cinza { background: transparent; color: var(--texto); border-color: var(--texto); }
     .btn-cinza:hover, .btn-cinza:focus-visible { color: var(--neon-texto); border-color: var(--neon); text-shadow: var(--brilho); }
@@ -182,13 +170,14 @@
     /* Barra superior em verde botânico */
     .topo {
       position: fixed; inset: 0 0 auto 0; z-index: 100; height: var(--header-h);
-      --texto: #ffffff; --neon-texto: #ffd0e6; --milk: #f1e4f5;
-      --brilho: 0 0 10px rgba(255, 45, 149, .9), 0 0 24px rgba(255, 45, 149, .55);
-      background: rgba(75, 104, 68, .94);
+      --texto: #17141c; --neon-texto: #6a2fc4; --milk: #6a2fc4;
+      --brilho: 0 0 10px rgba(181, 124, 255, .9), 0 0 24px rgba(181, 124, 255, .55);
+      background: linear-gradient(90deg, rgba(222, 248, 172, .95), rgba(205, 244, 140, .95));
+      box-shadow: 0 4px 30px rgba(198, 243, 107, .45);
       backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
       transition: background-color .3s ease, box-shadow .3s ease;
     }
-    .topo.rolado { background-color: rgba(64, 90, 58, .98); box-shadow: 0 6px 24px rgba(20, 18, 20, .18); }
+    .topo.rolado { box-shadow: 0 6px 34px rgba(198, 243, 107, .6), 0 1px 0 rgba(23, 20, 28, .08); }
     .topo .container { height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
     .logo {
       font-family: var(--titulo); font-size: 1.55rem; font-weight: 500; letter-spacing: .06em;
@@ -219,15 +208,18 @@
     /* Capa: preto translúcido, com cores próprias para o texto claro */
     .capa {
       --texto: #f6f3f1; --texto-suave: #d6ced3; --borda: rgba(255, 255, 255, .16);
-      --milk: #d2bfd8; --neon-texto: #ff4fa3; --salvia: #a9bf9c;
-      --brilho: 0 0 10px rgba(255, 45, 149, .75), 0 0 28px rgba(255, 45, 149, .5);
+      --milk: #d9c2ff; --neon-texto: #d2a6ff; --salvia: #c6f36b;
+      --brilho: 0 0 10px rgba(181, 124, 255, .75), 0 0 28px rgba(181, 124, 255, .5);
       --btn-hover-bg: #ffffff; --btn-hover-cor: #141214;
       --lilas-neon: #c77dff; --lilas-brilho: 0 0 8px rgba(199, 125, 255, .9), 0 0 22px rgba(199, 125, 255, .6), 0 0 44px rgba(199, 125, 255, .35);
       color: var(--texto);
       position: relative; min-height: 100vh; min-height: 100svh;
       display: flex; flex-direction: column; justify-content: flex-end;
       padding-top: calc(var(--header-h) + 36px);
-      background: rgba(14, 12, 14, .86);
+      background:
+        radial-gradient(ellipse 55% 60% at 80% 30%, rgba(181, 124, 255, .26), transparent 70%),
+        radial-gradient(ellipse 45% 45% at 6% 100%, rgba(198, 243, 107, .14), transparent 70%),
+        rgba(20, 16, 26, .93);
       overflow: hidden;
     }
     .capa-grade { display: block; padding-bottom: clamp(40px, 6vw, 72px); }
@@ -301,8 +293,8 @@
       position: absolute; left: 0; top: 0; bottom: 0; z-index: 2;
       display: flex; align-items: center; padding: 0 26px 0 var(--gutter);
       background: linear-gradient(90deg, #0b0a0d 72%, transparent);
-      font-size: .68rem; font-weight: 700; letter-spacing: .26em; text-transform: uppercase; color: var(--neon-texto);
-      text-shadow: var(--brilho);
+      font-size: .68rem; font-weight: 700; letter-spacing: .26em; text-transform: uppercase; color: var(--verde-neon);
+      text-shadow: 0 0 8px rgba(198, 243, 107, .9), 0 0 22px rgba(198, 243, 107, .5);
     }
     .faixa-trilho { display: flex; width: max-content; animation: deslizar 60s linear infinite; }
     .faixa-marcas:hover .faixa-trilho { animation-play-state: paused; }
@@ -313,8 +305,9 @@
       color: var(--lilas-neon); text-shadow: var(--lilas-brilho);
       display: flex; align-items: center; gap: 26px; transition: color .3s ease, text-shadow .3s ease;
     }
-    .faixa-trilho li:hover { color: #ffffff; text-shadow: 0 0 10px rgba(255, 45, 149, 1), 0 0 30px rgba(255, 45, 149, .7); }
-    .faixa-trilho li::after { content: ""; width: 6px; height: 6px; background: var(--neon); box-shadow: 0 0 10px var(--neon); transform: rotate(45deg); }    @keyframes deslizar { to { transform: translateX(-50%); } }
+    .faixa-trilho li:hover { color: #ffffff; text-shadow: 0 0 10px rgba(181, 124, 255, 1), 0 0 30px rgba(181, 124, 255, .8), 0 0 50px rgba(181, 124, 255, .5); }
+    .faixa-trilho li::after { content: ""; width: 6px; height: 6px; background: var(--verde-neon); box-shadow: 0 0 10px var(--verde-neon); transform: rotate(45deg); }
+    @keyframes deslizar { to { transform: translateX(-50%); } }
 
     /* ==========================================================
        2. SOBRE MIM
@@ -325,7 +318,7 @@
       --texto: #141214; --texto-suave: #5a525d; --borda: rgba(20, 18, 20, .12);
       --superficie: #ffffff; --superficie-2: #efe9ec;
       --milk: #6f5a78; --milk-forte: #8a7593;
-      --neon-texto: #d1006b; --brilho: 0 0 10px rgba(255, 45, 149, .35), 0 0 22px rgba(255, 45, 149, .2);
+      --neon-texto: #7d3ddb; --brilho: 0 0 10px rgba(181, 124, 255, .6), 0 0 26px rgba(181, 124, 255, .38);
       --salvia: #4b6844; --salvia-linha: #8aa37f; --salvia-fundo: rgba(95, 124, 86, .1);
       color: var(--texto);
     }
@@ -356,7 +349,7 @@
     }
     .polaroid:hover .polaroid-foto {
       outline-color: var(--neon); outline-offset: 20px;
-      box-shadow: 0 30px 60px rgba(20, 18, 20, .22), 0 0 34px rgba(255, 45, 149, .25);
+      box-shadow: 0 30px 60px rgba(20, 18, 20, .22), 0 0 34px rgba(181, 124, 255, .25);
     }
     .polaroid.mexendo .polaroid-foto { transition: transform .12s linear, outline-offset .6s ease, outline-color .6s ease, box-shadow .6s ease; }
     .polaroid:hover .polaroid-foto .midia { transform: scale(1.07); filter: saturate(1.08) contrast(1.03); }
@@ -397,7 +390,7 @@
     }
     .destaque:hover, .destaque:focus-visible {
       transform: translateY(-6px); border-color: var(--neon);
-      box-shadow: 0 0 0 1px var(--neon), 0 24px 50px rgba(255, 45, 149, .22);
+      box-shadow: 0 0 0 1px var(--neon), 0 24px 50px rgba(181, 124, 255, .22);
     }
     .destaque-capa { aspect-ratio: 9 / 16; position: relative; overflow: hidden; }
     .destaque-capa .midia { transition: transform .7s ease; }
@@ -422,7 +415,7 @@
     .play svg { width: 26px; height: 26px; margin-left: 4px; fill: var(--escuro); transition: fill .3s ease; }
     .destaque:hover .play, .destaque:focus-visible .play,
     .trabalho:hover .play-mini, .trabalho:focus-visible .play-mini {
-      background: var(--neon); border-color: var(--neon); transform: scale(1.08); box-shadow: 0 0 26px rgba(255, 45, 149, .7);
+      background: var(--neon); border-color: var(--neon); transform: scale(1.08); box-shadow: 0 0 26px rgba(181, 124, 255, .7);
     }
     .destaque:hover .play svg, .destaque:focus-visible .play svg,
     .trabalho:hover .play-mini svg, .trabalho:focus-visible .play-mini svg { fill: #fff; }
@@ -454,7 +447,7 @@
     }
     .filtro:hover { border-color: var(--neon); color: var(--neon-texto); text-shadow: var(--brilho); }
     .filtro[aria-pressed="true"] { background: var(--texto); border-color: var(--texto); color: #fff; text-shadow: none; }
-    .filtro[aria-pressed="true"]:hover { background: var(--neon); border-color: var(--neon); color: #fff; box-shadow: 0 0 20px rgba(255,45,149,.5); }
+    .filtro[aria-pressed="true"]:hover { background: var(--neon); border-color: var(--neon); color: #fff; box-shadow: 0 0 20px rgba(181,124,255,.5); }
 
     .filtro-tts { display: inline-flex; align-items: center; gap: 7px; text-decoration: none; border-color: var(--milk); color: var(--milk); }
     .filtro-tts svg { width: 14px; height: 14px; fill: currentColor; }
@@ -483,7 +476,7 @@
       background: var(--superficie); color: var(--texto); cursor: pointer; display: grid; place-items: center;
       transition: background-color .3s ease, border-color .3s ease, color .3s ease, box-shadow .3s ease;
     }
-    .seta:hover { border-color: var(--neon); color: var(--neon-texto); box-shadow: 0 0 16px rgba(255,45,149,.45); }
+    .seta:hover { border-color: var(--neon); color: var(--neon-texto); box-shadow: 0 0 16px rgba(181,124,255,.45); }
     .seta svg { width: 18px; height: 18px; }
     .trilho {
       display: grid; grid-auto-flow: column; grid-auto-columns: clamp(176px, 22vw, 272px);
@@ -507,7 +500,7 @@
     }
     .trabalho:hover, .trabalho:focus-visible {
       transform: scale(1.09); z-index: 3;
-      box-shadow: 0 0 0 2px var(--neon), 0 18px 40px rgba(255, 45, 149, .32);
+      box-shadow: 0 0 0 2px var(--neon), 0 18px 40px rgba(181, 124, 255, .32);
     }
     .trabalho .midia { position: absolute; inset: 0; }
     .trabalho img.midia { object-position: 50% 30%; }
@@ -563,7 +556,7 @@
       background: transparent; color: var(--texto); font-size: 1.6rem; line-height: 1;
       transition: color .3s ease, border-color .3s ease, box-shadow .3s ease;
     }
-    .fechar-video:hover { color: var(--neon-texto); border-color: var(--neon); box-shadow: 0 0 16px rgba(255,45,149,.45); }
+    .fechar-video:hover { color: var(--neon-texto); border-color: var(--neon); box-shadow: 0 0 16px rgba(181,124,255,.45); }
     /* Player: a altura acompanha a tela, então o vídeo aparece inteiro sem rolar */
     .moldura-video {
       height: min(calc(100vh - 130px), 640px); aspect-ratio: 9 / 16; width: auto;
@@ -603,7 +596,7 @@
       display: block; font-family: var(--titulo); font-weight: 500; color: var(--milk);
       font-size: clamp(2.6rem, 5.5vw, 4.2rem); line-height: 1; transition: color .3s ease, text-shadow .3s ease;
     }
-    .contador:hover { transform: translateY(-8px) scale(1.06); background: var(--superficie); box-shadow: 0 22px 50px rgba(255, 45, 149, .2), 0 0 0 1px var(--neon); z-index: 2; }
+    .contador:hover { transform: translateY(-8px) scale(1.06); background: var(--superficie); box-shadow: 0 22px 50px rgba(181, 124, 255, .2), 0 0 0 1px var(--neon); z-index: 2; }
     .contador strong { transition: color .3s ease, text-shadow .3s ease, transform .4s cubic-bezier(.2, .7, .2, 1); }
     .contador:hover strong { color: var(--neon-texto); text-shadow: var(--brilho); transform: scale(1.12); }
     .contador span { display: block; margin-top: 12px; color: var(--texto-suave); font-weight: 500; font-size: .74rem; letter-spacing: .14em; text-transform: uppercase; }
@@ -611,7 +604,7 @@
     .subtitulo-bloco::after { content: ""; flex: 1; height: 1px; background: var(--borda); }
     .resultados { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
     .resultado { padding: 28px; background: var(--superficie); border-top: 2px solid var(--salvia-linha); transition: box-shadow .4s ease, border-color .4s ease, transform .4s cubic-bezier(.2, .7, .2, 1); }
-    .resultado:hover { border-color: var(--neon); box-shadow: 0 22px 50px rgba(255, 45, 149, .22); transform: translateY(-8px) scale(1.03); }
+    .resultado:hover { border-color: var(--neon); box-shadow: 0 22px 50px rgba(181, 124, 255, .22); transform: translateY(-8px) scale(1.03); }
     .resultado .nicho { font-size: .66rem; font-weight: 600; letter-spacing: .22em; text-transform: uppercase; color: var(--salvia); }
     .resultado strong { display: block; font-family: var(--titulo); font-weight: 500; font-size: 3rem; line-height: 1.1; margin-top: 10px; color: var(--milk); transition: color .3s ease, text-shadow .3s ease; }
     .resultado:hover strong { color: var(--neon-texto); text-shadow: var(--brilho); }
@@ -623,7 +616,7 @@
       padding: 30px 26px; display: flex; flex-direction: column; gap: 18px;
       transition: border-color .3s ease, box-shadow .3s ease;
     }
-    .depoimento:hover { border-color: var(--neon); box-shadow: 0 16px 40px rgba(255, 45, 149, .16); }
+    .depoimento:hover { border-color: var(--neon); box-shadow: 0 16px 40px rgba(181, 124, 255, .16); }
     .depoimento .aspas { font-family: var(--titulo); font-size: 4.4rem; line-height: .6; color: var(--salvia-linha); height: 28px; }
     .estrelas { color: var(--neon-texto); letter-spacing: 3px; font-size: .95rem; }
     .depoimento blockquote { margin: 0; color: var(--texto); font-size: 1.02rem; }
@@ -652,7 +645,7 @@
     }
     .campo textarea { min-height: 140px; resize: vertical; }
     .campo input::placeholder, .campo textarea::placeholder { color: #7d757f; }
-    .campo input:focus, .campo textarea:focus { outline: none; border-color: var(--neon); box-shadow: 0 0 0 3px rgba(255,45,149,.3), 0 0 18px rgba(255,45,149,.25); }
+    .campo input:focus, .campo textarea:focus { outline: none; border-color: var(--neon); box-shadow: 0 0 0 3px rgba(181,124,255,.3), 0 0 18px rgba(181,124,255,.25); }
     .form .btn { justify-self: start; }
     .aviso-form { display: none; background: #eaf7ee; border: 1px solid #6cc08a; color: #135c2e; padding: 12px 14px; font-weight: 600; }
     .aviso-form.mostrar { display: block; }
@@ -663,7 +656,7 @@
       background: var(--fundo); border: 1px solid var(--borda); padding: 14px 16px;
       transition: border-color .3s ease, transform .3s ease, box-shadow .3s ease; min-width: 0;
     }
-    .botao-contato:hover { border-color: var(--neon); transform: translateX(4px); box-shadow: 0 0 22px rgba(255,45,149,.3); }
+    .botao-contato:hover { border-color: var(--neon); transform: translateX(4px); box-shadow: 0 0 22px rgba(181,124,255,.3); }
     .botao-contato:hover b { color: var(--neon-texto); text-shadow: var(--brilho); }
     .botao-contato .icone { width: 44px; height: 44px; background: var(--texto); display: grid; place-items: center; flex-shrink: 0; transition: background-color .3s ease; }
     .botao-contato:hover .icone { background: var(--neon); }
@@ -713,7 +706,7 @@
       .menu {
         position: fixed; top: var(--header-h); left: 0; right: 0;
         flex-direction: column; gap: 0; padding: 8px var(--gutter) 24px;
-        background: rgba(64, 90, 58, .99); border-bottom: 1px solid rgba(255, 255, 255, .15);
+        background: rgba(226, 249, 182, .99); border-bottom: 1px solid rgba(23, 20, 28, .1);
         transform: translateY(-8px); opacity: 0; visibility: hidden;
         transition: opacity .25s ease, transform .25s ease, visibility .25s;
       }
@@ -760,8 +753,8 @@
 </style>
 </head>
 <body>
-  <!-- GUIRLANDAS: pintura contínua de flores vintage descendo pelas laterais da página inteira -->
-  <div class="guirlanda" aria-hidden="true"><span class="lado-esq"></span><span class="lado-dir"></span></div>
+  <!-- CORDÃO: fio com folhinhas de jiboia e luzinhas de fada, desenhado pelo JavaScript no lado direito -->
+  <div class="cordao" id="cordao" aria-hidden="true"></div>
   <a class="pular" href="#conteudo">Pular para o conteúdo</a>
 
 
@@ -1100,7 +1093,7 @@
         itens: [
           { titulo: "Demonstração com carrinho", formato: "Vídeo TikTok Shop", descricao: "Mostro o produto funcionando e levo o público direto para o carrinho.", video: "", imagem: "", alt: "Exemplo de vídeo de demonstração para TikTok Shop", gradiente: "linear-gradient(165deg,#3b2a31,#a8546f)" },
           { titulo: "Antes e depois que vende", formato: "Vídeo TikTok Shop", descricao: "Resultado real na tela em poucos segundos, com chamada para compra.", video: "", imagem: "", alt: "Exemplo de vídeo de antes e depois para TikTok Shop", gradiente: "linear-gradient(200deg,#2c3a2c,#7f9a7b)" },
-          { titulo: "Unboxing com oferta", formato: "Vídeo TikTok Shop", descricao: "Primeira impressão sincera destacando preço, cupom e frete.", video: "", imagem: "", alt: "Exemplo de vídeo de unboxing para TikTok Shop", gradiente: "linear-gradient(140deg,#4a2234,#ff2d95)" }
+          { titulo: "Unboxing com oferta", formato: "Vídeo TikTok Shop", descricao: "Primeira impressão sincera destacando preço, cupom e frete.", video: "", imagem: "", alt: "Exemplo de vídeo de unboxing para TikTok Shop", gradiente: "linear-gradient(140deg,#4a2234,#b57cff)" }
         ]
       },
 
@@ -1509,7 +1502,7 @@
       const aviso = $("#avisoForm");
       const invalido = [...form.elements].find((el) => el.willValidate && !el.checkValidity());
       if (invalido) {
-        aviso.style.cssText = "background:#fff0f6;border-color:#d1006b;color:#8a0047";
+        aviso.style.cssText = "background:#f4ecff;border-color:#7d3ddb;color:#4d1f8f";
         aviso.textContent = invalido.type === "email" && invalido.value
           ? "Confira o e-mail digitado, parece que falta alguma coisa."
           : "Preencha nome, e-mail e mensagem para eu poder te responder.";
@@ -1587,6 +1580,52 @@
       });
     }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
     document.querySelectorAll(".revelar").forEach((el) => observadorRevelar.observe(el));
+
+    /* ---------- Cordão de jiboia com fio de fada (lado direito, da capa ao rodapé) ---------- */
+    let alturaCordao = 0;
+    function desenharCordao() {
+      const el = $("#cordao");
+      if (!el) return;
+      const H = document.documentElement.scrollHeight;
+      if (Math.abs(H - alturaCordao) < 40) return;
+      alturaCordao = H;
+      const k = window.innerWidth < 600 ? 0.62 : 1;            // no celular fica mais fininho
+      const W = 64 * k;
+      const fioX = (y) => W * 0.55 + Math.sin(y / 140) * 10 * k + Math.sin(y / 53) * 3 * k;
+      const pontos = [];
+      for (let y = 0; y <= H; y += 8) pontos.push(`${fioX(y).toFixed(1)} ${y}`);
+      // folhinhas de jiboia: coração com a ponta fina, em tons de verde lima
+      const cores = ["#8cc05a", "#a6d46e", "#bfe48c", "#d6efab", "#79ad4c"];
+      const folha = "M0 0 C2 -6 10 -8 14 -4 C16 -2 17 0 19 1 C16 3 13 7 8 7 C3 6 1 4 0 0 Z";
+      let folhas = "", lado = 1, i = 0;
+      for (let y = 26; y < H; y += 40 + ((i * 37) % 24)) {
+        i++; lado *= -1;
+        const x = fioX(y), tam = (0.6 + ((i * 53) % 45) / 100) * k;
+        const ang = lado > 0 ? -25 + ((i * 17) % 30) : 205 - ((i * 13) % 30);
+        folhas += `<g class="folha-g" style="animation-delay:-${(i * 0.9) % 7}s">
+          <path d="${folha}" transform="translate(${x.toFixed(1)} ${y}) rotate(${ang}) scale(${tam.toFixed(2)})" fill="${cores[i % cores.length]}" fill-opacity=".92"/>
+          <path d="M0 0 L17 .6" transform="translate(${x.toFixed(1)} ${y}) rotate(${ang}) scale(${tam.toFixed(2)})" stroke="#5f8a3a" stroke-width=".6" fill="none" opacity=".55"/></g>`;
+      }
+      // luzinhas de fada amarelas, cada uma piscando no seu ritmo
+      let luzes = "", j = 0;
+      for (let y = 14; y < H; y += 32) {
+        j++;
+        const x = fioX(y) + (j % 2 ? 2 : -2) * k;
+        luzes += `<g class="luz" style="animation-delay:-${((j * 0.37) % 3).toFixed(2)}s;animation-duration:${(2.2 + (j % 5) * 0.55).toFixed(2)}s">
+          <circle cx="${x.toFixed(1)}" cy="${y}" r="${7 * k}" fill="url(#halo-luz)"/><circle cx="${x.toFixed(1)}" cy="${y}" r="${1.7 * k}" fill="#fff6cc"/></g>`;
+      }
+      el.style.height = `${H}px`;
+      el.innerHTML = `<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">
+        <defs><radialGradient id="halo-luz"><stop offset="0" stop-color="#ffd76a" stop-opacity=".95"/><stop offset=".45" stop-color="#ffd76a" stop-opacity=".35"/><stop offset="1" stop-color="#ffd76a" stop-opacity="0"/></radialGradient></defs>
+        <path d="M${pontos.join(" L")}" fill="none" stroke="#b8a57c" stroke-width="${0.9 * k}" opacity=".75"/>
+        ${folhas}${luzes}</svg>`;
+      el.style.width = `${W}px`;
+    }
+    desenharCordao();
+    window.addEventListener("load", desenharCordao);
+    let esperaCordao;
+    window.addEventListener("resize", () => { clearTimeout(esperaCordao); esperaCordao = setTimeout(() => { alturaCordao = 0; desenharCordao(); }, 250); });
+    if ("ResizeObserver" in window) new ResizeObserver(() => desenharCordao()).observe(document.body);
   </script>
 </body>
 </html>
