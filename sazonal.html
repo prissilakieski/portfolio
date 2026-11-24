@@ -57,15 +57,21 @@
     }
     .topo .container { height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
     .logo { font-family: var(--titulo); font-size: 1.45rem; letter-spacing: .06em; text-transform: uppercase; text-decoration: none; color: var(--dourado-claro); }
+    /* "Voltar ao portfólio" como letreiro de neon vermelho que pisca */
     .voltar {
-      display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 999px; text-decoration: none;
-      font-weight: 700; font-size: .68rem; letter-spacing: .16em; text-transform: uppercase;
-      color: var(--verde); background: linear-gradient(180deg, var(--dourado-claro), var(--dourado));
-      box-shadow: 0 0 12px rgba(230, 190, 90, .5);
-      transition: transform .45s cubic-bezier(.34, 1.7, .5, 1), box-shadow .3s ease;
+      display: inline-flex; align-items: center; gap: 8px; padding: 6px 16px 5px; border-radius: 8px; text-decoration: none;
+      font-family: var(--titulo); font-weight: 400; font-size: .92rem; letter-spacing: .16em; text-transform: uppercase;
+      color: #fff2f3; background: rgba(40, 4, 8, .35); border: 2px solid #ff8f98;
+      text-shadow: 0 0 4px #fff, 0 0 10px #ff5562, 0 0 22px #e0102a, 0 0 40px #e0102a;
+      box-shadow: 0 0 6px #ffc2c7, 0 0 16px rgba(255, 60, 80, .85), 0 0 34px rgba(224, 16, 42, .55), inset 0 0 12px rgba(255, 60, 80, .5);
+      animation: letreiro 5s infinite;
+      transition: transform .45s cubic-bezier(.34, 1.7, .5, 1);
     }
-    .voltar:hover, .voltar:focus-visible { transform: translateY(-3px); box-shadow: 0 0 18px rgba(247, 221, 138, .9); }
-
+    .voltar:hover, .voltar:focus-visible { transform: translateY(-2px) scale(1.04); animation-play-state: paused; }
+    @keyframes letreiro {
+      0%, 7%, 9%, 11%, 47%, 51%, 100% { opacity: 1; filter: none; }
+      8%, 10%, 49% { opacity: .35; filter: saturate(.4); }
+    }
     /* Fita dourada descendo pela lateral, com o laço no alto */
     .fita {
       position: fixed; top: 0; bottom: 0; left: clamp(10px, 5vw, 70px); width: clamp(16px, 2.4vw, 34px); z-index: 1; pointer-events: none;
@@ -74,10 +80,8 @@
     }
     .laco {
       position: fixed; top: 74px; left: calc(clamp(10px, 5vw, 70px) + clamp(16px, 2.4vw, 34px) / 2); z-index: 3; pointer-events: none;
-      width: clamp(96px, 12vw, 170px); transform: translateX(-50%); filter: drop-shadow(0 8px 10px rgba(0, 0, 0, .35));
-      animation: laco-balanca 4s ease-in-out infinite; transform-origin: 50% 30%;
+      width: clamp(110px, 13vw, 180px); transform: translateX(-50%); filter: drop-shadow(0 10px 12px rgba(0, 0, 0, .4));
     }
-    @keyframes laco-balanca { 0%, 100% { rotate: -3deg; } 50% { rotate: 3deg; } }
 
     /* Painéis creme com borda dourada, como cartão de presente */
     .painel {
@@ -257,20 +261,34 @@
       <linearGradient id="ouro" x1="0" y1="0" x2="1" y2="1">
         <stop offset="0" stop-color="#fbe7a1"/><stop offset=".45" stop-color="#e6be5a"/><stop offset="1" stop-color="#a97b1f"/>
       </linearGradient>
-      <linearGradient id="ouro-escuro" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0" stop-color="#d4a640"/><stop offset="1" stop-color="#8a6216"/>
+      <!-- cetim vermelho escuro -->
+      <linearGradient id="vinho" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#b52232"/><stop offset=".5" stop-color="#7f0d1a"/><stop offset="1" stop-color="#4c0610"/>
       </linearGradient>
+      <linearGradient id="vinho-ponta" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#8e1220"/><stop offset="1" stop-color="#43050d"/>
+      </linearGradient>
+      <radialGradient id="vinho-no" cx=".4" cy=".35" r=".7">
+        <stop offset="0" stop-color="#c7404d"/><stop offset=".6" stop-color="#7f0d1a"/><stop offset="1" stop-color="#4c0610"/>
+      </radialGradient>
       <g id="desenho-laco">
-        <!-- pontas da fita -->
-        <path d="M92 70 L60 132 L74 126 L82 138 L100 76 Z" fill="url(#ouro-escuro)"/>
-        <path d="M108 70 L140 132 L126 126 L118 138 L100 76 Z" fill="url(#ouro-escuro)"/>
-        <!-- laçadas -->
-        <path d="M100 66 C70 20 14 18 12 52 C10 86 66 90 100 70 Z" fill="url(#ouro)" stroke="#a97b1f" stroke-width="2"/>
-        <path d="M100 66 C130 20 186 18 188 52 C190 86 134 90 100 70 Z" fill="url(#ouro)" stroke="#a97b1f" stroke-width="2"/>
-        <path d="M96 66 C76 42 38 38 32 54" fill="none" stroke="#fff3c4" stroke-width="3" stroke-linecap="round" opacity=".7"/>
-        <path d="M104 66 C124 42 162 38 168 54" fill="none" stroke="#fff3c4" stroke-width="3" stroke-linecap="round" opacity=".7"/>
-        <!-- nó -->
-        <ellipse cx="100" cy="68" rx="15" ry="13" fill="url(#ouro)" stroke="#a97b1f" stroke-width="2"/>
+        <!-- pontas com corte em V -->
+        <path d="M93 76 C86 98 74 118 60 136 L77 131 L84 141 C95 121 101 99 103 79 Z" fill="url(#vinho-ponta)" stroke="#3e050c" stroke-width="1.2"/>
+        <path d="M107 76 C114 98 126 118 140 136 L123 131 L116 141 C105 121 99 99 97 79 Z" fill="url(#vinho-ponta)" stroke="#3e050c" stroke-width="1.2"/>
+        <!-- laçadas cheias e arredondadas -->
+        <path d="M100 64 C86 28 54 8 27 20 C5 30 7 64 29 79 C50 92 82 84 100 71 Z" fill="url(#vinho)" stroke="#3e050c" stroke-width="1.2"/>
+        <path d="M100 64 C114 28 146 8 173 20 C195 30 193 64 171 79 C150 92 118 84 100 71 Z" fill="url(#vinho)" stroke="#3e050c" stroke-width="1.2"/>
+        <!-- dobra interna (dá volume) -->
+        <path d="M100 67 C86 47 60 34 40 39 C55 53 78 63 100 69 Z" fill="#3e050c" opacity=".5"/>
+        <path d="M100 67 C114 47 140 34 160 39 C145 53 122 63 100 69 Z" fill="#3e050c" opacity=".5"/>
+        <!-- brilho acetinado -->
+        <path d="M90 52 C76 30 52 18 32 26" fill="none" stroke="#ffd9dd" stroke-width="3.2" stroke-linecap="round" opacity=".38"/>
+        <path d="M110 52 C124 30 148 18 168 26" fill="none" stroke="#ffd9dd" stroke-width="3.2" stroke-linecap="round" opacity=".38"/>
+        <path d="M22 50 C22 62 30 72 44 77" fill="none" stroke="#ffd9dd" stroke-width="2" stroke-linecap="round" opacity=".22"/>
+        <path d="M178 50 C178 62 170 72 156 77" fill="none" stroke="#ffd9dd" stroke-width="2" stroke-linecap="round" opacity=".22"/>
+        <!-- nó central -->
+        <path d="M87 56 Q100 49 113 56 Q118 68 113 81 Q100 87 87 81 Q82 68 87 56 Z" fill="url(#vinho-no)" stroke="#3e050c" stroke-width="1.2"/>
+        <path d="M91 59 Q100 55 108 59" fill="none" stroke="#ffd9dd" stroke-width="2" stroke-linecap="round" opacity=".45"/>
       </g>
     </defs>
   </svg>
