@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sazonal | Prissila Kieski</title>
   <meta name="description" content="Vídeos sazonais de Prissila Kieski: campanhas de Natal e Black Friday.">
-  <meta name="theme-color" content="#faf7fb">
+  <meta name="theme-color" content="#0f4d2c">
 
   <!-- Fontes do Google: Anton (títulos) e Archivo (corpo), as mesmas do portfólio -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,152 +13,272 @@
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <style>
+    /* Paleta de Natal americano: vermelho, verde e dourado */
     :root {
-      --fundo: #faf7fb;
-      --superficie: #ffffff;
-      --superficie-2: #f6ecf8;
-      --texto: #17141c;
-      --texto-suave: #5b5566;
-      --escuro: #17141c;
-      --neon: #e07bf5;              /* lilás neon */
-      --neon-texto: #a23bbf;
-      --verde-neon: #c6f36b;        /* verde lima aceso */
-      --verde-texto: #4e7a1c;
-      --borda: rgba(23, 20, 28, .1);
+      --vermelho: #a50f1a;
+      --vermelho-escuro: #7a0a12;
+      --verde: #0f4d2c;
+      --verde-claro: #1f7a3f;
+      --dourado: #e6be5a;
+      --dourado-claro: #f7dd8a;
+      --dourado-escuro: #a97b1f;
+      --creme: #fff8ec;
+      --texto: #2a1a14;
+      --texto-suave: #6b5446;
       --titulo: "Anton", "Impact", "Arial Narrow", sans-serif;
       --corpo: "Archivo", system-ui, -apple-system, "Segoe UI", sans-serif;
       --gutter: clamp(16px, 4vw, 40px);
     }
     *, *::before, *::after { box-sizing: border-box; }
-    html { scroll-behavior: smooth; overflow-x: clip; background: var(--fundo); }
-    body { margin: 0; color: var(--texto); font-family: var(--corpo); line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: clip; }
+    html { scroll-behavior: smooth; overflow-x: clip; }
+    body {
+      margin: 0; color: var(--texto); font-family: var(--corpo); line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: clip;
+      /* xadrez vermelho (tartan) com listras verdes e fios dourados */
+      background-color: var(--vermelho);
+      background-image:
+        repeating-linear-gradient(0deg, rgba(0, 0, 0, .22) 0 28px, transparent 28px 56px),
+        repeating-linear-gradient(90deg, rgba(0, 0, 0, .22) 0 28px, transparent 28px 56px),
+        repeating-linear-gradient(0deg, transparent 0 11px, rgba(15, 77, 44, .6) 11px 16px, transparent 16px 56px),
+        repeating-linear-gradient(90deg, transparent 0 11px, rgba(15, 77, 44, .6) 11px 16px, transparent 16px 56px),
+        repeating-linear-gradient(0deg, transparent 0 40px, rgba(230, 190, 90, .55) 40px 41px, transparent 41px 56px),
+        repeating-linear-gradient(90deg, transparent 0 40px, rgba(230, 190, 90, .55) 40px 41px, transparent 41px 56px);
+      background-attachment: fixed;
+    }
     a { color: inherit; }
     h1, h2, h3 { margin: 0; font-weight: 400; }
     p { margin: 0; }
-    :focus-visible { outline: 2px solid var(--neon-texto); outline-offset: 3px; }
-    .container { width: 100%; max-width: 1240px; margin-inline: auto; padding-inline: var(--gutter); }
+    :focus-visible { outline: 2px solid var(--dourado); outline-offset: 3px; }
+    .container { position: relative; z-index: 2; width: 100%; max-width: 1180px; margin-inline: auto; padding-inline: var(--gutter); }
 
-    /* Barra superior verde lima, igual ao portfólio */
+    /* Barra superior verde com detalhe dourado */
     .topo {
-      position: sticky; top: 0; z-index: 50; height: 64px;
-      background: linear-gradient(90deg, rgba(222, 248, 172, .96), rgba(205, 244, 140, .96));
-      box-shadow: 0 4px 30px rgba(198, 243, 107, .45);
+      position: sticky; top: 0; z-index: 60; height: 64px; background: var(--verde);
+      border-bottom: 3px solid var(--dourado); box-shadow: 0 6px 24px rgba(0, 0, 0, .35);
     }
     .topo .container { height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
-    .logo { font-family: var(--titulo); font-size: 1.45rem; letter-spacing: .06em; text-transform: uppercase; text-decoration: none; }
+    .logo { font-family: var(--titulo); font-size: 1.45rem; letter-spacing: .06em; text-transform: uppercase; text-decoration: none; color: var(--dourado-claro); }
     .voltar {
       display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 999px; text-decoration: none;
-      font-weight: 600; font-size: .68rem; letter-spacing: .16em; text-transform: uppercase;
-      background: rgba(255, 255, 255, .62); border: 1px solid rgba(224, 123, 245, .5);
-      transition: color .3s ease, border-color .3s ease, box-shadow .3s ease, background-color .3s ease;
+      font-weight: 700; font-size: .68rem; letter-spacing: .16em; text-transform: uppercase;
+      color: var(--verde); background: linear-gradient(180deg, var(--dourado-claro), var(--dourado));
+      box-shadow: 0 0 12px rgba(230, 190, 90, .5);
+      transition: transform .45s cubic-bezier(.34, 1.7, .5, 1), box-shadow .3s ease;
     }
-    .voltar:hover, .voltar:focus-visible { color: var(--neon-texto); background: #fff; border-color: var(--neon); box-shadow: 0 0 12px rgba(224, 123, 245, .55); }
+    .voltar:hover, .voltar:focus-visible { transform: translateY(-3px); box-shadow: 0 0 18px rgba(247, 221, 138, .9); }
+
+    /* Fita dourada descendo pela lateral, com o laço no alto */
+    .fita {
+      position: fixed; top: 0; bottom: 0; left: clamp(10px, 5vw, 70px); width: clamp(16px, 2.4vw, 34px); z-index: 1; pointer-events: none;
+      background: linear-gradient(90deg, var(--dourado-escuro) 0%, var(--dourado-claro) 35%, var(--dourado) 55%, var(--dourado-escuro) 100%);
+      box-shadow: 0 0 14px rgba(0, 0, 0, .35);
+    }
+    .laco {
+      position: fixed; top: 74px; left: calc(clamp(10px, 5vw, 70px) + clamp(16px, 2.4vw, 34px) / 2); z-index: 3; pointer-events: none;
+      width: clamp(96px, 12vw, 170px); transform: translateX(-50%); filter: drop-shadow(0 8px 10px rgba(0, 0, 0, .35));
+      animation: laco-balanca 4s ease-in-out infinite; transform-origin: 50% 30%;
+    }
+    @keyframes laco-balanca { 0%, 100% { rotate: -3deg; } 50% { rotate: 3deg; } }
+
+    /* Painéis creme com borda dourada, como cartão de presente */
+    .painel {
+      position: relative; background: var(--creme); border-radius: 16px;
+      border: 2px solid var(--dourado); outline: 1px solid var(--dourado-escuro); outline-offset: -8px;
+      box-shadow: 0 24px 50px rgba(0, 0, 0, .35);
+      padding: clamp(26px, 5vw, 56px);
+    }
 
     /* Abertura */
-    .abertura { padding: clamp(56px, 9vw, 110px) 0 clamp(28px, 5vw, 48px); text-align: center; }
+    .abertura { padding: clamp(40px, 7vw, 80px) 0 clamp(22px, 4vw, 36px); }
+    .abertura .painel { text-align: center; }
     .kicker {
-      display: inline-block; padding: 6px 12px 5px; margin-bottom: 18px;
-      font-weight: 600; font-size: .72rem; letter-spacing: .28em; text-transform: uppercase;
-      color: var(--verde-texto); background: rgba(198, 243, 107, .2); border: 1px solid #b8e86a;
+      display: inline-block; padding: 6px 14px 5px; margin-bottom: 16px; border-radius: 999px;
+      font-weight: 700; font-size: .72rem; letter-spacing: .28em; text-transform: uppercase;
+      color: var(--creme); background: var(--verde); border: 1px solid var(--dourado);
     }
     .abertura h1 {
-      font-family: var(--titulo); text-transform: uppercase; font-size: clamp(3.4rem, 12vw, 8rem); line-height: .9;
-      color: #b829b8;
-      text-shadow: 0 0 4px rgba(255, 170, 240, .9), 0 0 14px rgba(224, 123, 245, .85), 0 0 34px rgba(224, 123, 245, .55);
-      animation: neon-pisca 7s infinite;
+      font-family: var(--titulo); text-transform: uppercase; font-size: clamp(3.4rem, 12vw, 8rem); line-height: .9; letter-spacing: .02em;
+      color: var(--vermelho);
+      text-shadow: 3px 3px 0 var(--dourado), 6px 6px 0 rgba(15, 77, 44, .35);
     }
-    @keyframes neon-pisca { 0%, 17%, 21%, 24%, 60%, 64%, 100% { opacity: 1; } 19%, 22.5%, 62% { opacity: .62; } }
-    .abertura p { color: var(--texto-suave); max-width: 560px; margin: 18px auto 0; font-size: 1.05rem; }
-    .atalhos { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+    .abertura p { color: var(--texto-suave); max-width: 560px; margin: 20px auto 0; font-size: 1.05rem; }
+    .atalhos { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
     .atalho {
-      padding: 10px 20px; border-radius: 999px; text-decoration: none;
-      font-weight: 600; font-size: .74rem; letter-spacing: .18em; text-transform: uppercase; color: #8a1fa8;
-      border: 1px solid var(--neon); background: rgba(224, 123, 245, .14);
-      box-shadow: 0 0 10px rgba(224, 123, 245, .45), 0 10px 30px -6px rgba(255, 186, 228, .85);
-      transition: transform .45s cubic-bezier(.34, 1.7, .5, 1), background-color .3s ease, border-color .3s ease, color .3s ease, box-shadow .3s ease;
+      padding: 11px 22px; border-radius: 999px; text-decoration: none;
+      font-weight: 700; font-size: .74rem; letter-spacing: .18em; text-transform: uppercase; color: var(--creme);
+      background: var(--vermelho); border: 2px solid var(--dourado);
+      box-shadow: 0 8px 20px rgba(122, 10, 18, .35), 0 0 18px rgba(230, 190, 90, .45);
+      transition: transform .45s cubic-bezier(.34, 1.7, .5, 1), background-color .3s ease, box-shadow .3s ease;
     }
-    .atalho:hover, .atalho:focus-visible {
-      transform: translateY(-6px) scale(1.07); color: var(--escuro); background: var(--verde-neon); border-color: var(--verde-neon);
-      box-shadow: 0 10px 24px rgba(198, 243, 107, .55), 0 0 18px rgba(198, 243, 107, .85);
-    }
+    .atalho.verde { background: var(--verde); }
+    .atalho:hover, .atalho:focus-visible { transform: translateY(-6px) scale(1.07); box-shadow: 0 12px 26px rgba(0, 0, 0, .3), 0 0 26px rgba(247, 221, 138, .9); }
 
-    /* Seções de campanha */
-    .campanha { padding: clamp(56px, 8vw, 100px) 0; scroll-margin-top: 64px; }
-    .campanha-topo { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 12px 24px; margin-bottom: 30px; }
-    .campanha h2 { font-family: var(--titulo); text-transform: uppercase; font-size: clamp(2.4rem, 6vw, 4.2rem); line-height: 1; }
-    .campanha .desc { color: var(--texto-suave); max-width: 520px; margin-top: 10px; }
+    /* Campanhas */
+    .campanha { padding: clamp(22px, 4vw, 40px) 0; scroll-margin-top: 72px; }
+    .campanha h2 { font-family: var(--titulo); text-transform: uppercase; font-size: clamp(2.4rem, 6vw, 4.2rem); line-height: 1; color: var(--verde); }
+    .campanha h2 span { color: var(--vermelho); }
+    .campanha .desc { color: var(--texto-suave); max-width: 560px; margin-top: 10px; }
     .selo-campanha {
-      display: inline-block; margin-bottom: 12px; padding: 5px 11px 4px; border-radius: 999px;
+      display: inline-block; margin-bottom: 12px; padding: 5px 12px 4px; border-radius: 999px;
       font-weight: 700; font-size: .66rem; letter-spacing: .22em; text-transform: uppercase;
+      color: var(--vermelho-escuro); background: rgba(230, 190, 90, .3); border: 1px solid var(--dourado);
     }
-    #natal .selo-campanha { color: var(--verde-texto); background: rgba(198, 243, 107, .22); border: 1px solid #b8e86a; }
-    #natal h2 span { color: var(--verde-texto); }
+    .campanha-topo { margin-bottom: 28px; }
+    /* Black Friday: painel verde escuro com dourado */
+    #black-friday .painel { background: linear-gradient(160deg, #0c3d23, #072615); color: var(--creme); }
+    #black-friday h2 { color: var(--dourado-claro); text-shadow: 0 0 10px rgba(247, 221, 138, .55); }
+    #black-friday h2 span { color: var(--creme); }
+    #black-friday .desc { color: #d8e6d6; }
+    #black-friday .selo-campanha { color: var(--verde); background: var(--dourado); }
 
-    /* Black Friday no escuro, com neon */
-    #black-friday {
-      --texto: #f6f3f1; --texto-suave: #d6ced3;
-      color: var(--texto);
-      background:
-        radial-gradient(ellipse 55% 60% at 85% 10%, rgba(224, 123, 245, .26), transparent 70%),
-        radial-gradient(ellipse 45% 45% at 5% 100%, rgba(198, 243, 107, .14), transparent 70%),
-        #141118;
-    }
-    #black-friday .selo-campanha { color: var(--verde-neon); border: 1px solid var(--verde-neon); text-shadow: 0 0 8px rgba(198, 243, 107, .8); }
-    #black-friday h2 span { color: #e58cff; text-shadow: 0 0 8px rgba(229, 140, 255, .9), 0 0 22px rgba(229, 140, 255, .6); }
-
-    /* Grade de vídeos 9:16 */
-    .grade { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 200px), 260px)); gap: 22px; padding-top: 10px; }
+    /* Vídeos 9:16 */
+    .grade { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 190px), 250px)); gap: 22px; padding-top: 10px; }
     .card {
-      position: relative; display: block; aspect-ratio: 9 / 16; overflow: hidden; border-radius: 4px;
-      text-decoration: none; color: #fff; background: var(--superficie-2);
+      position: relative; display: block; aspect-ratio: 9 / 16; overflow: hidden; border-radius: 8px;
+      text-decoration: none; color: #fff; background: #f1e3cc; border: 2px solid var(--dourado);
       transition: transform .5s cubic-bezier(.34, 1.6, .5, 1), box-shadow .4s ease;
     }
     .card:hover, .card:focus-visible {
       transform: translateY(-12px) scale(1.05); z-index: 2;
-      box-shadow: 0 0 0 2px var(--verde-neon), 0 0 22px rgba(198, 243, 107, .85), 0 22px 40px rgba(198, 243, 107, .35);
+      box-shadow: 0 0 0 2px var(--dourado-claro), 0 0 24px rgba(247, 221, 138, .9), 0 22px 40px rgba(0, 0, 0, .35);
     }
     .card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; }
     .card .play {
       position: absolute; left: 50%; top: 50%; width: 54px; height: 54px; margin: -27px 0 0 -27px; border-radius: 50%;
-      display: grid; place-items: center; background: rgba(255, 255, 255, .85); transition: background-color .3s ease, transform .3s ease;
+      display: grid; place-items: center; background: rgba(255, 248, 236, .9); transition: background-color .3s ease, transform .3s ease;
     }
-    .card .play svg { width: 22px; height: 22px; margin-left: 3px; fill: var(--escuro); }
-    .card:hover .play { background: var(--verde-neon); transform: scale(1.08); }
-    .card .info { position: absolute; inset: auto 0 0 0; padding: 44px 12px 12px; background: linear-gradient(0deg, rgba(20, 17, 24, .92), rgba(20, 17, 24, .55) 55%, transparent); }
+    .card .play svg { width: 22px; height: 22px; margin-left: 3px; fill: var(--vermelho); }
+    .card:hover .play { background: var(--dourado-claro); transform: scale(1.08); }
+    .card .info { position: absolute; inset: auto 0 0 0; padding: 44px 12px 12px; background: linear-gradient(0deg, rgba(40, 8, 10, .92), rgba(40, 8, 10, .55) 55%, transparent); }
     .card h3 { font-family: var(--titulo); font-size: 1.1rem; text-transform: uppercase; letter-spacing: .02em; transition: color .3s ease; }
-    .card:hover h3 { color: var(--verde-neon); }
+    .card:hover h3 { color: var(--dourado-claro); }
     .card .marca { font-size: .66rem; letter-spacing: .16em; text-transform: uppercase; color: rgba(255, 255, 255, .85); margin-top: 4px; }
 
     /* Espaço reservado enquanto os vídeos não chegam */
     .vazio {
-      display: grid; place-items: center; aspect-ratio: 9 / 16; border-radius: 4px; text-align: center; padding: 18px;
-      border: 1.5px dashed rgba(224, 123, 245, .6); color: var(--texto-suave);
-      font-size: .72rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase;
-      background: rgba(224, 123, 245, .06);
+      display: grid; place-items: center; aspect-ratio: 9 / 16; border-radius: 8px; text-align: center; padding: 18px;
+      border: 2px dashed var(--dourado); color: var(--texto-suave); background: rgba(230, 190, 90, .1);
+      font-size: .72rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase;
     }
-    #black-friday .vazio { border-color: rgba(229, 140, 255, .55); background: rgba(229, 140, 255, .06); }
-    .vazio b { display: block; font-family: var(--titulo); font-weight: 400; font-size: 1.6rem; letter-spacing: .04em; color: var(--neon-texto); margin-bottom: 6px; }
-    #black-friday .vazio b { color: #e58cff; }
+    .vazio b { display: block; font-family: var(--titulo); font-weight: 400; font-size: 1.6rem; letter-spacing: .04em; color: var(--vermelho); margin-bottom: 6px; }
+    .vazio i { display: block; font-style: normal; font-size: 1.8rem; margin-bottom: 6px; }
+    #black-friday .vazio { color: #d8e6d6; background: rgba(230, 190, 90, .08); }
+    #black-friday .vazio b { color: var(--dourado-claro); }
+
+    /* Abertura de presente: tampa com fitas e laço que se abre ao carregar a página */
+    .presente {
+      position: fixed; inset: 0; z-index: 100; pointer-events: none; overflow: hidden;
+    }
+    .presente .tampa {
+      position: absolute; inset: 0;
+      background-color: var(--vermelho);
+      background-image:
+        repeating-linear-gradient(0deg, rgba(0, 0, 0, .22) 0 28px, transparent 28px 56px),
+        repeating-linear-gradient(90deg, rgba(0, 0, 0, .22) 0 28px, transparent 28px 56px),
+        repeating-linear-gradient(0deg, transparent 0 11px, rgba(15, 77, 44, .6) 11px 16px, transparent 16px 56px),
+        repeating-linear-gradient(90deg, transparent 0 11px, rgba(15, 77, 44, .6) 11px 16px, transparent 16px 56px);
+      animation: tampa-sobe 1.1s cubic-bezier(.6, 0, .3, 1) 1.5s forwards;
+    }
+    .presente .fita-h, .presente .fita-v {
+      position: absolute; background: linear-gradient(90deg, var(--dourado-escuro), var(--dourado-claro) 40%, var(--dourado) 60%, var(--dourado-escuro));
+    }
+    .presente .fita-v { top: 0; bottom: 0; left: 50%; width: 46px; margin-left: -23px; animation: fita-v-abre .7s ease-in .9s forwards; }
+    .presente .fita-h {
+      left: 0; right: 0; top: 50%; height: 46px; margin-top: -23px;
+      background: linear-gradient(180deg, var(--dourado-escuro), var(--dourado-claro) 40%, var(--dourado) 60%, var(--dourado-escuro));
+      animation: fita-h-abre .7s ease-in .9s forwards;
+    }
+    .presente .laco-grande {
+      position: absolute; left: 50%; top: 50%; width: min(300px, 60vw); transform: translate(-50%, -58%);
+      filter: drop-shadow(0 12px 16px rgba(0, 0, 0, .4));
+      animation: laco-desfaz .8s ease-in .5s forwards;
+    }
+    .presente .dica {
+      position: absolute; left: 0; right: 0; bottom: 12%; text-align: center; color: var(--creme);
+      font-weight: 700; font-size: .8rem; letter-spacing: .3em; text-transform: uppercase; text-shadow: 0 2px 6px rgba(0, 0, 0, .5);
+      animation: some .4s ease 1.2s forwards;
+    }
+    @keyframes laco-desfaz { to { transform: translate(-50%, -58%) scale(1.5) rotate(-12deg); opacity: 0; } }
+    @keyframes fita-v-abre { to { transform: scaleY(0); opacity: 0; } }
+    @keyframes fita-h-abre { to { transform: scaleX(0); opacity: 0; } }
+    @keyframes tampa-sobe { to { transform: translateY(-105%); } }
+    @keyframes some { to { opacity: 0; } }
+    .presente.aberto { display: none; }
+
+    /* Neve */
+    .neve { position: fixed; inset: 0; z-index: 50; pointer-events: none; overflow: hidden; }
+    .floco {
+      position: absolute; top: -12px; border-radius: 50%; background: #fff;
+      box-shadow: 0 0 6px rgba(255, 255, 255, .8);
+      animation: cair linear infinite;
+    }
+    @keyframes cair {
+      0% { transform: translate(0, -2vh); }
+      50% { transform: translate(var(--deriva, 20px), 52vh); }
+      100% { transform: translate(0, 106vh); }
+    }
 
     /* Player */
-    .janela { width: fit-content; max-width: calc(100vw - 32px); max-height: calc(100vh - 24px); padding: 16px; border: 1px solid var(--borda); background: #fff; overflow: auto; }
-    .janela::backdrop { background: rgba(250, 247, 251, .85); backdrop-filter: blur(6px); }
+    .janela { width: fit-content; max-width: calc(100vw - 32px); max-height: calc(100vh - 24px); padding: 16px; border: 2px solid var(--dourado); border-radius: 12px; background: var(--creme); overflow: auto; }
+    .janela::backdrop { background: rgba(40, 8, 10, .75); backdrop-filter: blur(4px); }
     .janela-topo { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
-    .janela-topo h2 { font-family: var(--titulo); font-size: 1.35rem; text-transform: uppercase; max-width: 22ch; }
-    .fechar { width: 40px; height: 40px; border-radius: 50%; border: 1px solid rgba(23, 20, 28, .2); background: #fff; cursor: pointer; font-size: 1.5rem; line-height: 1; }
-    .fechar:hover { border-color: var(--neon); color: var(--neon-texto); }
+    .janela-topo h2 { font-family: var(--titulo); font-size: 1.35rem; text-transform: uppercase; max-width: 22ch; color: var(--verde); }
+    .fechar { width: 40px; height: 40px; border-radius: 50%; border: 2px solid var(--dourado); background: var(--creme); cursor: pointer; font-size: 1.5rem; line-height: 1; color: var(--vermelho); }
+    .fechar:hover { background: var(--dourado-claro); }
     .moldura { height: min(calc(100vh - 130px), 640px); aspect-ratio: 9 / 16; max-width: calc(100vw - 64px); margin-inline: auto; background: #000; }
     .moldura iframe { width: 100%; height: 100%; border: 0; display: block; }
     .aviso-local { height: 100%; display: grid; place-items: center; padding: 24px; text-align: center; color: #fff; }
 
-    .rodape { padding: 36px 0; text-align: center; color: var(--texto-suave); font-size: .8rem; }
+    .rodape { position: relative; z-index: 2; padding: 30px 0 40px; text-align: center; color: var(--creme); font-size: .8rem; text-shadow: 0 1px 4px rgba(0, 0, 0, .6); }
 
+    @media (max-width: 700px) {
+      .container { padding-left: calc(var(--gutter) + 18px); }   /* espaço para a fita da lateral */
+      .laco { top: 70px; }
+    }
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation: none !important; transition-duration: .01ms !important; }
+      .presente, .neve { display: none; }
     }
   </style>
 </head>
 <body>
+  <!-- Abertura: a página "abre" como uma caixa de presente -->
+  <div class="presente" id="presente" aria-hidden="true">
+    <div class="tampa">
+      <div class="fita-v"></div>
+      <div class="fita-h"></div>
+      <svg class="laco-grande" viewBox="0 0 200 140"><use href="#desenho-laco"/></svg>
+      <p class="dica">Abrindo seu presente</p>
+    </div>
+  </div>
+
+  <!-- Desenho do laço (usado na abertura e na lateral) -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <linearGradient id="ouro" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#fbe7a1"/><stop offset=".45" stop-color="#e6be5a"/><stop offset="1" stop-color="#a97b1f"/>
+      </linearGradient>
+      <linearGradient id="ouro-escuro" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#d4a640"/><stop offset="1" stop-color="#8a6216"/>
+      </linearGradient>
+      <g id="desenho-laco">
+        <!-- pontas da fita -->
+        <path d="M92 70 L60 132 L74 126 L82 138 L100 76 Z" fill="url(#ouro-escuro)"/>
+        <path d="M108 70 L140 132 L126 126 L118 138 L100 76 Z" fill="url(#ouro-escuro)"/>
+        <!-- laçadas -->
+        <path d="M100 66 C70 20 14 18 12 52 C10 86 66 90 100 70 Z" fill="url(#ouro)" stroke="#a97b1f" stroke-width="2"/>
+        <path d="M100 66 C130 20 186 18 188 52 C190 86 134 90 100 70 Z" fill="url(#ouro)" stroke="#a97b1f" stroke-width="2"/>
+        <path d="M96 66 C76 42 38 38 32 54" fill="none" stroke="#fff3c4" stroke-width="3" stroke-linecap="round" opacity=".7"/>
+        <path d="M104 66 C124 42 162 38 168 54" fill="none" stroke="#fff3c4" stroke-width="3" stroke-linecap="round" opacity=".7"/>
+        <!-- nó -->
+        <ellipse cx="100" cy="68" rx="15" ry="13" fill="url(#ouro)" stroke="#a97b1f" stroke-width="2"/>
+      </g>
+    </defs>
+  </svg>
+
+  <div class="fita" aria-hidden="true"></div>
+  <svg class="laco" viewBox="0 0 200 140" aria-hidden="true"><use href="#desenho-laco"/></svg>
+  <div class="neve" id="neve" aria-hidden="true"></div>
+
   <header class="topo">
     <div class="container">
       <a class="logo" href="index.html">Portfólio</a>
@@ -169,39 +289,41 @@
   <main>
     <section class="abertura">
       <div class="container">
-        <p class="kicker">Campanhas sazonais</p>
-        <h1>Sazonal</h1>
-        <p>Vídeos pensados para as datas que mais vendem no ano, com o mesmo cuidado de sempre e o clima de cada campanha.</p>
-        <nav class="atalhos" aria-label="Campanhas">
-          <a class="atalho" href="#natal">Natal</a>
-          <a class="atalho" href="#black-friday">Black Friday</a>
-        </nav>
+        <div class="painel">
+          <p class="kicker">Campanhas sazonais</p>
+          <h1>Sazonal</h1>
+          <p>Vídeos pensados para as datas que mais vendem no ano, com o mesmo cuidado de sempre e o clima de cada campanha.</p>
+          <nav class="atalhos" aria-label="Campanhas">
+            <a class="atalho" href="#natal">Natal</a>
+            <a class="atalho verde" href="#black-friday">Black Friday</a>
+          </nav>
+        </div>
       </div>
     </section>
 
     <section class="campanha" id="natal" aria-labelledby="titulo-natal">
       <div class="container">
-        <div class="campanha-topo">
-          <div>
+        <div class="painel">
+          <div class="campanha-topo">
             <span class="selo-campanha">Campanha de fim de ano</span>
             <h2 id="titulo-natal"><span>Natal</span></h2>
             <p class="desc" id="descNatal"></p>
           </div>
+          <div class="grade" id="gradeNatal"></div>
         </div>
-        <div class="grade" id="gradeNatal"></div>
       </div>
     </section>
 
     <section class="campanha" id="black-friday" aria-labelledby="titulo-bf">
       <div class="container">
-        <div class="campanha-topo">
-          <div>
+        <div class="painel">
+          <div class="campanha-topo">
             <span class="selo-campanha">Oferta relâmpago</span>
             <h2 id="titulo-bf"><span>Black</span> Friday</h2>
             <p class="desc" id="descBF"></p>
           </div>
+          <div class="grade" id="gradeBF"></div>
         </div>
-        <div class="grade" id="gradeBF"></div>
       </div>
     </section>
   </main>
@@ -254,7 +376,7 @@
     function montar(grade, lista) {
       const validos = lista.filter((v) => idYoutube(v.video));
       if (!validos.length) {
-        grade.innerHTML = [1, 2, 3].map(() => `<div class="vazio"><div><b>Em breve</b>Vídeos chegando</div></div>`).join("");
+        grade.innerHTML = [1, 2, 3].map(() => `<div class="vazio"><div><i aria-hidden="true">🎁</i><b>Em breve</b>Vídeos chegando</div></div>`).join("");
         return;
       }
       grade.innerHTML = validos.map((v) => {
@@ -272,6 +394,22 @@
     montar($("#gradeNatal"), SAZONAL.natal.itens);
     montar($("#gradeBF"), SAZONAL.blackFriday.itens);
     $("#direitos").textContent = `© ${new Date().getFullYear()} PRISSILA KIESKI · UGC · Micro influ`;
+
+    // Abertura de presente: some depois da animação
+    setTimeout(() => $("#presente").classList.add("aberto"), 2800);
+
+    // Neve caindo: flocos de tamanhos, velocidades e desvios diferentes
+    const movimentoReduzido = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (!movimentoReduzido) {
+      const neve = $("#neve");
+      const qtd = window.innerWidth < 600 ? 40 : 80;
+      let flocos = "";
+      for (let i = 0; i < qtd; i++) {
+        const tam = (2 + Math.random() * 5).toFixed(1);
+        flocos += `<span class="floco" style="left:${(Math.random() * 100).toFixed(2)}%;width:${tam}px;height:${tam}px;opacity:${(0.45 + Math.random() * 0.5).toFixed(2)};--deriva:${(Math.random() * 60 - 30).toFixed(0)}px;animation-duration:${(8 + Math.random() * 12).toFixed(1)}s;animation-delay:-${(Math.random() * 20).toFixed(1)}s"></span>`;
+      }
+      neve.innerHTML = flocos;
+    }
 
     // Player: o vídeo toca dentro da página
     const janela = $("#janela"), moldura = $("#moldura");
