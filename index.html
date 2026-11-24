@@ -232,7 +232,19 @@
       display: inline-flex; align-items: center; gap: 12px; margin-bottom: 22px;
       font-weight: 500; font-size: .76rem; letter-spacing: .26em; text-transform: uppercase; color: var(--salvia);
     }
-    .selo b { font-weight: 700; color: var(--escuro); background: var(--neon); padding: 5px 10px 4px; letter-spacing: .22em; font-size: .74rem; }
+    /* UGC como letreiro de neon: tubo de luz rosa-lilás que pisca de vez em quando */
+    .selo b {
+      font-family: var(--titulo); font-weight: 400; font-size: 1.15rem; letter-spacing: .22em; line-height: 1;
+      padding: 7px 10px 6px 14px; border: 2px solid #ffc4f2; border-radius: 6px; background: transparent;
+      color: #fff2fc;
+      text-shadow: 0 0 4px #fff, 0 0 10px #f7a6f0, 0 0 22px #e07bf5, 0 0 44px #e07bf5;
+      box-shadow: 0 0 6px #ffd6f5, 0 0 16px rgba(224, 123, 245, .85), 0 0 36px rgba(224, 123, 245, .5), inset 0 0 12px rgba(224, 123, 245, .55);
+      animation: letreiro 5s infinite;
+    }
+    @keyframes letreiro {
+      0%, 8%, 10%, 12%, 46%, 50%, 100% { opacity: 1; filter: none; }
+      9%, 11%, 48% { opacity: .35; filter: saturate(.5); }
+    }
     .capa h1 {
       font-family: var(--titulo); text-transform: uppercase; font-weight: 500; color: #ffffff;
       font-size: clamp(3.3rem, 10.5vw, 9rem); line-height: .9; letter-spacing: -0.015em;
@@ -541,12 +553,7 @@
     /* TikTok Shop */
     .tts-topo { display: grid; grid-template-columns: 1.1fr .9fr; gap: clamp(24px, 5vw, 64px); align-items: end; margin-bottom: clamp(20px, 4vw, 36px); }
     .tts-topo .cabecalho-secao { margin-bottom: 0; }
-    /* Título do TikTok Shop aceso em neon, com a trepadeira enroscada */
-    .tts-titulo { position: relative; display: inline-block; padding: 22px 12px; margin: -22px -12px; }
-    .tts-titulo .vinha { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
-    .tts-titulo .vinha-tras { z-index: 0; opacity: .6; }
-    .tts-titulo .vinha-frente { z-index: 2; }
-    .tts-titulo .tts-neon { position: relative; z-index: 1; }
+    /* Título do TikTok Shop aceso em neon */
     .tts-neon {
       color: #b829b8;
       text-shadow: 0 0 4px rgba(255, 170, 240, .9), 0 0 14px rgba(224, 123, 245, .85), 0 0 34px rgba(224, 123, 245, .55), 0 0 60px rgba(224, 123, 245, .3);
@@ -728,6 +735,15 @@
       .revelar { opacity: 1; transform: none; }
     }
 
+    /* Luz indireta rosa bem clarinha atrás dos botões, como as fitas de LED de um setup gamer */
+    .btn, .seta, .botao-contato, .redes a, .fechar-video {
+      box-shadow: 0 10px 34px -6px rgba(255, 186, 228, .85), 0 0 46px 6px rgba(255, 208, 238, .5);
+    }
+    .filtro {
+      box-shadow: 0 0 10px rgba(224, 123, 245, .45), inset 0 0 8px rgba(224, 123, 245, .18),
+                  0 10px 30px -6px rgba(255, 186, 228, .85), 0 0 40px 4px rgba(255, 208, 238, .45);
+    }
+    .capa .btn { box-shadow: 0 10px 40px -4px rgba(255, 186, 228, .55), 0 0 60px 10px rgba(255, 190, 235, .22); }
     /* ==========================================================
        RESPONSIVO
        ========================================================== */
@@ -1435,59 +1451,10 @@
     /* ---------- TikTok Shop ---------- */
     const tts = CONFIG.tiktokShop;
     $("#ttsCabecalho").innerHTML = `<p class="tts-selo">${icones.carrinho} ${esc(tts.selo)}</p>
-      <div class="tts-titulo">
-        <svg class="vinha vinha-tras" aria-hidden="true"></svg>
-        <h2 class="titulo-secao tts-neon" id="titulo-tiktokshop">${esc(tts.titulo)}</h2>
-        <svg class="vinha vinha-frente" aria-hidden="true"></svg>
-      </div>
+      <h2 class="titulo-secao tts-neon" id="titulo-tiktokshop">${esc(tts.titulo)}</h2>
       <p class="sub-secao">${esc(tts.texto)}</p>`;
 
-    // Trepadeira de jiboia enroscada no título do TikTok Shop: passa por trás e pela frente das letras
-    function desenharVinha() {
-      const caixa = document.querySelector(".tts-titulo");
-      if (!caixa) return;
-      const w = caixa.offsetWidth, h = caixa.offsetHeight;
-      if (!w || !h) return;
-      const P = Math.max(150, Math.min(240, w / 4));          // largura de cada volta
-      const A = h / 2 + 4;                                     // a volta abraça o título inteiro
-      const yEm = (x) => h / 2 + A * Math.sin((2 * Math.PI * x) / P);
-      const naFrente = (x) => Math.cos((2 * Math.PI * x) / P) > 0;   // descendo = na frente das letras
-      const camadas = { frente: { fio: [], folhas: "", luzes: "" }, tras: { fio: [], folhas: "", luzes: "" } };
-      let trechoAtual = null, lado = null;
-      for (let x = -12; x <= w + 12; x += 3) {
-        const l = naFrente(x) ? "frente" : "tras";
-        if (l !== lado) { trechoAtual = []; camadas[l].fio.push(trechoAtual); lado = l; }
-        trechoAtual.push(`${x.toFixed(1)} ${yEm(x).toFixed(1)}`);
-      }
-      const cores = ["#7fb84f", "#94c95e", "#a9d871", "#c0e68e", "#6ea845"];
-      const folha = "M0 0 C2 -6 10 -8 14 -4 C16 -2 17 0 19 1 C16 3 13 7 8 7 C3 6 1 4 0 0 Z";
-      let i = 0;
-      for (let x = -6; x <= w + 6; x += 6 + (i % 4)) {
-        i++;
-        const l = naFrente(x) ? "frente" : "tras";
-        const ang = (i % 2 ? -50 : 130) + ((i * 23) % 60);
-        const tam = 0.3 + ((i * 37) % 28) / 100;
-        camadas[l].folhas += `<path d="${folha}" transform="translate(${x.toFixed(1)} ${yEm(x).toFixed(1)}) rotate(${ang}) scale(${tam.toFixed(2)})" fill="${cores[i % cores.length]}"/>`;
-      }
-      let j = 0;
-      for (let x = 4; x <= w; x += 20) {
-        j++;
-        const l = naFrente(x) ? "frente" : "tras";
-        camadas[l].luzes += `<g class="luz" style="animation-delay:-${((j * 0.41) % 3).toFixed(2)}s;animation-duration:${(1.8 + (j % 5) * 0.4).toFixed(2)}s">
-          <circle cx="${x}" cy="${yEm(x).toFixed(1)}" r="9" fill="url(#halo-vinha)"/><circle cx="${x}" cy="${yEm(x).toFixed(1)}" r="1.9" fill="#fffbe3"/></g>`;
-      }
-      const defs = `<defs><radialGradient id="halo-vinha"><stop offset="0" stop-color="#fff1a8"/><stop offset=".3" stop-color="#ffd76a" stop-opacity=".7"/><stop offset="1" stop-color="#ffc94a" stop-opacity="0"/></radialGradient></defs>`;
-      for (const l of ["frente", "tras"]) {
-        const svg = caixa.querySelector(l === "frente" ? ".vinha-frente" : ".vinha-tras");
-        svg.setAttribute("viewBox", `0 0 ${w} ${h}`);
-        const fios = camadas[l].fio.map((t) => `<path d="M${t.join(" L")}" fill="none" stroke="#b8a57c" stroke-width=".9"/>`).join("");
-        svg.innerHTML = (l === "tras" ? defs : "") + fios + camadas[l].folhas + camadas[l].luzes;
-      }
-    }
-    desenharVinha();
-    if (document.fonts) document.fonts.ready.then(desenharVinha);
-    let esperaVinha;
-    window.addEventListener("resize", () => { clearTimeout(esperaVinha); esperaVinha = setTimeout(desenharVinha, 200); });
+
     $("#ttsLista").innerHTML = tts.diferenciais.map((d) => `<li>${icones.check}<span>${esc(d)}</span></li>`).join("");
     $("#ttsTrilho").innerHTML = tts.itens.map((t) => cardTrabalho({ categoria: tts.selo, ...t })).join("");
 
