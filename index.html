@@ -79,7 +79,7 @@
     /* Buquê da capa em 3 camadas, cada uma balança num ritmo (efeito de brisa) */
     .capa-buque {
       position: absolute; top: 0; left: 0; z-index: 0; pointer-events: none;
-      width: min(60vw, 880px); aspect-ratio: 1000 / 1100; opacity: .45;
+      width: min(52vw, 760px); aspect-ratio: 1000 / 1100; opacity: .32;
       -webkit-mask-image: radial-gradient(ellipse 100% 100% at 0% 0%, #000 52%, transparent 100%);
               mask-image: radial-gradient(ellipse 100% 100% at 0% 0%, #000 52%, transparent 100%);
     }
@@ -87,7 +87,7 @@
     .capa-buque img:nth-child(2) { animation: brisa-b 9s ease-in-out -2s infinite; }
     .capa-buque img:nth-child(3) { animation-duration: 10s; animation-delay: -5s; }
     .capa > .container, .capa > .faixa-marcas { position: relative; z-index: 1; }
-    .capa .selo, .capa h1, .capa .frase, .capa-numeros { text-shadow: 0 0 22px rgba(255, 255, 255, .95), 0 0 3px rgba(255, 255, 255, .9); }
+    .capa .selo, .capa .frase, .capa-numeros { text-shadow: 0 2px 24px rgba(0, 0, 0, .85); }
     /* "Micro influ" em rosa neon, aceso */
     .capa .selo-micro { color: var(--neon-texto); font-weight: 700; text-shadow: var(--brilho); }
 
@@ -166,7 +166,7 @@
     .btn svg { width: 16px; height: 16px; flex-shrink: 0; fill: currentColor; }
     .btn-vermelho { background: var(--neon); border-color: var(--neon); color: var(--escuro); }
     .btn-vermelho:hover, .btn-vermelho:focus-visible {
-      background: var(--texto); border-color: var(--texto); color: #fff;
+      background: var(--btn-hover-bg, #141214); border-color: var(--btn-hover-bg, #141214); color: var(--btn-hover-cor, #fff);
       box-shadow: 0 0 30px rgba(255, 45, 149, .7);
     }
     .btn-cinza { background: transparent; color: var(--texto); border-color: var(--texto); }
@@ -179,13 +179,16 @@
     /* ==========================================================
        1. CAPA
        ========================================================== */
+    /* Barra superior em verde botânico */
     .topo {
       position: fixed; inset: 0 0 auto 0; z-index: 100; height: var(--header-h);
-      background: rgba(246, 243, 241, .7);
+      --texto: #ffffff; --neon-texto: #ffd0e6; --milk: #f1e4f5;
+      --brilho: 0 0 10px rgba(255, 45, 149, .9), 0 0 24px rgba(255, 45, 149, .55);
+      background: rgba(75, 104, 68, .94);
       backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
       transition: background-color .3s ease, box-shadow .3s ease;
     }
-    .topo.rolado { background-color: rgba(246, 243, 241, .95); box-shadow: 0 1px 0 var(--borda); }
+    .topo.rolado { background-color: rgba(64, 90, 58, .98); box-shadow: 0 6px 24px rgba(20, 18, 20, .18); }
     .topo .container { height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
     .logo {
       font-family: var(--titulo); font-size: 1.55rem; font-weight: 500; letter-spacing: .06em;
@@ -200,7 +203,7 @@
       color: var(--texto); transition: color .3s ease, text-shadow .3s ease;
     }
     .menu a:hover, .menu a:focus-visible { color: var(--neon-texto); text-shadow: var(--brilho); }
-    .menu a.ativo { color: var(--milk); }
+    .menu a.ativo { color: var(--milk); box-shadow: inset 0 -2px 0 var(--neon); }
     .btn-menu { display: none; width: 46px; height: 46px; border: 0; background: transparent; cursor: pointer; position: relative; }
     .btn-menu span, .btn-menu span::before, .btn-menu span::after {
       position: absolute; left: 11px; width: 24px; height: 1.5px; background: var(--texto);
@@ -213,45 +216,60 @@
     .btn-menu[aria-expanded="true"] span::before { transform: translateY(8px) rotate(45deg); }
     .btn-menu[aria-expanded="true"] span::after { transform: translateY(-8px) rotate(-45deg); }
 
+    /* Capa: preto translúcido, com cores próprias para o texto claro */
     .capa {
+      --texto: #f6f3f1; --texto-suave: #d6ced3; --borda: rgba(255, 255, 255, .16);
+      --milk: #d2bfd8; --neon-texto: #ff4fa3; --salvia: #a9bf9c;
+      --brilho: 0 0 10px rgba(255, 45, 149, .75), 0 0 28px rgba(255, 45, 149, .5);
+      --btn-hover-bg: #ffffff; --btn-hover-cor: #141214;
+      --lilas-neon: #c77dff; --lilas-brilho: 0 0 8px rgba(199, 125, 255, .9), 0 0 22px rgba(199, 125, 255, .6), 0 0 44px rgba(199, 125, 255, .35);
+      color: var(--texto);
       position: relative; min-height: 100vh; min-height: 100svh;
       display: flex; flex-direction: column; justify-content: flex-end;
       padding-top: calc(var(--header-h) + 36px);
-      background:
-        radial-gradient(ellipse 50% 50% at 80% 40%, rgba(247, 221, 228, .10), transparent 70%),
-        radial-gradient(ellipse 40% 40% at 5% 95%, rgba(169, 187, 165, .10), transparent 70%);
+      background: rgba(14, 12, 14, .86);
       overflow: hidden;
     }
-    .capa-grade {
-      display: block; padding-bottom: clamp(40px, 6vw, 72px);
-    }
+    .capa-grade { display: block; padding-bottom: clamp(40px, 6vw, 72px); }
     .selo {
       display: inline-flex; align-items: center; gap: 12px; margin-bottom: 22px;
       font-weight: 500; font-size: .76rem; letter-spacing: .26em; text-transform: uppercase; color: var(--salvia);
     }
     .selo b { font-weight: 700; color: var(--escuro); background: var(--neon); padding: 5px 10px 4px; letter-spacing: .22em; font-size: .74rem; }
     .capa h1 {
-      font-family: var(--titulo); text-transform: uppercase; font-weight: 500;
+      font-family: var(--titulo); text-transform: uppercase; font-weight: 500; color: #ffffff;
       font-size: clamp(3.3rem, 10.5vw, 9rem); line-height: .9; letter-spacing: -0.015em;
     }
     .capa h1 span { transition: color .35s ease, text-shadow .35s ease; }
     .capa h1 span:hover { color: var(--neon-texto); text-shadow: var(--brilho); }
-    .capa h1 .linha-2 { display: inline-block; color: var(--neon); padding-right: .08em; }
+    /* KIESKI em lilás neon */
+    .capa h1 .linha-2 { display: inline-block; color: var(--lilas-neon); text-shadow: var(--lilas-brilho); padding-right: .08em; }
+    .capa h1 .linha-2:hover { color: #e2b8ff; text-shadow: 0 0 12px rgba(199, 125, 255, 1), 0 0 34px rgba(199, 125, 255, .8), 0 0 60px rgba(199, 125, 255, .5); }
     .capa .frase { margin-top: 28px; max-width: 540px; font-size: clamp(1.05rem, 2vw, 1.22rem); color: var(--texto-suave); line-height: 1.7; }
     .capa .frase strong { color: var(--milk); font-weight: 600; transition: color .3s ease, text-shadow .3s ease; }
     .capa .frase strong:hover { color: var(--neon-texto); text-shadow: var(--brilho); }
     .capa .frase .local { color: var(--salvia); white-space: nowrap; }
     .capa-botoes { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 34px; }
+
+    /* Métricas da capa: ganham destaque forte ao passar o mouse */
     .capa-numeros {
       display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px;
       margin-top: 48px; max-width: 560px; border-top: 1px solid var(--borda); padding-top: 24px;
+    }
+    .capa-numeros li { position: relative; padding-bottom: 10px; transform-origin: left bottom; transition: transform .4s cubic-bezier(.2, .7, .2, 1); }
+    .capa-numeros li::after {
+      content: ""; position: absolute; left: 0; bottom: 0; height: 2px; width: 100%;
+      background: var(--neon); box-shadow: 0 0 12px var(--neon); transform: scaleX(0); transform-origin: left; transition: transform .45s ease;
     }
     .capa-numeros strong {
       display: block; font-family: var(--titulo); font-weight: 500; color: var(--milk);
       font-size: clamp(1.8rem, 4vw, 2.6rem); line-height: 1.05; transition: color .3s ease, text-shadow .3s ease;
     }
+    .capa-numeros li:hover { transform: translateY(-6px) scale(1.14); }
+    .capa-numeros li:hover::after { transform: scaleX(1); }
     .capa-numeros li:hover strong { color: var(--neon-texto); text-shadow: var(--brilho); }
-    .capa-numeros span { font-size: .72rem; letter-spacing: .16em; text-transform: uppercase; color: var(--texto-suave); }
+    .capa-numeros li:hover span { color: var(--texto); }
+    .capa-numeros span { font-size: .72rem; letter-spacing: .16em; text-transform: uppercase; color: var(--texto-suave); transition: color .3s ease; }
 
     /* Foto da capa integrada: ocupa o lado direito e se funde com o fundo pelas bordas */
     .capa-texto { max-width: min(640px, 54%); }
@@ -261,30 +279,42 @@
       -webkit-mask-composite: source-in; mask-composite: intersect;
       mask-image: linear-gradient(to right, transparent 0%, #000 40%), linear-gradient(to top, transparent 0%, #000 30%);
     }
-    .capa-foto .midia { width: 100%; height: 100%; object-fit: cover; object-position: 50% 32%; filter: saturate(.95); }
+    /* mais contraste e nitidez na foto da capa */
+    .capa-foto .midia { width: 100%; height: 100%; object-fit: cover; object-position: 50% 32%; filter: contrast(1.14) saturate(1.08) brightness(1.03); image-rendering: -webkit-optimize-contrast; }
     .capa-foto .iniciais {
       position: absolute; inset: 0; display: grid; place-items: center; z-index: 2;
       font-family: var(--titulo); font-size: clamp(6rem, 16vw, 11rem); color: rgba(255,255,255,.5); pointer-events: none;
     }
-    .faixa-marcas { background: transparent; overflow: hidden; position: relative; }
+
+    /* "Já trabalhei com": faixa em lilás neon, estilo gamer */
+    .faixa-marcas {
+      position: relative; overflow: hidden; background: #0b0a0d;
+      border-top: 1px solid rgba(199, 125, 255, .55); border-bottom: 1px solid rgba(199, 125, 255, .55);
+      box-shadow: 0 0 18px rgba(199, 125, 255, .35), inset 0 0 22px rgba(199, 125, 255, .12);
+    }
+    .faixa-marcas::after {
+      /* linhas de tela de monitor (scanlines) */
+      content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 1;
+      background: repeating-linear-gradient(0deg, rgba(255, 255, 255, .035) 0 1px, transparent 1px 3px);
+    }
     .faixa-marcas .rotulo {
       position: absolute; left: 0; top: 0; bottom: 0; z-index: 2;
-      display: flex; align-items: center; padding: 0 22px 0 var(--gutter);
-      background: linear-gradient(90deg, var(--fundo) 70%, transparent);
-      font-size: .68rem; font-weight: 600; letter-spacing: .26em; text-transform: uppercase; color: var(--salvia);
+      display: flex; align-items: center; padding: 0 26px 0 var(--gutter);
+      background: linear-gradient(90deg, #0b0a0d 72%, transparent);
+      font-size: .68rem; font-weight: 700; letter-spacing: .26em; text-transform: uppercase; color: var(--neon-texto);
+      text-shadow: var(--brilho);
     }
-    .faixa-trilho { display: flex; width: max-content; animation: deslizar 42s linear infinite; }
+    .faixa-trilho { display: flex; width: max-content; animation: deslizar 60s linear infinite; }
     .faixa-marcas:hover .faixa-trilho { animation-play-state: paused; }
     .faixa-trilho ul { display: flex; }
     .faixa-trilho li {
-      padding: 18px 30px; white-space: nowrap;
-      font-family: var(--titulo); font-size: 1.35rem; letter-spacing: .06em; text-transform: uppercase; color: var(--milk);
-      display: flex; align-items: center; gap: 30px; transition: color .3s ease;
+      padding: 18px 26px; white-space: nowrap;
+      font-family: var(--titulo); font-size: 1.3rem; letter-spacing: .08em; text-transform: uppercase;
+      color: var(--lilas-neon); text-shadow: var(--lilas-brilho);
+      display: flex; align-items: center; gap: 26px; transition: color .3s ease, text-shadow .3s ease;
     }
-    .faixa-trilho li:hover { color: var(--neon-texto); text-shadow: var(--brilho); }
-    .faixa-trilho li::after { content: ""; width: 5px; height: 5px; background: var(--salvia-linha); border-radius: 50%; }
-    .faixa-trilho li:nth-child(even)::after { background: var(--neon); }
-    @keyframes deslizar { to { transform: translateX(-50%); } }
+    .faixa-trilho li:hover { color: #ffffff; text-shadow: 0 0 10px rgba(255, 45, 149, 1), 0 0 30px rgba(255, 45, 149, .7); }
+    .faixa-trilho li::after { content: ""; width: 6px; height: 6px; background: var(--neon); box-shadow: 0 0 10px var(--neon); transform: rotate(45deg); }    @keyframes deslizar { to { transform: translateX(-50%); } }
 
     /* ==========================================================
        2. SOBRE MIM
@@ -567,19 +597,21 @@
        6. NÚMEROS E DEPOIMENTOS
        ========================================================== */
     .contadores { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 1px solid var(--milk); border-bottom: 1px solid var(--borda); }
-    .contador { text-align: center; padding: 38px 14px; }
+    .contador { text-align: center; padding: 38px 14px; position: relative; transition: transform .4s cubic-bezier(.2, .7, .2, 1), background-color .4s ease, box-shadow .4s ease; }
     .contador + .contador { border-left: 1px solid var(--borda); }
     .contador strong {
       display: block; font-family: var(--titulo); font-weight: 500; color: var(--milk);
       font-size: clamp(2.6rem, 5.5vw, 4.2rem); line-height: 1; transition: color .3s ease, text-shadow .3s ease;
     }
-    .contador:hover strong { color: var(--neon-texto); text-shadow: var(--brilho); }
+    .contador:hover { transform: translateY(-8px) scale(1.06); background: var(--superficie); box-shadow: 0 22px 50px rgba(255, 45, 149, .2), 0 0 0 1px var(--neon); z-index: 2; }
+    .contador strong { transition: color .3s ease, text-shadow .3s ease, transform .4s cubic-bezier(.2, .7, .2, 1); }
+    .contador:hover strong { color: var(--neon-texto); text-shadow: var(--brilho); transform: scale(1.12); }
     .contador span { display: block; margin-top: 12px; color: var(--texto-suave); font-weight: 500; font-size: .74rem; letter-spacing: .14em; text-transform: uppercase; }
     .subtitulo-bloco { font-family: var(--titulo); font-weight: 400; font-size: 1.8rem; margin: 72px 0 24px; display: flex; align-items: center; gap: 16px; }
     .subtitulo-bloco::after { content: ""; flex: 1; height: 1px; background: var(--borda); }
     .resultados { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
-    .resultado { padding: 28px; background: var(--superficie); border-top: 2px solid var(--salvia-linha); transition: box-shadow .3s ease, border-color .3s ease; }
-    .resultado:hover { border-color: var(--neon); box-shadow: 0 16px 40px rgba(255, 45, 149, .18); }
+    .resultado { padding: 28px; background: var(--superficie); border-top: 2px solid var(--salvia-linha); transition: box-shadow .4s ease, border-color .4s ease, transform .4s cubic-bezier(.2, .7, .2, 1); }
+    .resultado:hover { border-color: var(--neon); box-shadow: 0 22px 50px rgba(255, 45, 149, .22); transform: translateY(-8px) scale(1.03); }
     .resultado .nicho { font-size: .66rem; font-weight: 600; letter-spacing: .22em; text-transform: uppercase; color: var(--salvia); }
     .resultado strong { display: block; font-family: var(--titulo); font-weight: 500; font-size: 3rem; line-height: 1.1; margin-top: 10px; color: var(--milk); transition: color .3s ease, text-shadow .3s ease; }
     .resultado:hover strong { color: var(--neon-texto); text-shadow: var(--brilho); }
@@ -681,7 +713,7 @@
       .menu {
         position: fixed; top: var(--header-h); left: 0; right: 0;
         flex-direction: column; gap: 0; padding: 8px var(--gutter) 24px;
-        background: rgba(246, 243, 241, .98); border-bottom: 1px solid var(--borda);
+        background: rgba(64, 90, 58, .99); border-bottom: 1px solid rgba(255, 255, 255, .15);
         transform: translateY(-8px); opacity: 0; visibility: hidden;
         transition: opacity .25s ease, transform .25s ease, visibility .25s;
       }
@@ -749,7 +781,6 @@
     <section class="capa" id="inicio" aria-labelledby="titulo-capa">
       <div class="capa-buque" aria-hidden="true">
         <img src="decoracao/buque-capa-1.png" alt="">
-        <img src="decoracao/buque-capa-2.png" alt="">
         <img src="decoracao/buque-capa-3.png" alt="">
       </div>
       <div class="capa-foto" id="capaFoto"></div>
@@ -935,7 +966,7 @@
       },
 
       // EDITE AQUI: nomes das marcas com quem você já trabalhou (faixa que passa na capa)
-      marcas: ["Bella Pele", "Casa Serena", "Sabor da Vila", "Ateliê Flor", "Fit Natural", "Lumière Cosméticos", "Lar & Cia", "Grão Dourado", "Move Wear", "Pura Essência"],
+      marcas: ["Mascavo", "Coca-Cola", "Contém 1g", "L'Occitane au Brésil", "Amend", "Bioderma", "Darrow", "Amobeleza", "Canva", "Mercado Livre", "Vizzela", "Natura", "État Pur", "O Boticário", "Klasme", "Quem Disse, Berenice?", "Bruna Tavares", "Coza", "Coala", "Brinox", "HyperX", "Rainha", "SOUU Beauty", "Vic Beauté", "Pantene", "Elseve", "Avène", "Amakha Paris"],
 
       // EDITE AQUI: seção Sobre mim
       sobre: {
