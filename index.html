@@ -10,7 +10,7 @@
   <!-- Fontes do Google: Anton (títulos de impacto, estilo Netflix) e Archivo (corpo) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600;700;800&family=Sacramento&display=swap" rel="stylesheet">
 
   <style>
     /* ==========================================================
@@ -398,7 +398,39 @@
       background: linear-gradient(180deg,
         #eef8d9 0, #f0f8dd 120px, #f3f8e5 260px, #f6f8ee 400px, #f8f8f5 520px, var(--fundo) 640px);
     }
-    #sobre.parede-neon { padding-block: clamp(150px, 14vw, 210px); }
+    #sobre.parede-neon { padding-block: clamp(110px, 10vw, 150px); }   /* seção mais compacta */
+    #sobre .sobre-grade { grid-template-columns: minmax(200px, 300px) 1fr; gap: clamp(32px, 7vw, 100px); }
+    #sobre .titulo-secao { font-size: clamp(2rem, 4.4vw, 3.2rem); }
+    #sobre .sobre-texto p { font-size: 1rem; margin-top: 12px; }
+
+    /* Letreiro neon escrito à mão: "Sobre" em rosa e "mim" em verde claro, piscando */
+    #sobre .sobre-texto .letreiro-sobre, .letreiro-sobre {
+      font-family: "Sacramento", "Brush Script MT", cursive; font-size: clamp(2.6rem, 5vw, 3.6rem); line-height: 1;
+      margin: 0 0 6px !important; letter-spacing: .01em; text-shadow: none !important;
+    }
+    .letreiro-sobre span { display: inline-block; padding: 0 .06em; }
+    .neon-rosa {
+      color: #ff4fc9;
+      text-shadow: 0 0 1px #fff, 0 0 6px #ff7ad9, 0 0 14px #ff3fc6, 0 0 28px rgba(255, 63, 198, .7) !important;
+      animation: letreiro-vintage 6s infinite;
+    }
+    .neon-verde {
+      color: #6cc522;
+      text-shadow: 0 0 1px #fff, 0 0 6px #c6f36b, 0 0 14px #9be03f, 0 0 28px rgba(155, 224, 63, .7) !important;
+      animation: letreiro-vintage 6s infinite 2.3s;
+    }
+
+    /* Fita de LED com curvas, com uma luz percorrendo (como LED em movimento) */
+    .led-fita { filter: drop-shadow(0 0 4px #ff8fe0) drop-shadow(0 0 12px rgba(255, 79, 201, .65)); }
+    .led-fita .tubo { stroke: #ff7ad9; stroke-width: 5; opacity: .85; }
+    .led-fita .nucleo { stroke: #fff3fb; stroke-width: 1.6; }
+    .led-fita .corrida {
+      stroke: #ffffff; stroke-width: 3.5; stroke-dasharray: 90 1400; opacity: .95;
+      filter: drop-shadow(0 0 6px #ff9fe8) drop-shadow(0 0 14px #ff4fc9);
+      animation: led-corre 7s linear infinite;
+    }
+    .led-fita .corrida.segunda { animation-delay: -3.5s; stroke: #f4ffe0; filter: drop-shadow(0 0 6px #c6f36b) drop-shadow(0 0 14px #9be03f); }
+    @keyframes led-corre { from { stroke-dashoffset: 1490; } to { stroke-dashoffset: 0; } }
     #sobre > .container { position: relative; z-index: 2; }
     .neon-sobre { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; overflow: visible; }
     .neon-sobre path { fill: none; stroke-linecap: round; stroke-linejoin: round; }
@@ -1095,7 +1127,7 @@
         ],
         entregas: [
           "Roteiro com gancho forte",
-          "Edição com legenda",
+          "Edição com legenda criativa",
           "Versões para teste A/B",
           "Direito de uso para anúncios"
         ],
@@ -1372,7 +1404,8 @@
       $("#sobreFoto").innerHTML = `<figure class="polaroid"><div class="polaroid-foto">${midia(sb)}</div>
         <figcaption>${esc(sb.legenda)}<small>${esc(sb.legendaMenor)}</small></figcaption></figure>`;
     } else { $("#sobreFoto").remove(); $(".sobre-grade").classList.add("sem-foto"); }
-    $("#sobreTexto").innerHTML = `${cabecalho({ kicker: sb.kicker, titulo: sb.titulo }, "titulo-sobre")}
+    $("#sobreTexto").innerHTML = `<p class="letreiro-sobre"><span class="neon-rosa">Sobre</span> <span class="neon-verde">mim</span></p>
+      <h2 class="titulo-secao" id="titulo-sobre">${esc(sb.titulo)}</h2>
       ${sb.paragrafos.map((p) => `<p>${p}</p>`).join("")}
       <ul class="entregas">${sb.entregas.map((e) => `<li>${icones.check}<span>${esc(e)}</span></li>`).join("")}</ul>`;
 
@@ -1843,24 +1876,23 @@
       const W = sec.offsetWidth, H = sec.offsetHeight;
       if (!W || !H) return;
       svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
-      const s = Math.max(46, Math.min(80, W * 0.055));           // tamanho do coração
-      const cx = W - Math.max(70, W * 0.08) - s * 0.75, topo = Math.max(110, H * 0.12);
       const f = (n) => n.toFixed(1);
-      // coração: ponta embaixo, duas curvas em cima
-      const ponta = [cx, topo + s * 1.35];
-      const coracao = `M${f(ponta[0])} ${f(ponta[1])} C${f(cx - s * .75)} ${f(topo + s * .8)} ${f(cx - s * 1.1)} ${f(topo + s * .25)} ${f(cx - s * .75)} ${f(topo - s * .1)}
-        C${f(cx - s * .45)} ${f(topo - s * .42)} ${f(cx)} ${f(topo - s * .22)} ${f(cx)} ${f(topo + s * .15)}
-        C${f(cx)} ${f(topo - s * .22)} ${f(cx + s * .45)} ${f(topo - s * .42)} ${f(cx + s * .75)} ${f(topo - s * .1)}
-        C${f(cx + s * 1.1)} ${f(topo + s * .25)} ${f(cx + s * .75)} ${f(topo + s * .8)} ${f(ponta[0])} ${f(ponta[1])}`;
-      // fio: sai da ponta do coração, passa pelo meio (atrás do texto) e termina no canto inferior esquerdo
-      const fio = `M${f(ponta[0])} ${f(ponta[1])}
-        C${f(ponta[0] - W * .02)} ${f(H * .38)} ${f(W * .68)} ${f(H * .36)} ${f(W * .56)} ${f(H * .5)}
-        C${f(W * .46)} ${f(H * .62)} ${f(W * .34)} ${f(H * .54)} ${f(W * .26)} ${f(H * .68)}
-        C${f(W * .18)} ${f(H * .82)} ${f(W * .1)} ${f(H * .9)} -12 ${f(H + 6)}`;
-      svg.innerHTML = `<g class="neon-fio"><path class="tubo" d="${fio}"/><path class="nucleo" d="${fio}"/></g>
-        <g class="neon-coracao-g"><path class="tubo" d="${coracao}"/><path class="nucleo" d="${coracao}"/></g>`;
-    }
-    desenharNeonSobre();
+      // fita de LED solta, com curvas grandes como a da referência: S na esquerda, ondas no topo e uma volta na direita
+      const led = `M-10 ${f(H * .8)}
+        C60 ${f(H * .8)} 78 ${f(H * .64)} 42 ${f(H * .56)}
+        C6 ${f(H * .48)} 10 ${f(H * .36)} 46 ${f(H * .3)}
+        C82 ${f(H * .24)} 30 130 62 92
+        C92 58 ${f(W * .12)} 34 ${f(W * .2)} 62
+        C${f(W * .27)} 88 ${f(W * .31)} 104 ${f(W * .36)} 132
+        C${f(W * .41)} 160 ${f(W * .47)} 150 ${f(W * .52)} 96
+        C${f(W * .57)} 42 ${f(W * .64)} 30 ${f(W * .7)} 70
+        C${f(W * .76)} 112 ${f(W * .8)} 150 ${f(W * .86)} 118
+        C${f(W * .91)} 90 ${f(W * .93)} 44 ${f(W * .9)} 40
+        C${f(W * .86)} 36 ${f(W * .84)} 120 ${f(W * .87)} 200
+        C${f(W * .9)} 280 ${f(W * .82)} 330 ${f(W * .86)} ${f(H * .58)}
+        C${f(W * .9)} ${f(H * .7)} ${f(W * .96)} ${f(H * .72)} ${f(W + 10)} ${f(H * .76)}`;      svg.innerHTML = `<g class="led-fita"><path class="tubo" d="${led}" pathLength="1490"/><path class="nucleo" d="${led}" pathLength="1490"/>
+        <path class="corrida" d="${led}" pathLength="1490"/><path class="corrida segunda" d="${led}" pathLength="1490"/></g>`;
+    }    desenharNeonSobre();
     window.addEventListener("load", desenharNeonSobre);
     if (document.fonts) document.fonts.ready.then(desenharNeonSobre);
     let esperaNeon;
