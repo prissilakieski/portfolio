@@ -57,30 +57,31 @@
     }
     .topo .container { height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
     .logo { font-family: var(--titulo); font-size: 1.45rem; letter-spacing: .06em; text-transform: uppercase; text-decoration: none; color: var(--dourado-claro); }
-    /* "Voltar ao portfólio" como letreiro de neon vermelho que pisca */
+    /* "Voltar ao portfólio": fácil de ler, dourado com texto verde escuro */
     .voltar {
-      display: inline-flex; align-items: center; gap: 8px; padding: 6px 16px 5px; border-radius: 8px; text-decoration: none;
-      font-family: var(--titulo); font-weight: 400; font-size: .92rem; letter-spacing: .16em; text-transform: uppercase;
-      color: #fff2f3; background: rgba(40, 4, 8, .35); border: 2px solid #ff8f98;
-      text-shadow: 0 0 4px #fff, 0 0 10px #ff5562, 0 0 22px #e0102a, 0 0 40px #e0102a;
-      box-shadow: 0 0 6px #ffc2c7, 0 0 16px rgba(255, 60, 80, .85), 0 0 34px rgba(224, 16, 42, .55), inset 0 0 12px rgba(255, 60, 80, .5);
-      animation: letreiro 5s infinite;
-      transition: transform .45s cubic-bezier(.34, 1.7, .5, 1);
+      display: inline-flex; align-items: center; gap: 8px; padding: 8px 18px; border-radius: 999px; text-decoration: none;
+      font-family: var(--corpo); font-weight: 800; font-size: .78rem; letter-spacing: .12em; text-transform: uppercase;
+      color: var(--verde); background: linear-gradient(180deg, var(--dourado-claro), var(--dourado));
+      border: 1px solid #fff3c4; box-shadow: 0 0 14px rgba(247, 221, 138, .55);
+      transition: transform .45s cubic-bezier(.34, 1.7, .5, 1), box-shadow .3s ease;
     }
-    .voltar:hover, .voltar:focus-visible { transform: translateY(-2px) scale(1.04); animation-play-state: paused; }
-    @keyframes letreiro {
-      0%, 7%, 9%, 11%, 47%, 51%, 100% { opacity: 1; filter: none; }
-      8%, 10%, 49% { opacity: .35; filter: saturate(.4); }
-    }
+    .voltar:hover, .voltar:focus-visible { transform: translateY(-3px); box-shadow: 0 0 22px rgba(247, 221, 138, .95); }
     /* Fita dourada descendo pela lateral, com o laço no alto */
     .fita {
-      position: fixed; top: 0; bottom: 0; left: clamp(10px, 5vw, 70px); width: clamp(16px, 2.4vw, 34px); z-index: 1; pointer-events: none;
-      background: linear-gradient(90deg, var(--dourado-escuro) 0%, var(--dourado-claro) 35%, var(--dourado) 55%, var(--dourado-escuro) 100%);
+      position: fixed; top: 0; bottom: 0; left: clamp(60px, 7vw, 100px); width: clamp(16px, 2.4vw, 34px); z-index: 1; pointer-events: none;
+      background-color: #b3121d;
+      background-image:
+        linear-gradient(90deg, var(--dourado) 0 2px, transparent 2px calc(100% - 2px), var(--dourado) calc(100% - 2px)),
+        repeating-linear-gradient(0deg, rgba(0, 0, 0, .28) 0 6px, transparent 6px 14px),
+        repeating-linear-gradient(90deg, rgba(0, 0, 0, .28) 0 6px, transparent 6px 14px),
+        repeating-linear-gradient(0deg, transparent 0 10px, #0f4d2c 10px 11px, transparent 11px 14px),
+        repeating-linear-gradient(90deg, transparent 0 10px, #0f4d2c 10px 11px, transparent 11px 14px),
+        repeating-linear-gradient(0deg, transparent 0 2px, rgba(242, 207, 110, .9) 2px 2.6px, transparent 2.6px 14px);
       box-shadow: 0 0 14px rgba(0, 0, 0, .35);
     }
     .laco {
-      position: fixed; top: 74px; left: calc(clamp(10px, 5vw, 70px) + clamp(16px, 2.4vw, 34px) / 2); z-index: 3; pointer-events: none;
-      width: clamp(110px, 13vw, 180px); transform: translateX(-50%); filter: drop-shadow(0 10px 12px rgba(0, 0, 0, .4));
+      position: fixed; top: 70px; left: calc(clamp(60px, 7vw, 100px) + clamp(16px, 2.4vw, 34px) / 2); z-index: 3; pointer-events: none;
+      width: clamp(170px, 15vw, 230px); transform: translateX(-50%); filter: drop-shadow(0 12px 14px rgba(0, 0, 0, .45));
     }
 
     /* Painéis creme com borda dourada, como cartão de presente */
@@ -105,6 +106,7 @@
       text-shadow: 3px 3px 0 var(--dourado), 6px 6px 0 rgba(15, 77, 44, .35);
     }
     .abertura p { color: var(--texto-suave); max-width: 560px; margin: 20px auto 0; font-size: 1.05rem; }
+    .abertura .kicker { color: var(--creme); margin: 0 0 16px; max-width: none; font-size: .72rem; }
     .atalhos { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
     .atalho {
       padding: 11px 22px; border-radius: 999px; text-decoration: none;
@@ -113,7 +115,8 @@
       box-shadow: 0 8px 20px rgba(122, 10, 18, .35), 0 0 18px rgba(230, 190, 90, .45);
       transition: transform .45s cubic-bezier(.34, 1.7, .5, 1), background-color .3s ease, box-shadow .3s ease;
     }
-    .atalho.verde { background: var(--verde); }
+    .atalho.preto { background: #0d0b0c; border-color: #e0102a; color: #fff; box-shadow: 0 8px 20px rgba(0, 0, 0, .4), 0 0 16px rgba(224, 16, 42, .55); }
+    .atalho.preto:hover, .atalho.preto:focus-visible { background: #e0102a; border-color: #0d0b0c; box-shadow: 0 12px 26px rgba(0, 0, 0, .35), 0 0 24px rgba(224, 16, 42, .8); }
     .atalho:hover, .atalho:focus-visible { transform: translateY(-6px) scale(1.07); box-shadow: 0 12px 26px rgba(0, 0, 0, .3), 0 0 26px rgba(247, 221, 138, .9); }
 
     /* Campanhas */
@@ -191,8 +194,8 @@
       background: linear-gradient(180deg, var(--dourado-escuro), var(--dourado-claro) 40%, var(--dourado) 60%, var(--dourado-escuro));
       animation: fita-h-abre .7s ease-in .9s forwards;
     }
-    .presente .laco-grande {
-      position: absolute; left: 50%; top: 50%; width: min(300px, 60vw); transform: translate(-50%, -58%);
+    .presente .laco-grande { height: auto;
+      position: absolute; left: 50%; top: 50%; width: min(380px, 70vw); transform: translate(-50%, -40%);
       filter: drop-shadow(0 12px 16px rgba(0, 0, 0, .4));
       animation: laco-desfaz .8s ease-in .5s forwards;
     }
@@ -201,7 +204,7 @@
       font-weight: 700; font-size: .8rem; letter-spacing: .3em; text-transform: uppercase; text-shadow: 0 2px 6px rgba(0, 0, 0, .5);
       animation: some .4s ease 1.2s forwards;
     }
-    @keyframes laco-desfaz { to { transform: translate(-50%, -58%) scale(1.5) rotate(-12deg); opacity: 0; } }
+    @keyframes laco-desfaz { to { transform: translate(-50%, -40%) scale(1.5) rotate(-12deg); opacity: 0; } }
     @keyframes fita-v-abre { to { transform: scaleY(0); opacity: 0; } }
     @keyframes fita-h-abre { to { transform: scaleX(0); opacity: 0; } }
     @keyframes tampa-sobe { to { transform: translateY(-105%); } }
@@ -235,8 +238,12 @@
     .rodape { position: relative; z-index: 2; padding: 30px 0 40px; text-align: center; color: var(--creme); font-size: .8rem; text-shadow: 0 1px 4px rgba(0, 0, 0, .6); }
 
     @media (max-width: 700px) {
-      .container { padding-left: calc(var(--gutter) + 18px); }   /* espaço para a fita da lateral */
-      .laco { top: 70px; }
+      .container { padding-left: calc(var(--gutter) + 34px); }   /* espaço para a fita da lateral */
+      .fita { left: 24px; width: 16px; }
+      .laco { top: 66px; left: 32px; width: 64px; }
+      .topo .container { padding-left: var(--gutter); }
+      .logo { font-size: 1.2rem; }
+      .voltar { padding: 6px 12px; font-size: .64rem; letter-spacing: .08em; }
     }
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation: none !important; transition-duration: .01ms !important; }
@@ -250,7 +257,7 @@
     <div class="tampa">
       <div class="fita-v"></div>
       <div class="fita-h"></div>
-      <svg class="laco-grande" viewBox="0 0 200 140"><use href="#desenho-laco"/></svg>
+      <svg class="laco-grande" viewBox="0 0 240 280"><use href="#desenho-laco"/></svg>
       <p class="dica">Abrindo seu presente</p>
     </div>
   </div>
@@ -261,40 +268,32 @@
       <linearGradient id="ouro" x1="0" y1="0" x2="1" y2="1">
         <stop offset="0" stop-color="#fbe7a1"/><stop offset=".45" stop-color="#e6be5a"/><stop offset="1" stop-color="#a97b1f"/>
       </linearGradient>
-      <!-- cetim vermelho escuro -->
-      <linearGradient id="vinho" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0" stop-color="#b52232"/><stop offset=".5" stop-color="#7f0d1a"/><stop offset="1" stop-color="#4c0610"/>
-      </linearGradient>
-      <linearGradient id="vinho-ponta" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0" stop-color="#8e1220"/><stop offset="1" stop-color="#43050d"/>
-      </linearGradient>
-      <radialGradient id="vinho-no" cx=".4" cy=".35" r=".7">
-        <stop offset="0" stop-color="#c7404d"/><stop offset=".6" stop-color="#7f0d1a"/><stop offset="1" stop-color="#4c0610"/>
+      <!-- fita xadrez escocês vermelho com fios verdes e dourados -->
+      <pattern id="xadrez" width="14" height="14" patternUnits="userSpaceOnUse" patternTransform="rotate(20)">
+        <rect width="14" height="14" fill="#b3121d"/>
+        <rect y="4" width="14" height="4" fill="#6e0a12" opacity=".75"/><rect x="4" width="4" height="14" fill="#6e0a12" opacity=".75"/>
+        <rect y="11" width="14" height="1.1" fill="#0f4d2c"/><rect x="11" width="1.1" height="14" fill="#0f4d2c"/>
+        <rect y="1.5" width="14" height=".55" fill="#f2cf6e" opacity=".9"/><rect x="1.5" width=".55" height="14" fill="#f2cf6e" opacity=".9"/>
+      </pattern>
+      <!-- fita de tela dourada (malha) -->
+      <pattern id="tela-ouro" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+        <rect width="7" height="7" fill="#e6be5a" opacity=".5"/>
+        <path d="M0 0 H7 M0 0 V7" stroke="#f2cf6e" stroke-width="1.9"/>
+      </pattern>
+      <!-- veludo vinho -->
+      <radialGradient id="veludo" cx=".35" cy=".3" r=".85">
+        <stop offset="0" stop-color="#c0222f"/><stop offset=".55" stop-color="#8a0d1a"/><stop offset="1" stop-color="#4f0610"/>
       </radialGradient>
-      <g id="desenho-laco">
-        <!-- pontas com corte em V -->
-        <path d="M93 76 C86 98 74 118 60 136 L77 131 L84 141 C95 121 101 99 103 79 Z" fill="url(#vinho-ponta)" stroke="#3e050c" stroke-width="1.2"/>
-        <path d="M107 76 C114 98 126 118 140 136 L123 131 L116 141 C105 121 99 99 97 79 Z" fill="url(#vinho-ponta)" stroke="#3e050c" stroke-width="1.2"/>
-        <!-- laçadas cheias e arredondadas -->
-        <path d="M100 64 C86 28 54 8 27 20 C5 30 7 64 29 79 C50 92 82 84 100 71 Z" fill="url(#vinho)" stroke="#3e050c" stroke-width="1.2"/>
-        <path d="M100 64 C114 28 146 8 173 20 C195 30 193 64 171 79 C150 92 118 84 100 71 Z" fill="url(#vinho)" stroke="#3e050c" stroke-width="1.2"/>
-        <!-- dobra interna (dá volume) -->
-        <path d="M100 67 C86 47 60 34 40 39 C55 53 78 63 100 69 Z" fill="#3e050c" opacity=".5"/>
-        <path d="M100 67 C114 47 140 34 160 39 C145 53 122 63 100 69 Z" fill="#3e050c" opacity=".5"/>
-        <!-- brilho acetinado -->
-        <path d="M90 52 C76 30 52 18 32 26" fill="none" stroke="#ffd9dd" stroke-width="3.2" stroke-linecap="round" opacity=".38"/>
-        <path d="M110 52 C124 30 148 18 168 26" fill="none" stroke="#ffd9dd" stroke-width="3.2" stroke-linecap="round" opacity=".38"/>
-        <path d="M22 50 C22 62 30 72 44 77" fill="none" stroke="#ffd9dd" stroke-width="2" stroke-linecap="round" opacity=".22"/>
-        <path d="M178 50 C178 62 170 72 156 77" fill="none" stroke="#ffd9dd" stroke-width="2" stroke-linecap="round" opacity=".22"/>
-        <!-- nó central -->
-        <path d="M87 56 Q100 49 113 56 Q118 68 113 81 Q100 87 87 81 Q82 68 87 56 Z" fill="url(#vinho-no)" stroke="#3e050c" stroke-width="1.2"/>
-        <path d="M91 59 Q100 55 108 59" fill="none" stroke="#ffd9dd" stroke-width="2" stroke-linecap="round" opacity=".45"/>
-      </g>
+      <linearGradient id="veludo-ponta" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0" stop-color="#9b1220"/><stop offset="1" stop-color="#55070f"/>
+      </linearGradient>
+      <!-- o desenho do laço é montado pelo JavaScript (camadas de fitas, pinheiro e frutinhas) -->
+      <g id="desenho-laco"></g>
     </defs>
   </svg>
 
   <div class="fita" aria-hidden="true"></div>
-  <svg class="laco" viewBox="0 0 200 140" aria-hidden="true"><use href="#desenho-laco"/></svg>
+  <svg class="laco" viewBox="0 0 240 280" aria-hidden="true"><use href="#desenho-laco"/></svg>
   <div class="neve" id="neve" aria-hidden="true"></div>
 
   <header class="topo">
@@ -313,7 +312,7 @@
           <p>Vídeos pensados para as datas que mais vendem no ano, com o mesmo cuidado de sempre e o clima de cada campanha.</p>
           <nav class="atalhos" aria-label="Campanhas">
             <a class="atalho" href="#natal">Natal</a>
-            <a class="atalho verde" href="#black-friday">Black Friday</a>
+            <a class="atalho preto" href="#black-friday">Black Friday</a>
           </nav>
         </div>
       </div>
@@ -382,6 +381,61 @@
 
     /* ---------- daqui para baixo é o funcionamento (não precisa editar) ---------- */
     const $ = (s) => document.querySelector(s);
+
+    /* ---------- Laço de Natal em camadas: tela dourada, pinheiro, veludo, xadrez e frutinhas ---------- */
+    (function montarLaco() {
+      const C = [120, 96];                                         // centro do laço
+      const g = (pts) => pts.map((n) => n.toFixed(1)).join(" ");
+      // laçada em formato de gota apontando para "ang" graus
+      const lacada = (ang, comp, larg, fill, cor = "#3e050c") =>
+        `<path d="M0 0 C${g([comp * .3, -larg])} ${g([comp * .95, -larg * 1.05])} ${g([comp, 0])} C${g([comp * .95, larg * 1.05])} ${g([comp * .3, larg])} 0 0 Z"
+          transform="translate(${C[0]} ${C[1]}) rotate(${ang})" fill="${fill}" stroke="${cor}" stroke-width=".9"/>
+         <path d="M${g([comp * .25, -larg * .35])} C${g([comp * .55, -larg * .75])} ${g([comp * .85, -larg * .6])} ${g([comp * .92, -larg * .15])}"
+          transform="translate(${C[0]} ${C[1]}) rotate(${ang})" fill="none" stroke="#000" stroke-opacity=".22" stroke-width="2"/>`;
+      // ponta longa com corte em V
+      const ponta = (ang, comp, larg, fill) =>
+        `<path d="M0 ${-larg / 2} L${comp} ${-larg / 2} L${comp - larg * .7} 0 L${comp} ${larg / 2} L0 ${larg / 2} Z"
+          transform="translate(${C[0]} ${C[1] + 6}) rotate(${ang})" fill="${fill}" stroke="#3e050c" stroke-width=".8"/>`;
+      // raminho de pinheiro
+      const pinheiro = (ang, comp) => {
+        let s = `<path d="M0 0 L${comp} 0" stroke="#3f2a14" stroke-width="1.8"/>`;
+        for (let x = 6; x < comp; x += 3) {
+          const t = 10 * (1 - x / comp) + 4;
+          s += `<path d="M${x} 0 l${t * .55} ${-t}" stroke="${x % 2 ? "#1f5a2e" : "#2f7a3f"}" stroke-width="1.6"/><path d="M${x} 0 l${t * .55} ${t}" stroke="${x % 2 ? "#2f7a3f" : "#1f5a2e"}" stroke-width="1.6"/>`;
+        }
+        return `<g transform="translate(${C[0]} ${C[1]}) rotate(${ang})" stroke-linecap="round">${s}</g>`;
+      };
+      // cacho de frutinhas vermelhas
+      const frutinhas = (x, y, n) => {
+        let s = "";
+        for (let i = 0; i < n; i++) {
+          const a = i * 2.4, r = 3 + (i % 3) * .7, d = 4 + i * 1.6;
+          const bx = x + Math.cos(a) * d, by = y + Math.sin(a) * d * .8;
+          s += `<circle cx="${bx.toFixed(1)}" cy="${by.toFixed(1)}" r="${r}" fill="#8e0c18" stroke="#4f0610" stroke-width=".6"/><circle cx="${(bx - r * .35).toFixed(1)}" cy="${(by - r * .35).toFixed(1)}" r="${(r * .3).toFixed(1)}" fill="#fff" opacity=".55"/>`;
+        }
+        return s;
+      };
+      let d = "";
+      // fundo: tela dourada e pinheiro
+      [-150, -30, 150, 30, -112, -68].forEach((a, i) => { d += lacada(a, i < 4 ? 96 : 72, i < 4 ? 24 : 18, "url(#tela-ouro)", "#c99a2e"); });
+      [-125, -55, -92, 115, 65, 96, 172, 8, 145, 35, -160, -20].forEach((a, i) => { d += pinheiro(a, 104 + (i % 3) * 12); });
+      // pontas: tela dourada, veludo e xadrez
+      d += ponta(92, 150, 18, "url(#tela-ouro)");
+      d += ponta(104, 160, 26, "url(#veludo-ponta)") + ponta(76, 160, 26, "url(#veludo-ponta)");
+      d += ponta(122, 118, 22, "url(#xadrez)") + ponta(58, 118, 22, "url(#xadrez)");
+      // laçadas de veludo e de xadrez
+      d += lacada(-172, 104, 32, "url(#veludo)") + lacada(-8, 104, 32, "url(#veludo)");
+      d += lacada(138, 82, 26, "url(#veludo)") + lacada(42, 82, 26, "url(#veludo)");
+      d += lacada(-142, 84, 25, "url(#xadrez)") + lacada(-38, 84, 25, "url(#xadrez)");
+      d += lacada(168, 70, 20, "url(#xadrez)") + lacada(12, 70, 20, "url(#xadrez)");
+      // frutinhas e pinheiro por cima
+      d += pinheiro(100, 58) + pinheiro(80, 52);
+      d += frutinhas(96, 66, 7) + frutinhas(146, 68, 7) + frutinhas(98, 128, 8) + frutinhas(142, 130, 8) + frutinhas(116, 150, 9) + frutinhas(126, 172, 6);
+      // nó de veludo
+      d += `<rect x="${C[0] - 16}" y="${C[1] - 15}" width="32" height="30" rx="11" fill="url(#veludo)" stroke="#3e050c" stroke-width="1"/>
+            <path d="M${C[0] - 9} ${C[1] - 8} Q${C[0]} ${C[1] - 13} ${C[0] + 9} ${C[1] - 8}" fill="none" stroke="#ffd9dd" stroke-width="2" stroke-linecap="round" opacity=".45"/>`;
+      document.getElementById("desenho-laco").innerHTML = d;
+    })();
     const esc = (t) => String(t).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
     const play = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>';
     function idYoutube(link) {
