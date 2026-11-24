@@ -378,11 +378,12 @@
     .secao.tema-claro { padding-block: clamp(90px, 11vw, 150px); }
 
     /* Sobre mim: parede verde clarinha com LED neon de coração (canto superior direito) e o fio descendo */
-    .parede-neon { background: linear-gradient(180deg, #f3fce3 0%, #ecf9d3 100%); }
-    .parede-neon::before {
-      /* a parede verde se dissolve no branco da página em cima e embaixo, sem corte */
-      content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 0;
-      background: linear-gradient(to bottom, var(--fundo) 0, rgba(250, 247, 251, 0) 110px, rgba(250, 247, 251, 0) calc(100% - 110px), var(--fundo) 100%);
+    /* Fundo verde bem clarinho (o mesmo tom do selo "Sobre mim"), que vai clareando aos poucos
+       até virar o branco da próxima seção: transição longa e suave, sem marcação */
+    .parede-neon {
+      background: linear-gradient(180deg,
+        #eef8d9 0%, #eff8db 45%, #f1f8e0 58%, #f3f8e6 68%, #f5f8ec 77%,
+        #f7f8f2 85%, #f9f7f7 93%, var(--fundo) 100%);
     }
     #sobre.parede-neon { padding-block: clamp(150px, 14vw, 210px); }
     #sobre > .container { position: relative; z-index: 2; }
@@ -405,8 +406,8 @@
       73%, 75% { opacity: .55; }
     }
     /* texto com um leve contorno da cor da parede, para ficar legível por cima do fio */
-    .parede-neon .sobre-texto { text-shadow: 0 0 10px #f0fbdd, 0 0 4px #f0fbdd, 0 0 2px #f0fbdd; }
-    .parede-neon .sobre-texto .entregas li { background: rgba(243, 252, 227, .85); }
+    .parede-neon .sobre-texto { text-shadow: 0 0 10px #eff8db, 0 0 4px #eff8db, 0 0 2px #eff8db; }
+    .parede-neon .sobre-texto .entregas li { background: rgba(239, 248, 219, .9); }
     .parede-neon .polaroid-foto { box-shadow: 0 24px 50px rgba(40, 60, 20, .18), 0 0 30px rgba(255, 95, 210, .18); }
     /* Sobre mim: clean e minimalista, como um provador da Zara */
     .sobre-grade { display: grid; grid-template-columns: minmax(220px, 360px) 1fr; gap: clamp(40px, 9vw, 140px); align-items: center; }
