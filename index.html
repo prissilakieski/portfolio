@@ -377,41 +377,37 @@
 
     .secao.tema-claro { padding-block: clamp(90px, 11vw, 150px); }
 
-    /* Sobre mim: parede de quarto gamer, mística e girly, com LED neon de coração atrás */
-    .parede-gamer {
-      --texto: #f8f2f7; --texto-suave: #dccfdb; --borda: rgba(255, 255, 255, .16);
-      --superficie-2: #2c1a2b; --milk: #f6c8ff; --neon-texto: #ff9be6;
-      --salvia: #c6f36b; --salvia-linha: rgba(198, 243, 107, .55); --salvia-fundo: rgba(198, 243, 107, .12);
-      --brilho: 0 0 10px rgba(255, 95, 210, .75), 0 0 26px rgba(255, 95, 210, .45);
-      color: var(--texto);
-      background:
-        radial-gradient(ellipse 55% 65% at 32% 45%, rgba(255, 70, 200, .24), transparent 70%),
-        radial-gradient(ellipse 45% 50% at 88% 15%, rgba(224, 123, 245, .2), transparent 70%),
-        radial-gradient(ellipse 80% 40% at 50% 100%, rgba(255, 120, 210, .12), transparent 70%),
-        linear-gradient(180deg, #26121f, #1b0e19);
-    }
-    .parede-gamer::before {
-      /* a parede se dissolve no branco da página em cima e embaixo, sem corte */
+    /* Sobre mim: parede verde clarinha com LED neon de coração (canto superior direito) e o fio descendo */
+    .parede-neon { background: linear-gradient(180deg, #f3fce3 0%, #ecf9d3 100%); }
+    .parede-neon::before {
+      /* a parede verde se dissolve no branco da página em cima e embaixo, sem corte */
       content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 0;
-      background: linear-gradient(to bottom, var(--fundo) 0, rgba(250, 247, 251, 0) 150px, rgba(250, 247, 251, 0) calc(100% - 150px), var(--fundo) 100%);
+      background: linear-gradient(to bottom, var(--fundo) 0, rgba(250, 247, 251, 0) 110px, rgba(250, 247, 251, 0) calc(100% - 110px), var(--fundo) 100%);
     }
-    #sobre.parede-gamer { padding-block: clamp(160px, 15vw, 220px); }
-    .sobre-grade { position: relative; }
-    .sobre-grade > :not(.neon-coracao) { position: relative; z-index: 1; }
-    .neon-coracao {
-      position: absolute; left: -2%; top: 50%; width: 104%; height: auto; transform: translateY(-50%);
-      z-index: 0; overflow: visible; pointer-events: none;
-      filter: drop-shadow(0 0 6px #ff6fd8) drop-shadow(0 0 16px #ff3fc6) drop-shadow(0 0 38px rgba(220, 30, 170, .8));
-      animation: neon-pulso 4s ease-in-out infinite, neon-falha 9s infinite;
+    #sobre.parede-neon { padding-block: clamp(150px, 14vw, 210px); }
+    #sobre > .container { position: relative; z-index: 2; }
+    .neon-sobre { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; overflow: visible; }
+    .neon-sobre path { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    /* fio: mais fino e suave, para não atrapalhar a leitura */
+    .neon-fio { opacity: .6; filter: drop-shadow(0 0 4px #ff6fd8) drop-shadow(0 0 10px rgba(255, 63, 198, .6)); }
+    .neon-fio .tubo { stroke: #ff5fd2; stroke-width: 5; }
+    .neon-fio .nucleo { stroke: #fff0fa; stroke-width: 1.6; }
+    /* coração: bem aceso, piscando como letreiro vintage */
+    .neon-coracao-g {
+      filter: drop-shadow(0 0 5px #ff6fd8) drop-shadow(0 0 14px #ff3fc6) drop-shadow(0 0 32px rgba(230, 20, 170, .85));
+      animation: letreiro-vintage 6s infinite;
     }
-    .neon-coracao path { fill: none; stroke-linecap: round; stroke-linejoin: round; }
-    .neon-tubo { stroke: #ff5fd2; stroke-width: 9; opacity: .9; }
-    .neon-nucleo { stroke: #ffe6f8; stroke-width: 3.2; }
-    @keyframes neon-pulso { 0%, 100% { opacity: .92; } 50% { opacity: 1; } }
-    @keyframes neon-falha { 0%, 41%, 43%, 45%, 100% { filter: drop-shadow(0 0 6px #ff6fd8) drop-shadow(0 0 16px #ff3fc6) drop-shadow(0 0 38px rgba(220, 30, 170, .8)); } 42%, 44% { filter: drop-shadow(0 0 2px #ff6fd8); } }
-    .parede-gamer .polaroid-foto { box-shadow: 0 30px 60px rgba(0, 0, 0, .55), 0 0 40px rgba(255, 95, 210, .25); }
-    .parede-gamer .sobre-texto { text-shadow: 0 2px 18px rgba(20, 8, 18, .8); }
-    @media (max-width: 820px) { .neon-coracao { top: 8%; transform: none; opacity: .8; } }
+    .neon-coracao-g .tubo { stroke: #ff3fc6; stroke-width: 10; }
+    .neon-coracao-g .nucleo { stroke: #fff2fb; stroke-width: 3.4; }
+    @keyframes letreiro-vintage {
+      0%, 6%, 9%, 12%, 40%, 44%, 72%, 100% { opacity: 1; }
+      7%, 10.5%, 42% { opacity: .2; }
+      73%, 75% { opacity: .55; }
+    }
+    /* texto com um leve contorno da cor da parede, para ficar legível por cima do fio */
+    .parede-neon .sobre-texto { text-shadow: 0 0 10px #f0fbdd, 0 0 4px #f0fbdd, 0 0 2px #f0fbdd; }
+    .parede-neon .sobre-texto .entregas li { background: rgba(243, 252, 227, .85); }
+    .parede-neon .polaroid-foto { box-shadow: 0 24px 50px rgba(40, 60, 20, .18), 0 0 30px rgba(255, 95, 210, .18); }
     /* Sobre mim: clean e minimalista, como um provador da Zara */
     .sobre-grade { display: grid; grid-template-columns: minmax(220px, 360px) 1fr; gap: clamp(40px, 9vw, 140px); align-items: center; }
     /* Foto do Sobre mim animada: inclina em 3D seguindo o mouse, aproxima, ganha reflexo de luz
@@ -912,13 +908,10 @@
     </section>
 
     <!-- 2. SOBRE MIM -->
-    <section class="secao parede-gamer" id="sobre" aria-labelledby="titulo-sobre">
+    <section class="secao parede-neon" id="sobre" aria-labelledby="titulo-sobre">
+      <!-- LED neon: coração no canto superior direito e o fio descendo até o canto inferior esquerdo (desenhado pelo JavaScript) -->
+      <svg class="neon-sobre" id="neonSobre" aria-hidden="true"></svg>
       <div class="container sobre-grade">
-        <!-- LED neon rosa em forma de onda terminando num coração (fica atrás da foto e do texto) -->
-        <svg class="neon-coracao" viewBox="0 0 1200 700" aria-hidden="true">
-          <path class="neon-tubo" d="M-20 690 C60 690 90 645 150 652 C210 660 200 702 270 698 C330 694 330 655 380 658 C425 662 445 690 452 640 C458 520 442 330 430 175 C380 130 355 90 380 62 C400 40 430 55 430 80 C430 55 460 40 480 62 C505 90 480 130 430 175"/>
-          <path class="neon-nucleo" d="M-20 690 C60 690 90 645 150 652 C210 660 200 702 270 698 C330 694 330 655 380 658 C425 662 445 690 452 640 C458 520 442 330 430 175 C380 130 355 90 380 62 C400 40 430 55 430 80 C430 55 460 40 480 62 C505 90 480 130 430 175"/>
-        </svg>
         <div class="sobre-foto revelar" id="sobreFoto"></div>
         <div class="sobre-texto revelar" id="sobreTexto"></div>
       </div>
@@ -1815,6 +1808,36 @@
     if (document.fonts) document.fonts.ready.then(desenharCordaoTopo);
     let esperaTopo;
     window.addEventListener("resize", () => { clearTimeout(esperaTopo); esperaTopo = setTimeout(desenharCordaoTopo, 200); });
+
+    /* ---------- LED neon do Sobre mim: coração no canto superior direito, fio até o canto inferior esquerdo ---------- */
+    function desenharNeonSobre() {
+      const sec = $("#sobre"), svg = $("#neonSobre");
+      if (!sec || !svg) return;
+      const W = sec.offsetWidth, H = sec.offsetHeight;
+      if (!W || !H) return;
+      svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
+      const s = Math.max(70, Math.min(130, W * 0.085));          // tamanho do coração
+      const cx = W - Math.max(70, W * 0.08) - s * 0.75, topo = Math.max(110, H * 0.12);
+      const f = (n) => n.toFixed(1);
+      // coração: ponta embaixo, duas curvas em cima
+      const ponta = [cx, topo + s * 1.35];
+      const coracao = `M${f(ponta[0])} ${f(ponta[1])} C${f(cx - s * .75)} ${f(topo + s * .8)} ${f(cx - s * 1.1)} ${f(topo + s * .25)} ${f(cx - s * .75)} ${f(topo - s * .1)}
+        C${f(cx - s * .45)} ${f(topo - s * .42)} ${f(cx)} ${f(topo - s * .22)} ${f(cx)} ${f(topo + s * .15)}
+        C${f(cx)} ${f(topo - s * .22)} ${f(cx + s * .45)} ${f(topo - s * .42)} ${f(cx + s * .75)} ${f(topo - s * .1)}
+        C${f(cx + s * 1.1)} ${f(topo + s * .25)} ${f(cx + s * .75)} ${f(topo + s * .8)} ${f(ponta[0])} ${f(ponta[1])}`;
+      // fio: sai da ponta do coração, passa pelo meio (atrás do texto) e termina no canto inferior esquerdo
+      const fio = `M${f(ponta[0])} ${f(ponta[1])}
+        C${f(ponta[0] - W * .02)} ${f(H * .38)} ${f(W * .68)} ${f(H * .36)} ${f(W * .56)} ${f(H * .5)}
+        C${f(W * .46)} ${f(H * .62)} ${f(W * .34)} ${f(H * .54)} ${f(W * .26)} ${f(H * .68)}
+        C${f(W * .18)} ${f(H * .82)} ${f(W * .1)} ${f(H * .9)} -12 ${f(H + 6)}`;
+      svg.innerHTML = `<g class="neon-fio"><path class="tubo" d="${fio}"/><path class="nucleo" d="${fio}"/></g>
+        <g class="neon-coracao-g"><path class="tubo" d="${coracao}"/><path class="nucleo" d="${coracao}"/></g>`;
+    }
+    desenharNeonSobre();
+    window.addEventListener("load", desenharNeonSobre);
+    if (document.fonts) document.fonts.ready.then(desenharNeonSobre);
+    let esperaNeon;
+    window.addEventListener("resize", () => { clearTimeout(esperaNeon); esperaNeon = setTimeout(desenharNeonSobre, 200); });
   </script>
 </body>
 </html>
