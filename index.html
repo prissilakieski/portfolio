@@ -288,7 +288,7 @@
     .capa .frase { margin-top: 28px; max-width: 540px; font-size: clamp(1.05rem, 2vw, 1.22rem); color: var(--texto-suave); line-height: 1.7; }
     .capa .frase strong { color: var(--milk); font-weight: 600; transition: color .3s ease, text-shadow .3s ease; }
     .capa .frase strong:hover { color: var(--neon-texto); text-shadow: var(--brilho); }
-    .capa .frase .local { color: var(--salvia); white-space: nowrap; }
+    .capa .frase .local { color: var(--salvia); font-weight: 700; }   /* idade, cidade e estado em verde e negrito */
     .capa-botoes { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 34px; }
 
     /* Métricas da capa: ganham destaque forte ao passar o mouse */
@@ -1018,7 +1018,7 @@
       // EDITE AQUI: textos da capa (primeira dobra)
       capa: {
         selo: "Criadora UGC",
-        frase: "Oiee! Pode me chamar de <strong>Pri</strong>. Aqui, cada vídeo une estética, estratégia e verdade: conteúdo que valoriza o seu produto e <strong>desperta o desejo de compra</strong>.",
+        frase: "Oiee! Pode me chamar de <strong>Pri</strong>, <span class=\"local\">32 anos, de Barreiras, Bahia</span>. Sou especialista em vender com estética: vídeos que valorizam o seu produto e <strong>despertam o desejo de compra</strong>.",
         botaoPrincipal: "Falar comigo",
         botaoSecundario: "Ver os trabalhos",
         // Foto da capa: troque "imagem" pelo caminho da sua foto
