@@ -96,11 +96,16 @@
 
     /* Cordão do lado direito: fio fininho com folhinhas de jiboia e luzinhas de fada piscando */
     .cordao { position: absolute; top: 0; right: 2px; width: 64px; z-index: 5; pointer-events: none; }
-    .cordao svg { display: block; overflow: visible; }
-    .cordao .folha-g { transform-box: fill-box; transform-origin: 0% 50%; animation: folha-balanca 7s ease-in-out infinite; }
+    /* --vento: muda conforme a página rola (calculado no JavaScript) e faz o cordão balançar */
+    .cordao svg { display: block; overflow: visible; translate: calc(var(--vento, 0) * .8px) 0; }
+    .cordao .trecho {
+      transform-box: fill-box; transform-origin: 50% 0;
+      rotate: calc(var(--vento, 0) * .35deg);
+      animation: trecho-balanca 6s ease-in-out infinite;
+    }
     .cordao .luz { animation: piscar 3s ease-in-out infinite; }
-    @keyframes folha-balanca { 0%, 100% { transform: rotate(0deg); } 50% { transform: rotate(5deg); } }
-    @keyframes piscar { 0%, 100% { opacity: .3; } 45% { opacity: 1; } 60% { opacity: .85; } }
+    @keyframes trecho-balanca { 0%, 100% { transform: rotate(-.8deg); } 50% { transform: rotate(.8deg); } }
+    @keyframes piscar { 0%, 100% { opacity: .45; } 40% { opacity: 1; } 55% { opacity: .7; } 70% { opacity: 1; } }
     /* A brisa: balanço lento e bem pequeno, ancorado no canto de onde as flores "nascem" */    @keyframes brisa {
       0%, 100% { transform: rotate(0deg) translate(0, 0); }
       30% { transform: rotate(.9deg) translate(2px, 1px); }
@@ -382,7 +387,7 @@
     /* ==========================================================
        3. CONTEÚDOS DE DESTAQUE
        ========================================================== */
-    .destaques-grade { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(16px, 3vw, 36px); }
+    .destaques-grade { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(16px, 3vw, 36px); max-width: 1040px; margin-inline: auto; }
     .destaque {
       display: block; text-decoration: none; color: inherit;
       background: var(--superficie); overflow: hidden; position: relative; border: 1px solid var(--borda);
@@ -439,17 +444,26 @@
        4. TRABALHOS POR NICHO (catálogo) e TIKTOK SHOP
        ========================================================== */
     .filtros { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 40px; }
+    /* Botões dos nichos: lilás neon; ao passar o mouse dão um salto e ficam verde lima */
     .filtro {
-      border: 1px solid rgba(20,18,20,.2); background: transparent; color: var(--texto);
+      border: 1px solid var(--neon); background: rgba(181, 124, 255, .14); color: #5a24b8;
       padding: 10px 18px; border-radius: 999px; cursor: pointer;
-      font-weight: 500; font-size: .72rem; letter-spacing: .18em; text-transform: uppercase;
-      transition: background-color .3s ease, border-color .3s ease, color .3s ease, text-shadow .3s ease;
+      font-weight: 600; font-size: .72rem; letter-spacing: .18em; text-transform: uppercase;
+      box-shadow: 0 0 10px rgba(181, 124, 255, .45), inset 0 0 8px rgba(181, 124, 255, .18);
+      transition: transform .45s cubic-bezier(.34, 1.7, .5, 1), background-color .3s ease, border-color .3s ease, color .3s ease, box-shadow .3s ease;
     }
-    .filtro:hover { border-color: var(--neon); color: var(--neon-texto); text-shadow: var(--brilho); }
-    .filtro[aria-pressed="true"] { background: var(--texto); border-color: var(--texto); color: #fff; text-shadow: none; }
-    .filtro[aria-pressed="true"]:hover { background: var(--neon); border-color: var(--neon); color: #fff; box-shadow: 0 0 20px rgba(181,124,255,.5); }
+    .filtro:hover, .filtro:focus-visible {
+      transform: translateY(-6px) scale(1.07);
+      background: var(--verde-neon); border-color: var(--verde-neon); color: var(--escuro); text-shadow: none;
+      box-shadow: 0 10px 24px rgba(198, 243, 107, .55), 0 0 18px rgba(198, 243, 107, .85);
+    }
+    .filtro[aria-pressed="true"] {
+      background: var(--neon); border-color: var(--neon); color: var(--escuro); text-shadow: none;
+      box-shadow: 0 0 14px rgba(181, 124, 255, .85), 0 0 30px rgba(181, 124, 255, .45);
+    }
+    .filtro[aria-pressed="true"]:hover { background: var(--verde-neon); border-color: var(--verde-neon); box-shadow: 0 10px 24px rgba(198, 243, 107, .55), 0 0 18px rgba(198, 243, 107, .85); }
 
-    .filtro-tts { display: inline-flex; align-items: center; gap: 7px; text-decoration: none; border-color: var(--milk); color: var(--milk); }
+    .filtro-tts { display: inline-flex; align-items: center; gap: 7px; text-decoration: none; }
     .filtro-tts svg { width: 14px; height: 14px; fill: currentColor; }
     .filtros:has(+ .subfiltros:not([hidden])) { margin-bottom: 12px; }
     .subfiltros { align-items: center; padding: 12px 14px; background: var(--salvia-fundo); border: 1px solid var(--salvia-linha); }
@@ -1590,42 +1604,68 @@
       if (Math.abs(H - alturaCordao) < 40) return;
       alturaCordao = H;
       const k = window.innerWidth < 600 ? 0.62 : 1;            // no celular fica mais fininho
-      const W = 64 * k;
+      const W = 70 * k;
       const fioX = (y) => W * 0.55 + Math.sin(y / 140) * 10 * k + Math.sin(y / 53) * 3 * k;
       const pontos = [];
       for (let y = 0; y <= H; y += 8) pontos.push(`${fioX(y).toFixed(1)} ${y}`);
-      // folhinhas de jiboia: coração com a ponta fina, em tons de verde lima
-      const cores = ["#8cc05a", "#a6d46e", "#bfe48c", "#d6efab", "#79ad4c"];
+
+      // folhinhas de jiboia (coração com ponta fina), bem cheias, agrupadas em trechos que balançam
+      const cores = ["#7fb84f", "#94c95e", "#a9d871", "#c0e68e", "#d6efab", "#6ea845"];
       const folha = "M0 0 C2 -6 10 -8 14 -4 C16 -2 17 0 19 1 C16 3 13 7 8 7 C3 6 1 4 0 0 Z";
-      let folhas = "", lado = 1, i = 0;
-      for (let y = 26; y < H; y += 40 + ((i * 37) % 24)) {
-        i++; lado *= -1;
-        const x = fioX(y), tam = (0.6 + ((i * 53) % 45) / 100) * k;
-        const ang = lado > 0 ? -25 + ((i * 17) % 30) : 205 - ((i * 13) % 30);
-        folhas += `<g class="folha-g" style="animation-delay:-${(i * 0.9) % 7}s">
-          <path d="${folha}" transform="translate(${x.toFixed(1)} ${y}) rotate(${ang}) scale(${tam.toFixed(2)})" fill="${cores[i % cores.length]}" fill-opacity=".92"/>
-          <path d="M0 0 L17 .6" transform="translate(${x.toFixed(1)} ${y}) rotate(${ang}) scale(${tam.toFixed(2)})" stroke="#5f8a3a" stroke-width=".6" fill="none" opacity=".55"/></g>`;
+      const TRECHO = 340;
+      let trechos = "", atual = "", inicioTrecho = 0, i = 0;
+      for (let y = 6; y < H; y += 7 + ((i * 7) % 6)) {
+        i++;
+        if (y - inicioTrecho > TRECHO) {
+          trechos += `<g class="trecho" style="animation-delay:-${(inicioTrecho / 97) % 6}s">${atual}</g>`;
+          atual = ""; inicioTrecho = y;
+        }
+        const lado = i % 2 ? 1 : -1;
+        const x = fioX(y) + lado * (1 + (i % 3)) * k;
+        const tam = (0.32 + ((i * 53) % 34) / 100) * k;       // folhas pequenas, de tamanhos variados
+        const ang = lado > 0 ? -40 + ((i * 17) % 70) : 150 + ((i * 13) % 70);
+        atual += `<path d="${folha}" transform="translate(${x.toFixed(1)} ${y}) rotate(${ang}) scale(${tam.toFixed(2)})" fill="${cores[(i * 5) % cores.length]}" fill-opacity=".93"/>`;
       }
-      // luzinhas de fada amarelas, cada uma piscando no seu ritmo
+      trechos += `<g class="trecho">${atual}</g>`;
+
+      // fio de fada: luzinhas amarelas acesas, cada uma piscando no seu ritmo
       let luzes = "", j = 0;
-      for (let y = 14; y < H; y += 32) {
+      for (let y = 12; y < H; y += 26) {
         j++;
-        const x = fioX(y) + (j % 2 ? 2 : -2) * k;
-        luzes += `<g class="luz" style="animation-delay:-${((j * 0.37) % 3).toFixed(2)}s;animation-duration:${(2.2 + (j % 5) * 0.55).toFixed(2)}s">
-          <circle cx="${x.toFixed(1)}" cy="${y}" r="${7 * k}" fill="url(#halo-luz)"/><circle cx="${x.toFixed(1)}" cy="${y}" r="${1.7 * k}" fill="#fff6cc"/></g>`;
+        const x = fioX(y) + (j % 2 ? 3 : -3) * k;
+        luzes += `<g class="luz" style="animation-delay:-${((j * 0.37) % 3).toFixed(2)}s;animation-duration:${(1.8 + (j % 6) * 0.45).toFixed(2)}s">
+          <circle cx="${x.toFixed(1)}" cy="${y}" r="${11 * k}" fill="url(#halo-luz)"/><circle cx="${x.toFixed(1)}" cy="${y}" r="${2.1 * k}" fill="#fffbe3"/></g>`;
       }
       el.style.height = `${H}px`;
-      el.innerHTML = `<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">
-        <defs><radialGradient id="halo-luz"><stop offset="0" stop-color="#ffd76a" stop-opacity=".95"/><stop offset=".45" stop-color="#ffd76a" stop-opacity=".35"/><stop offset="1" stop-color="#ffd76a" stop-opacity="0"/></radialGradient></defs>
-        <path d="M${pontos.join(" L")}" fill="none" stroke="#b8a57c" stroke-width="${0.9 * k}" opacity=".75"/>
-        ${folhas}${luzes}</svg>`;
       el.style.width = `${W}px`;
+      el.innerHTML = `<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">
+        <defs><radialGradient id="halo-luz"><stop offset="0" stop-color="#fff1a8" stop-opacity="1"/><stop offset=".25" stop-color="#ffd76a" stop-opacity=".75"/><stop offset=".6" stop-color="#ffc94a" stop-opacity=".22"/><stop offset="1" stop-color="#ffc94a" stop-opacity="0"/></radialGradient></defs>
+        <path d="M${pontos.join(" L")}" fill="none" stroke="#b8a57c" stroke-width="${0.9 * k}" opacity=".75"/>
+        ${trechos}${luzes}</svg>`;
     }
     desenharCordao();
     window.addEventListener("load", desenharCordao);
     let esperaCordao;
     window.addEventListener("resize", () => { clearTimeout(esperaCordao); esperaCordao = setTimeout(() => { alturaCordao = 0; desenharCordao(); }, 250); });
     if ("ResizeObserver" in window) new ResizeObserver(() => desenharCordao()).observe(document.body);
+
+    // Balanço do cordão enquanto a página rola: quanto mais rápido rola, mais ele balança, e depois acalma
+    if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      const cordao = $("#cordao");
+      let vento = 0, alvo = 0, ultimoY = window.scrollY, rodando = false;
+      const animarVento = () => {
+        vento += (alvo - vento) * 0.08;
+        alvo *= 0.92;
+        cordao.style.setProperty("--vento", vento.toFixed(2));
+        if (Math.abs(vento) > 0.02 || Math.abs(alvo) > 0.02) requestAnimationFrame(animarVento);
+        else { cordao.style.setProperty("--vento", "0"); rodando = false; }
+      };
+      window.addEventListener("scroll", () => {
+        const v = window.scrollY - ultimoY; ultimoY = window.scrollY;
+        alvo = Math.max(-6, Math.min(6, alvo + v * 0.05));
+        if (!rodando) { rodando = true; requestAnimationFrame(animarVento); }
+      }, { passive: true });
+    }
   </script>
 </body>
 </html>
