@@ -97,15 +97,26 @@
     /* Cordão do lado direito: fio fininho com folhinhas de jiboia e luzinhas de fada piscando */
     .cordao { position: absolute; top: 0; right: 2px; width: 64px; z-index: 5; pointer-events: none; }
     /* --vento: muda conforme a página rola (calculado no JavaScript) e faz o cordão balançar */
-    .cordao svg { display: block; overflow: visible; translate: calc(var(--vento, 0) * .8px) 0; }
+    .cordao svg { display: block; overflow: visible; translate: calc(var(--vento, 0) * 1.8px) 0; }
     .cordao .trecho {
       transform-box: fill-box; transform-origin: 50% 0;
-      rotate: calc(var(--vento, 0) * .35deg);
-      animation: trecho-balanca 6s ease-in-out infinite;
+      rotate: calc(var(--vento, 0) * .9deg);
+      animation: trecho-balanca 4.5s ease-in-out infinite;
     }
     .cordao .luz { animation: piscar 3s ease-in-out infinite; }
-    @keyframes trecho-balanca { 0%, 100% { transform: rotate(-.8deg); } 50% { transform: rotate(.8deg); } }
+    @keyframes trecho-balanca { 0%, 100% { transform: rotate(-2.2deg); } 50% { transform: rotate(2.2deg); } }
     @keyframes piscar { 0%, 100% { opacity: .45; } 40% { opacity: 1; } 55% { opacity: .7; } 70% { opacity: 1; } }
+    /* Cordão da barra de cima: sai do PORTFÓLIO, se enrosca nos itens do menu e desce pela direita */
+    .topo > .container { position: relative; z-index: 1; }
+    .vinha-topo { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+    .vinha-topo.tras { z-index: 0; opacity: .7; }
+    .vinha-topo.frente { z-index: 2; }
+    .vinha-topo .grupo {
+      transform-box: fill-box; transform-origin: 50% 50%;
+      rotate: calc(var(--vento, 0) * .7deg);
+      animation: trecho-balanca 4s ease-in-out infinite;
+    }
+    .vinha-topo .luz { animation: piscar 3s ease-in-out infinite; }
     /* A brisa: balanço lento e bem pequeno, ancorado no canto de onde as flores "nascem" */    @keyframes brisa {
       0%, 100% { transform: rotate(0deg) translate(0, 0); }
       30% { transform: rotate(.9deg) translate(2px, 1px); }
@@ -806,6 +817,8 @@
 
   <!-- MENU FIXO (preenchido pelo JavaScript a partir do CONFIG) -->
   <header class="topo" id="topo">
+    <svg class="vinha-topo tras" id="vinhaTopoTras" aria-hidden="true"></svg>
+    <svg class="vinha-topo frente" id="vinhaTopoFrente" aria-hidden="true"></svg>
     <div class="container">
       <a class="logo" href="#inicio" id="logo"></a>
       <button class="btn-menu" id="btnMenu" aria-expanded="false" aria-controls="menu" aria-label="Abrir menu"><span></span></button>
@@ -1685,21 +1698,82 @@
 
     // Balanço do cordão enquanto a página rola: quanto mais rápido rola, mais ele balança, e depois acalma
     if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      const cordao = $("#cordao");
+      const raiz = document.documentElement;
       let vento = 0, alvo = 0, ultimoY = window.scrollY, rodando = false;
       const animarVento = () => {
         vento += (alvo - vento) * 0.08;
         alvo *= 0.92;
-        cordao.style.setProperty("--vento", vento.toFixed(2));
+        raiz.style.setProperty("--vento", vento.toFixed(2));
         if (Math.abs(vento) > 0.02 || Math.abs(alvo) > 0.02) requestAnimationFrame(animarVento);
-        else { cordao.style.setProperty("--vento", "0"); rodando = false; }
+        else { raiz.style.setProperty("--vento", "0"); rodando = false; }
       };
       window.addEventListener("scroll", () => {
         const v = window.scrollY - ultimoY; ultimoY = window.scrollY;
-        alvo = Math.max(-6, Math.min(6, alvo + v * 0.05));
+        alvo = Math.max(-7, Math.min(7, alvo + v * 0.07));
         if (!rodando) { rodando = true; requestAnimationFrame(animarVento); }
       }, { passive: true });
     }
+
+    /* ---------- Cordão da barra de cima: começa no PORTFÓLIO, enrosca no menu e desce pela direita ---------- */
+    function desenharCordaoTopo() {
+      const topo = $("#topo"), tras = $("#vinhaTopoTras"), frente = $("#vinhaTopoFrente");
+      if (!topo || !tras) return;
+      const rt = topo.getBoundingClientRect();
+      const W = rt.width, H = rt.height, cy = H / 2;
+      const alvos = [$("#logo")];
+      if (window.innerWidth > 1120) alvos.push(...document.querySelectorAll("#menu a"));   // no celular o menu fica escondido
+      const pts = [];
+      const reta = (x0, x1) => { for (let x = x0; x < x1; x += 3) pts.push([x, cy + Math.sin(x / 9) * 1.2]); };
+      let x = 0;
+      alvos.forEach((el, n) => {
+        const r = el.getBoundingClientRect();
+        const x0 = r.left - rt.left - 6, x1 = r.right - rt.left + 6;
+        const A = n === 0 ? 17 : 13;                                   // volta maior no PORTFÓLIO
+        const voltas = n === 0 ? 2 : 1;
+        if (n > 0) reta(x, x0);
+        for (let xx = x0; xx <= x1; xx += 2.5) pts.push([xx, cy - A * Math.sin((2 * Math.PI * voltas * (xx - x0)) / (x1 - x0))]);
+        x = x1;
+      });
+      // segue até a direita e desce, emendando com o cordão da lateral
+      const fimX = W - (window.innerWidth < 600 ? 21.5 : 33.5);
+      reta(x, fimX - 14);
+      for (let t = 0; t <= 1; t += 0.05) pts.push([fimX - 14 + 14 * Math.sin((t * Math.PI) / 2), cy + (H - cy + 2) * t * t]);
+
+      const camadas = { frente: [], tras: [] };
+      const cores = ["#7fb84f", "#94c95e", "#a9d871", "#c0e68e", "#d6efab", "#6ea845"];
+      const folha = "M0 0 C2 -6 10 -8 14 -4 C16 -2 17 0 19 1 C16 3 13 7 8 7 C3 6 1 4 0 0 Z";
+      let fio = { frente: [], tras: [] }, lado = null, atual = null, grupo = "", grupoLado = null, folhas = 0;
+      const fecharGrupo = () => { if (grupo) { camadas[grupoLado].push(`<g class="grupo" style="animation-delay:-${(folhas % 9) * 0.45}s">${grupo}</g>`); grupo = ""; } };
+      pts.forEach(([px, py], i) => {
+        const prox = pts[Math.min(i + 1, pts.length - 1)];
+        const l = prox[1] >= py ? "frente" : "tras";                     // descendo = na frente das palavras
+        if (l !== lado) { atual = []; fio[l].push(atual); if (atual.length === 0 && i > 0) atual.push(`${pts[i - 1][0].toFixed(1)} ${pts[i - 1][1].toFixed(1)}`); lado = l; }
+        atual.push(`${px.toFixed(1)} ${py.toFixed(1)}`);
+        if (i % 2 === 0) {
+          folhas++;
+          if (l !== grupoLado || folhas % 6 === 0) { fecharGrupo(); grupoLado = l; }
+          const ang = (folhas % 2 ? -45 : 135) + ((folhas * 29) % 70);
+          const tam = 0.28 + ((folhas * 37) % 26) / 100;
+          grupo += `<path d="${folha}" transform="translate(${px.toFixed(1)} ${py.toFixed(1)}) rotate(${ang}) scale(${tam.toFixed(2)})" fill="${cores[folhas % cores.length]}"/>`;
+        }
+        if (i % 9 === 4) {
+          grupo += `<g class="luz" style="animation-delay:-${((i * 0.37) % 3).toFixed(2)}s;animation-duration:${(1.8 + (i % 5) * 0.45).toFixed(2)}s">
+            <circle cx="${px.toFixed(1)}" cy="${py.toFixed(1)}" r="9" fill="url(#halo-topo)"/><circle cx="${px.toFixed(1)}" cy="${py.toFixed(1)}" r="1.9" fill="#fffbe3"/></g>`;
+        }
+      });
+      fecharGrupo();
+      const defs = `<defs><radialGradient id="halo-topo"><stop offset="0" stop-color="#fff1a8"/><stop offset=".28" stop-color="#ffd76a" stop-opacity=".75"/><stop offset="1" stop-color="#ffc94a" stop-opacity="0"/></radialGradient></defs>`;
+      for (const [svg, l] of [[tras, "tras"], [frente, "frente"]]) {
+        svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
+        const linhas = fio[l].map((t) => `<path d="M${t.join(" L")}" fill="none" stroke="#9c8a62" stroke-width=".9"/>`).join("");
+        svg.innerHTML = (l === "tras" ? defs : "") + linhas + camadas[l].join("");
+      }
+    }
+    desenharCordaoTopo();
+    window.addEventListener("load", desenharCordaoTopo);
+    if (document.fonts) document.fonts.ready.then(desenharCordaoTopo);
+    let esperaTopo;
+    window.addEventListener("resize", () => { clearTimeout(esperaTopo); esperaTopo = setTimeout(desenharCordaoTopo, 200); });
   </script>
 </body>
 </html>
