@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sazonal | Prissila Kieski</title>
+  <meta name="description" content="Vídeos sazonais de Prissila Kieski: campanhas de Natal e Black Friday.">
+  <meta name="theme-color" content="#faf7fb">
+
+  <!-- Fontes do Google: Anton (títulos) e Archivo (corpo), as mesmas do portfólio -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --fundo: #faf7fb;
+      --superficie: #ffffff;
+      --superficie-2: #f6ecf8;
+      --texto: #17141c;
+      --texto-suave: #5b5566;
+      --escuro: #17141c;
+      --neon: #e07bf5;              /* lilás neon */
+      --neon-texto: #a23bbf;
+      --verde-neon: #c6f36b;        /* verde lima aceso */
+      --verde-texto: #4e7a1c;
+      --borda: rgba(23, 20, 28, .1);
+      --titulo: "Anton", "Impact", "Arial Narrow", sans-serif;
+      --corpo: "Archivo", system-ui, -apple-system, "Segoe UI", sans-serif;
+      --gutter: clamp(16px, 4vw, 40px);
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; overflow-x: clip; background: var(--fundo); }
+    body { margin: 0; color: var(--texto); font-family: var(--corpo); line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: clip; }
+    a { color: inherit; }
+    h1, h2, h3 { margin: 0; font-weight: 400; }
+    p { margin: 0; }
+    :focus-visible { outline: 2px solid var(--neon-texto); outline-offset: 3px; }
+    .container { width: 100%; max-width: 1240px; margin-inline: auto; padding-inline: var(--gutter); }
+
+    /* Barra superior verde lima, igual ao portfólio */
+    .topo {
+      position: sticky; top: 0; z-index: 50; height: 64px;
+      background: linear-gradient(90deg, rgba(222, 248, 172, .96), rgba(205, 244, 140, .96));
+      box-shadow: 0 4px 30px rgba(198, 243, 107, .45);
+    }
+    .topo .container { height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .logo { font-family: var(--titulo); font-size: 1.45rem; letter-spacing: .06em; text-transform: uppercase; text-decoration: none; }
+    .voltar {
+      display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 999px; text-decoration: none;
+      font-weight: 600; font-size: .68rem; letter-spacing: .16em; text-transform: uppercase;
+      background: rgba(255, 255, 255, .62); border: 1px solid rgba(224, 123, 245, .5);
+      transition: color .3s ease, border-color .3s ease, box-shadow .3s ease, background-color .3s ease;
+    }
+    .voltar:hover, .voltar:focus-visible { color: var(--neon-texto); background: #fff; border-color: var(--neon); box-shadow: 0 0 12px rgba(224, 123, 245, .55); }
+
+    /* Abertura */
+    .abertura { padding: clamp(56px, 9vw, 110px) 0 clamp(28px, 5vw, 48px); text-align: center; }
+    .kicker {
+      display: inline-block; padding: 6px 12px 5px; margin-bottom: 18px;
+      font-weight: 600; font-size: .72rem; letter-spacing: .28em; text-transform: uppercase;
+      color: var(--verde-texto); background: rgba(198, 243, 107, .2); border: 1px solid #b8e86a;
+    }
+    .abertura h1 {
+      font-family: var(--titulo); text-transform: uppercase; font-size: clamp(3.4rem, 12vw, 8rem); line-height: .9;
+      color: #b829b8;
+      text-shadow: 0 0 4px rgba(255, 170, 240, .9), 0 0 14px rgba(224, 123, 245, .85), 0 0 34px rgba(224, 123, 245, .55);
+      animation: neon-pisca 7s infinite;
+    }
+    @keyframes neon-pisca { 0%, 17%, 21%, 24%, 60%, 64%, 100% { opacity: 1; } 19%, 22.5%, 62% { opacity: .62; } }
+    .abertura p { color: var(--texto-suave); max-width: 560px; margin: 18px auto 0; font-size: 1.05rem; }
+    .atalhos { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+    .atalho {
+      padding: 10px 20px; border-radius: 999px; text-decoration: none;
+      font-weight: 600; font-size: .74rem; letter-spacing: .18em; text-transform: uppercase; color: #8a1fa8;
+      border: 1px solid var(--neon); background: rgba(224, 123, 245, .14);
+      box-shadow: 0 0 10px rgba(224, 123, 245, .45), 0 10px 30px -6px rgba(255, 186, 228, .85);
+      transition: transform .45s cubic-bezier(.34, 1.7, .5, 1), background-color .3s ease, border-color .3s ease, color .3s ease, box-shadow .3s ease;
+    }
+    .atalho:hover, .atalho:focus-visible {
+      transform: translateY(-6px) scale(1.07); color: var(--escuro); background: var(--verde-neon); border-color: var(--verde-neon);
+      box-shadow: 0 10px 24px rgba(198, 243, 107, .55), 0 0 18px rgba(198, 243, 107, .85);
+    }
+
+    /* Seções de campanha */
+    .campanha { padding: clamp(56px, 8vw, 100px) 0; scroll-margin-top: 64px; }
+    .campanha-topo { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 12px 24px; margin-bottom: 30px; }
+    .campanha h2 { font-family: var(--titulo); text-transform: uppercase; font-size: clamp(2.4rem, 6vw, 4.2rem); line-height: 1; }
+    .campanha .desc { color: var(--texto-suave); max-width: 520px; margin-top: 10px; }
+    .selo-campanha {
+      display: inline-block; margin-bottom: 12px; padding: 5px 11px 4px; border-radius: 999px;
+      font-weight: 700; font-size: .66rem; letter-spacing: .22em; text-transform: uppercase;
+    }
+    #natal .selo-campanha { color: var(--verde-texto); background: rgba(198, 243, 107, .22); border: 1px solid #b8e86a; }
+    #natal h2 span { color: var(--verde-texto); }
+
+    /* Black Friday no escuro, com neon */
+    #black-friday {
+      --texto: #f6f3f1; --texto-suave: #d6ced3;
+      color: var(--texto);
+      background:
+        radial-gradient(ellipse 55% 60% at 85% 10%, rgba(224, 123, 245, .26), transparent 70%),
+        radial-gradient(ellipse 45% 45% at 5% 100%, rgba(198, 243, 107, .14), transparent 70%),
+        #141118;
+    }
+    #black-friday .selo-campanha { color: var(--verde-neon); border: 1px solid var(--verde-neon); text-shadow: 0 0 8px rgba(198, 243, 107, .8); }
+    #black-friday h2 span { color: #e58cff; text-shadow: 0 0 8px rgba(229, 140, 255, .9), 0 0 22px rgba(229, 140, 255, .6); }
+
+    /* Grade de vídeos 9:16 */
+    .grade { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 200px), 260px)); gap: 22px; padding-top: 10px; }
+    .card {
+      position: relative; display: block; aspect-ratio: 9 / 16; overflow: hidden; border-radius: 4px;
+      text-decoration: none; color: #fff; background: var(--superficie-2);
+      transition: transform .5s cubic-bezier(.34, 1.6, .5, 1), box-shadow .4s ease;
+    }
+    .card:hover, .card:focus-visible {
+      transform: translateY(-12px) scale(1.05); z-index: 2;
+      box-shadow: 0 0 0 2px var(--verde-neon), 0 0 22px rgba(198, 243, 107, .85), 0 22px 40px rgba(198, 243, 107, .35);
+    }
+    .card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; }
+    .card .play {
+      position: absolute; left: 50%; top: 50%; width: 54px; height: 54px; margin: -27px 0 0 -27px; border-radius: 50%;
+      display: grid; place-items: center; background: rgba(255, 255, 255, .85); transition: background-color .3s ease, transform .3s ease;
+    }
+    .card .play svg { width: 22px; height: 22px; margin-left: 3px; fill: var(--escuro); }
+    .card:hover .play { background: var(--verde-neon); transform: scale(1.08); }
+    .card .info { position: absolute; inset: auto 0 0 0; padding: 44px 12px 12px; background: linear-gradient(0deg, rgba(20, 17, 24, .92), rgba(20, 17, 24, .55) 55%, transparent); }
+    .card h3 { font-family: var(--titulo); font-size: 1.1rem; text-transform: uppercase; letter-spacing: .02em; transition: color .3s ease; }
+    .card:hover h3 { color: var(--verde-neon); }
+    .card .marca { font-size: .66rem; letter-spacing: .16em; text-transform: uppercase; color: rgba(255, 255, 255, .85); margin-top: 4px; }
+
+    /* Espaço reservado enquanto os vídeos não chegam */
+    .vazio {
+      display: grid; place-items: center; aspect-ratio: 9 / 16; border-radius: 4px; text-align: center; padding: 18px;
+      border: 1.5px dashed rgba(224, 123, 245, .6); color: var(--texto-suave);
+      font-size: .72rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase;
+      background: rgba(224, 123, 245, .06);
+    }
+    #black-friday .vazio { border-color: rgba(229, 140, 255, .55); background: rgba(229, 140, 255, .06); }
+    .vazio b { display: block; font-family: var(--titulo); font-weight: 400; font-size: 1.6rem; letter-spacing: .04em; color: var(--neon-texto); margin-bottom: 6px; }
+    #black-friday .vazio b { color: #e58cff; }
+
+    /* Player */
+    .janela { width: fit-content; max-width: calc(100vw - 32px); max-height: calc(100vh - 24px); padding: 16px; border: 1px solid var(--borda); background: #fff; overflow: auto; }
+    .janela::backdrop { background: rgba(250, 247, 251, .85); backdrop-filter: blur(6px); }
+    .janela-topo { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
+    .janela-topo h2 { font-family: var(--titulo); font-size: 1.35rem; text-transform: uppercase; max-width: 22ch; }
+    .fechar { width: 40px; height: 40px; border-radius: 50%; border: 1px solid rgba(23, 20, 28, .2); background: #fff; cursor: pointer; font-size: 1.5rem; line-height: 1; }
+    .fechar:hover { border-color: var(--neon); color: var(--neon-texto); }
+    .moldura { height: min(calc(100vh - 130px), 640px); aspect-ratio: 9 / 16; max-width: calc(100vw - 64px); margin-inline: auto; background: #000; }
+    .moldura iframe { width: 100%; height: 100%; border: 0; display: block; }
+    .aviso-local { height: 100%; display: grid; place-items: center; padding: 24px; text-align: center; color: #fff; }
+
+    .rodape { padding: 36px 0; text-align: center; color: var(--texto-suave); font-size: .8rem; }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topo">
+    <div class="container">
+      <a class="logo" href="index.html">Portfólio</a>
+      <a class="voltar" href="index.html">← Voltar ao portfólio</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="abertura">
+      <div class="container">
+        <p class="kicker">Campanhas sazonais</p>
+        <h1>Sazonal</h1>
+        <p>Vídeos pensados para as datas que mais vendem no ano, com o mesmo cuidado de sempre e o clima de cada campanha.</p>
+        <nav class="atalhos" aria-label="Campanhas">
+          <a class="atalho" href="#natal">Natal</a>
+          <a class="atalho" href="#black-friday">Black Friday</a>
+        </nav>
+      </div>
+    </section>
+
+    <section class="campanha" id="natal" aria-labelledby="titulo-natal">
+      <div class="container">
+        <div class="campanha-topo">
+          <div>
+            <span class="selo-campanha">Campanha de fim de ano</span>
+            <h2 id="titulo-natal"><span>Natal</span></h2>
+            <p class="desc" id="descNatal"></p>
+          </div>
+        </div>
+        <div class="grade" id="gradeNatal"></div>
+      </div>
+    </section>
+
+    <section class="campanha" id="black-friday" aria-labelledby="titulo-bf">
+      <div class="container">
+        <div class="campanha-topo">
+          <div>
+            <span class="selo-campanha">Oferta relâmpago</span>
+            <h2 id="titulo-bf"><span>Black</span> Friday</h2>
+            <p class="desc" id="descBF"></p>
+          </div>
+        </div>
+        <div class="grade" id="gradeBF"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="rodape"><p id="direitos"></p></footer>
+
+  <dialog class="janela" id="janela" aria-labelledby="tituloVideo">
+    <div class="janela-topo">
+      <h2 id="tituloVideo"></h2>
+      <button type="button" class="fechar" id="fechar" aria-label="Fechar vídeo">&times;</button>
+    </div>
+    <div class="moldura" id="moldura"></div>
+  </dialog>
+
+  <script>
+    /* =====================================================================
+       EDITE AQUI: vídeos sazonais
+       Para cada vídeo, copie uma linha de exemplo e preencha:
+         titulo: nome do vídeo
+         marca: marca da campanha (opcional)
+         video: link do YouTube (Studio, watch, shorts ou youtu.be). Pode ser "Não listado".
+       Enquanto a lista estiver vazia, aparecem espaços "Em breve".
+       ===================================================================== */
+    const SAZONAL = {
+      natal: {
+        texto: "Presentes, mesa posta, kits e aquele clima de fim de ano que faz o público querer comprar para quem ama.",
+        itens: [
+          // { titulo: "Kit presente de Natal", marca: "Nome da marca", video: "https://youtube.com/shorts/CODIGO" },
+        ]
+      },
+      blackFriday: {
+        texto: "Ofertas com urgência, preço em destaque e chamada direta para a compra: vídeos feitos para converter no dia que mais vende.",
+        itens: [
+          // { titulo: "Oferta de Black Friday", marca: "Nome da marca", video: "https://youtube.com/shorts/CODIGO" },
+        ]
+      }
+    };
+
+    /* ---------- daqui para baixo é o funcionamento (não precisa editar) ---------- */
+    const $ = (s) => document.querySelector(s);
+    const esc = (t) => String(t).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+    const play = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>';
+    function idYoutube(link) {
+      if (!link) return "";
+      const achado = String(link).match(/(?:video\/|v=|shorts\/|youtu\.be\/|embed\/)([\w-]{11})/);
+      return achado ? achado[1] : (/^[\w-]{11}$/.test(link) ? link : "");
+    }
+    function trocarCapa(img) { if (img.dataset.reserva) { img.src = img.dataset.reserva; img.removeAttribute("data-reserva"); } }
+
+    function montar(grade, lista) {
+      const validos = lista.filter((v) => idYoutube(v.video));
+      if (!validos.length) {
+        grade.innerHTML = [1, 2, 3].map(() => `<div class="vazio"><div><b>Em breve</b>Vídeos chegando</div></div>`).join("");
+        return;
+      }
+      grade.innerHTML = validos.map((v) => {
+        const id = idYoutube(v.video);
+        return `<a class="card" href="https://www.youtube.com/watch?v=${id}" data-video="${id}" data-titulo="${esc(v.titulo)}" aria-label="Assistir vídeo: ${esc(v.titulo)}${v.marca ? ", " + esc(v.marca) : ""}">
+          <img src="https://i.ytimg.com/vi/${id}/oardefault.jpg" data-reserva="https://i.ytimg.com/vi/${id}/hqdefault.jpg" alt="" loading="lazy"
+               onerror="trocarCapa(this)" onload="if(this.naturalWidth<=120)trocarCapa(this)">
+          <span class="play" aria-hidden="true">${play}</span>
+          <div class="info" aria-hidden="true"><h3>${esc(v.titulo)}</h3>${v.marca ? `<p class="marca">${esc(v.marca)}</p>` : ""}</div>
+        </a>`;
+      }).join("");
+    }
+    $("#descNatal").textContent = SAZONAL.natal.texto;
+    $("#descBF").textContent = SAZONAL.blackFriday.texto;
+    montar($("#gradeNatal"), SAZONAL.natal.itens);
+    montar($("#gradeBF"), SAZONAL.blackFriday.itens);
+    $("#direitos").textContent = `© ${new Date().getFullYear()} PRISSILA KIESKI · UGC · Micro influ`;
+
+    // Player: o vídeo toca dentro da página
+    const janela = $("#janela"), moldura = $("#moldura");
+    document.addEventListener("click", (e) => {
+      const card = e.target.closest("[data-video]");
+      if (!card) return;
+      e.preventDefault();
+      $("#tituloVideo").textContent = card.dataset.titulo;
+      if (location.protocol === "file:") {
+        moldura.innerHTML = `<p class="aviso-local">O vídeo vai tocar aqui quando o site estiver publicado. Aberto direto do computador, o YouTube bloqueia o player.</p>`;
+      } else {
+        moldura.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${card.dataset.video}?autoplay=1&rel=0&playsinline=1&origin=${encodeURIComponent(location.origin)}"
+          title="${esc(card.dataset.titulo)}" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>`;
+      }
+      janela.showModal();
+    });
+    janela.addEventListener("close", () => { moldura.innerHTML = ""; });
+    $("#fechar").addEventListener("click", () => janela.close());
+    janela.addEventListener("click", (e) => { if (e.target === janela) janela.close(); });
+  </script>
+</body>
+</html>

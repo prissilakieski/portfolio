@@ -117,6 +117,8 @@
       animation: trecho-balanca 4s ease-in-out infinite;
     }
     .vinha-topo .luz { animation: piscar 3s ease-in-out infinite; }
+    .vinha-topo.frente, .vinha-topo.tras { animation: vinha-onda 5.5s ease-in-out infinite; }
+    @keyframes vinha-onda { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(4px, 2px); } }
     /* A brisa: balanço lento e bem pequeno, ancorado no canto de onde as flores "nascem" */    @keyframes brisa {
       0%, 100% { transform: rotate(0deg) translate(0, 0); }
       30% { transform: rotate(.9deg) translate(2px, 1px); }
@@ -201,7 +203,7 @@
       transition: color .3s ease, text-shadow .3s ease;
     }
     .logo:hover, .logo:focus-visible { color: var(--neon-texto); text-shadow: var(--brilho); }
-    .menu { display: flex; gap: 26px; align-items: center; }   /* espaço entre os botões, por onde o cordão passa */
+    .menu { display: flex; gap: 12px; align-items: center; }
     /* Botões da barra: minimalistas, com fundo branco translúcido para o cordão nunca atrapalhar a leitura */
     .menu a {
       display: block; padding: 6px 13px; text-decoration: none;
@@ -214,7 +216,20 @@
       color: var(--neon-texto); background: #ffffff; border-color: var(--neon); text-shadow: none;
       box-shadow: 0 0 12px rgba(224, 123, 245, .55);
     }
-    .menu a.ativo { color: var(--neon-texto); background: #ffffff; border-color: var(--neon); box-shadow: 0 0 10px rgba(224, 123, 245, .45); }    .btn-menu { display: none; width: 46px; height: 46px; border: 0; background: transparent; cursor: pointer; position: relative; }
+    .menu a.ativo { color: var(--neon-texto); background: #ffffff; border-color: var(--neon); box-shadow: 0 0 10px rgba(224, 123, 245, .45); }    /* Botão Sazonal ao lado do PORTFÓLIO: abre a página de Natal e Black Friday em outra aba */
+    .marca-topo { display: flex; align-items: center; gap: 14px; }
+    .btn-sazonal {
+      display: inline-flex; align-items: center; gap: 6px; padding: 5px 12px; border-radius: 999px;
+      font-weight: 700; font-size: .62rem; letter-spacing: .18em; text-transform: uppercase; text-decoration: none;
+      color: #2a0b38; background: linear-gradient(180deg, #f6d2ff, #e07bf5);
+      box-shadow: 0 0 10px rgba(224, 123, 245, .8), 0 0 24px rgba(224, 123, 245, .4);
+      transition: transform .45s cubic-bezier(.34, 1.7, .5, 1), background .3s ease, box-shadow .3s ease;
+    }
+    .btn-sazonal::before { content: "✦"; font-size: .8rem; }
+    .btn-sazonal:hover, .btn-sazonal:focus-visible {
+      transform: translateY(-3px) scale(1.06); background: linear-gradient(180deg, #e8fbc4, #c6f36b);
+      box-shadow: 0 0 12px rgba(198, 243, 107, .9), 0 0 26px rgba(198, 243, 107, .5);
+    }    .btn-menu { display: none; width: 46px; height: 46px; border: 0; background: transparent; cursor: pointer; position: relative; }
     .btn-menu span, .btn-menu span::before, .btn-menu span::after {
       position: absolute; left: 11px; width: 24px; height: 1.5px; background: var(--texto);
       transition: transform .25s ease, background-color .25s ease;
@@ -422,8 +437,8 @@
       transition: transform .4s ease, box-shadow .4s ease, border-color .4s ease;
     }
     .destaque:hover, .destaque:focus-visible {
-      transform: translateY(-6px); border-color: var(--neon);
-      box-shadow: 0 0 0 1px var(--neon), 0 24px 50px rgba(224, 123, 245, .22);
+      transform: translateY(-12px) scale(1.03); border-color: var(--verde-neon);
+      box-shadow: 0 0 0 2px var(--verde-neon), 0 0 26px rgba(198, 243, 107, .8), 0 26px 50px rgba(198, 243, 107, .3);
     }
     .destaque-capa { aspect-ratio: 9 / 16; position: relative; overflow: hidden; }
     .destaque-capa .midia { transition: transform .7s ease; }
@@ -448,16 +463,16 @@
     .play svg { width: 26px; height: 26px; margin-left: 4px; fill: var(--escuro); transition: fill .3s ease; }
     .destaque:hover .play, .destaque:focus-visible .play,
     .trabalho:hover .play-mini, .trabalho:focus-visible .play-mini {
-      background: var(--neon); border-color: var(--neon); transform: scale(1.08); box-shadow: 0 0 26px rgba(224, 123, 245, .7);
+      background: var(--verde-neon); border-color: var(--verde-neon); transform: scale(1.08); box-shadow: 0 0 26px rgba(224, 123, 245, .7);
     }
     .destaque:hover .play svg, .destaque:focus-visible .play svg,
-    .trabalho:hover .play-mini svg, .trabalho:focus-visible .play-mini svg { fill: #fff; }
+    .trabalho:hover .play-mini svg, .trabalho:focus-visible .play-mini svg { fill: var(--escuro); }
     .destaque-info { padding: 22px 22px 26px; }
     .destaque-numero {
       font-family: var(--titulo); font-weight: 500; font-size: clamp(2.4rem, 4.4vw, 3.3rem); line-height: 1; color: var(--milk);
       transition: color .3s ease, text-shadow .3s ease;
     }
-    .destaque:hover .destaque-numero { color: var(--neon-texto); text-shadow: var(--brilho); }
+    .destaque:hover .destaque-numero { color: var(--salvia); text-shadow: 0 0 12px rgba(198, 243, 107, .9); }
     .destaque-rotulo {
       display: inline-block; margin-top: 10px; color: var(--salvia); border: 1px solid var(--salvia-linha);
       font-weight: 600; font-size: .66rem; letter-spacing: .2em; text-transform: uppercase; padding: 4px 9px 3px;
@@ -538,11 +553,11 @@
     .trabalho {
       scroll-snap-align: start; position: relative; display: block; aspect-ratio: 9 / 16; overflow: hidden;
       text-decoration: none; color: inherit; background: var(--superficie-2);
-      transition: transform .45s cubic-bezier(.2,.7,.2,1), box-shadow .45s ease;
+      transition: transform .5s cubic-bezier(.34, 1.6, .5, 1), box-shadow .4s ease;
     }
     .trabalho:hover, .trabalho:focus-visible {
-      transform: scale(1.09); z-index: 3;
-      box-shadow: 0 0 0 2px var(--neon), 0 18px 40px rgba(224, 123, 245, .32);
+      transform: translateY(-12px) scale(1.06); z-index: 3;
+      box-shadow: 0 0 0 2px var(--verde-neon), 0 0 22px rgba(198, 243, 107, .85), 0 22px 40px rgba(198, 243, 107, .35);
     }
     .trabalho .midia { position: absolute; inset: 0; }
     .trabalho img.midia { object-position: 50% 30%; }
@@ -556,7 +571,7 @@
       background: linear-gradient(0deg, rgba(20,17,19,.92) 0%, rgba(20,17,19,.6) 55%, transparent 100%);
     }
     .trabalho-info h4 { margin: 0; font-family: var(--titulo); font-weight: 500; font-size: 1.12rem; line-height: 1.2; transition: color .3s ease, text-shadow .3s ease; }
-    .trabalho:hover .trabalho-info h4 { color: var(--neon-texto); text-shadow: var(--brilho); }
+    .trabalho:hover .trabalho-info h4 { color: var(--verde-neon); text-shadow: 0 0 10px rgba(198, 243, 107, .8); }
     .trabalho-info .formato { font-size: .66rem; letter-spacing: .16em; text-transform: uppercase; color: rgba(255,255,255,.85); font-weight: 500; margin-top: 5px; }
     .trabalho-info .desc {
       font-size: .8rem; color: #fff; line-height: 1.4;
@@ -740,10 +755,10 @@
     .revelar { opacity: 0; transform: translateY(26px); transition: opacity .9s ease, transform .9s cubic-bezier(.2,.7,.2,1); }
     .revelar.visivel { opacity: 1; transform: none; }
     .destaque.revelar.visivel {
-      transition: transform .45s cubic-bezier(.2,.7,.2,1), box-shadow .45s ease, border-color .45s ease, opacity .9s ease;
+      transition: transform .5s cubic-bezier(.34, 1.6, .5, 1), box-shadow .4s ease, border-color .4s ease, opacity .9s ease;
       transition-delay: 0s !important;
     }
-    .destaque.revelar.visivel:hover, .destaque.revelar.visivel:focus-visible { transform: translateY(-6px); }
+    .destaque.revelar.visivel:hover, .destaque.revelar.visivel:focus-visible { transform: translateY(-12px) scale(1.03); }
 
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
@@ -827,7 +842,10 @@
     <svg class="vinha-topo tras" id="vinhaTopoTras" aria-hidden="true"></svg>
     <svg class="vinha-topo frente" id="vinhaTopoFrente" aria-hidden="true"></svg>
     <div class="container">
-      <a class="logo" href="#inicio" id="logo"></a>
+      <div class="marca-topo">
+        <a class="logo" href="#inicio" id="logo"></a>
+        <a class="btn-sazonal" href="sazonal.html" target="_blank" rel="noopener">Sazonal</a>
+      </div>
       <button class="btn-menu" id="btnMenu" aria-expanded="false" aria-controls="menu" aria-label="Abrir menu"><span></span></button>
       <nav aria-label="Menu principal">
         <ul class="menu" id="menu"></ul>
@@ -1710,28 +1728,12 @@
       const alvos = [$("#logo")];
       if (window.innerWidth > 1120) alvos.push(...document.querySelectorAll("#menu a"));   // no celular o menu fica escondido
       const pts = [];
-      // o cordão corre por baixo dos botões e sobe nos espaços entre eles, sem passar por cima das palavras
-      const base = cy + 22, topoArco = cy - 18;
-      let x = null;
-      alvos.forEach((el, n) => {
-        const r = el.getBoundingClientRect();
-        const x0 = r.left - rt.left - 4, x1 = r.right - rt.left + 4;
-        if (x !== null) {
-          const vao = x0 - x;
-          if (vao > 90) {
-            // vão grande (entre o PORTFÓLIO e o menu): ondinhas suaves
-            for (let xx = x; xx < x0; xx += 3) pts.push([xx, base - 6 - 7 * Math.sin(((xx - x) / vao) * Math.PI * Math.max(2, Math.round(vao / 90)))]);
-          } else {
-            // vão pequeno entre dois botões: o cordão sobe entre eles e desce de novo
-            for (let xx = x; xx < x0; xx += 1.5) pts.push([xx, base - (base - topoArco) * Math.sin(((xx - x) / vao) * Math.PI)]);
-          }
-        }
-        for (let xx = x0; xx <= x1; xx += 3) pts.push([xx, base + Math.sin((xx - x0) / 7) * 1.5]);
-        x = x1;
-      });
-      // segue até a direita e desce, emendando com o cordão da lateral
+      // o cordão passa só por baixo dos botões, numa linha ondulada suave
+      const base = cy + 23;
+      const inicio = $("#logo").getBoundingClientRect().left - rt.left - 4;
       const fimX = W - (window.innerWidth < 600 ? 21.5 : 33.5);
-      for (let xx = x; xx < fimX - 14; xx += 3) pts.push([xx, base + Math.sin(xx / 9) * 1.5]);
+      for (let xx = inicio; xx < fimX - 14; xx += 3) pts.push([xx, base + Math.sin(xx / 38) * 2.2 + Math.sin(xx / 11) * 0.8]);
+      // no canto direito desce e emenda com o cordão da lateral
       for (let t = 0; t <= 1; t += 0.05) pts.push([fimX - 14 + 14 * Math.sin((t * Math.PI) / 2), base + (H - base + 2) * t * t]);
       const camadas = { frente: [], tras: [] };
       const cores = ["#7fb84f", "#94c95e", "#a9d871", "#c0e68e", "#d6efab", "#6ea845"];
