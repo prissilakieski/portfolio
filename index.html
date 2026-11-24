@@ -201,34 +201,20 @@
       transition: color .3s ease, text-shadow .3s ease;
     }
     .logo:hover, .logo:focus-visible { color: var(--neon-texto); text-shadow: var(--brilho); }
-    .menu { display: flex; gap: 10px; align-items: center; }
-    /* Itens do menu em nuvens de lilás neon: o cordão passa por trás e as palavras ficam sempre legíveis */
+    .menu { display: flex; gap: 26px; align-items: center; }   /* espaço entre os botões, por onde o cordão passa */
+    /* Botões da barra: minimalistas, com fundo branco translúcido para o cordão nunca atrapalhar a leitura */
     .menu a {
-      position: relative; display: block; padding: 8px 15px 7px; text-decoration: none;
-      font-weight: 700; font-size: .68rem; letter-spacing: .16em; text-transform: uppercase;
-      color: #3d1350; background: linear-gradient(180deg, #fae6ff 0%, #f0c8fb 100%);
-      border-radius: 999px;
-      box-shadow: 0 0 10px rgba(224, 123, 245, .75), 0 0 24px rgba(224, 123, 245, .45), inset 0 -3px 6px rgba(224, 123, 245, .35);
-      transition: transform .4s cubic-bezier(.34, 1.7, .5, 1), background .3s ease, box-shadow .3s ease, color .3s ease;
+      display: block; padding: 6px 13px; text-decoration: none;
+      font-weight: 600; font-size: .68rem; letter-spacing: .16em; text-transform: uppercase;
+      color: var(--texto); background: rgba(255, 255, 255, .62);
+      border: 1px solid rgba(224, 123, 245, .5); border-radius: 999px;
+      transition: color .3s ease, background-color .3s ease, border-color .3s ease, box-shadow .3s ease;
     }
-    /* os "gominhos" de cima da nuvem */
-    .menu a::before, .menu a::after {
-      content: ""; position: absolute; z-index: -1; border-radius: 50%;
-      background: #fae6ff; box-shadow: 0 0 10px rgba(224, 123, 245, .6);
-    }
-    .menu a::before { width: 20px; height: 20px; top: -8px; left: 20%; }
-    .menu a::after { width: 15px; height: 15px; top: -5px; right: 20%; }
     .menu a:hover, .menu a:focus-visible {
-      transform: translateY(-3px) scale(1.06); color: var(--escuro); text-shadow: none;
-      background: linear-gradient(180deg, #e8fbc4 0%, #c6f36b 100%);
-      box-shadow: 0 0 12px rgba(198, 243, 107, .9), 0 0 26px rgba(198, 243, 107, .55);
+      color: var(--neon-texto); background: #ffffff; border-color: var(--neon); text-shadow: none;
+      box-shadow: 0 0 12px rgba(224, 123, 245, .55);
     }
-    .menu a:hover::before, .menu a:hover::after, .menu a:focus-visible::before, .menu a:focus-visible::after { background: #e8fbc4; box-shadow: 0 0 10px rgba(198, 243, 107, .7); }
-    .menu a.ativo {
-      color: #2a0b38; background: linear-gradient(180deg, #f6d2ff 0%, #e07bf5 100%);
-      box-shadow: 0 0 14px rgba(224, 123, 245, 1), 0 0 32px rgba(224, 123, 245, .6), inset 0 -3px 6px rgba(170, 60, 200, .35);
-    }
-    .menu a.ativo::before, .menu a.ativo::after { background: #f6d2ff; }    .btn-menu { display: none; width: 46px; height: 46px; border: 0; background: transparent; cursor: pointer; position: relative; }
+    .menu a.ativo { color: var(--neon-texto); background: #ffffff; border-color: var(--neon); box-shadow: 0 0 10px rgba(224, 123, 245, .45); }    .btn-menu { display: none; width: 46px; height: 46px; border: 0; background: transparent; cursor: pointer; position: relative; }
     .btn-menu span, .btn-menu span::before, .btn-menu span::after {
       position: absolute; left: 11px; width: 24px; height: 1.5px; background: var(--texto);
       transition: transform .25s ease, background-color .25s ease;
@@ -1724,22 +1710,29 @@
       const alvos = [$("#logo")];
       if (window.innerWidth > 1120) alvos.push(...document.querySelectorAll("#menu a"));   // no celular o menu fica escondido
       const pts = [];
-      const reta = (x0, x1) => { for (let x = x0; x < x1; x += 3) pts.push([x, cy + Math.sin(x / 9) * 1.2]); };
-      let x = 0;
+      // o cordão corre por baixo dos botões e sobe nos espaços entre eles, sem passar por cima das palavras
+      const base = cy + 22, topoArco = cy - 18;
+      let x = null;
       alvos.forEach((el, n) => {
         const r = el.getBoundingClientRect();
-        const x0 = r.left - rt.left - 6, x1 = r.right - rt.left + 6;
-        const A = n === 0 ? 17 : 13;                                   // volta maior no PORTFÓLIO
-        const voltas = n === 0 ? 2 : 1;
-        if (n > 0) reta(x, x0);
-        for (let xx = x0; xx <= x1; xx += 2.5) pts.push([xx, cy - A * Math.sin((2 * Math.PI * voltas * (xx - x0)) / (x1 - x0))]);
+        const x0 = r.left - rt.left - 4, x1 = r.right - rt.left + 4;
+        if (x !== null) {
+          const vao = x0 - x;
+          if (vao > 90) {
+            // vão grande (entre o PORTFÓLIO e o menu): ondinhas suaves
+            for (let xx = x; xx < x0; xx += 3) pts.push([xx, base - 6 - 7 * Math.sin(((xx - x) / vao) * Math.PI * Math.max(2, Math.round(vao / 90)))]);
+          } else {
+            // vão pequeno entre dois botões: o cordão sobe entre eles e desce de novo
+            for (let xx = x; xx < x0; xx += 1.5) pts.push([xx, base - (base - topoArco) * Math.sin(((xx - x) / vao) * Math.PI)]);
+          }
+        }
+        for (let xx = x0; xx <= x1; xx += 3) pts.push([xx, base + Math.sin((xx - x0) / 7) * 1.5]);
         x = x1;
       });
       // segue até a direita e desce, emendando com o cordão da lateral
       const fimX = W - (window.innerWidth < 600 ? 21.5 : 33.5);
-      reta(x, fimX - 14);
-      for (let t = 0; t <= 1; t += 0.05) pts.push([fimX - 14 + 14 * Math.sin((t * Math.PI) / 2), cy + (H - cy + 2) * t * t]);
-
+      for (let xx = x; xx < fimX - 14; xx += 3) pts.push([xx, base + Math.sin(xx / 9) * 1.5]);
+      for (let t = 0; t <= 1; t += 0.05) pts.push([fimX - 14 + 14 * Math.sin((t * Math.PI) / 2), base + (H - base + 2) * t * t]);
       const camadas = { frente: [], tras: [] };
       const cores = ["#7fb84f", "#94c95e", "#a9d871", "#c0e68e", "#d6efab", "#6ea845"];
       const folha = "M0 0 C2 -6 10 -8 14 -4 C16 -2 17 0 19 1 C16 3 13 7 8 7 C3 6 1 4 0 0 Z";
