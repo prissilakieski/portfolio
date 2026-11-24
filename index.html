@@ -355,6 +355,16 @@
     }
     .faixa-trilho li:hover { color: #ffffff; text-shadow: 0 0 10px rgba(224, 123, 245, 1), 0 0 30px rgba(224, 123, 245, .8), 0 0 50px rgba(224, 123, 245, .5); }
     .faixa-trilho li::after { content: ""; width: 6px; height: 6px; background: var(--verde-neon); box-shadow: 0 0 10px var(--verde-neon); transform: rotate(45deg); }
+    /* Marcas com vídeo: ao passar o mouse acendem e mostram "ver vídeo"; o clique abre o vídeo */
+    .marca-link { position: relative; color: inherit; text-decoration: none; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; }
+    .marca-link::after { content: ""; position: absolute; left: 0; right: 0; bottom: -4px; height: 2px; background: var(--verde-neon); box-shadow: 0 0 8px var(--verde-neon); transform: scaleX(.35); opacity: .7; transition: transform .3s ease, opacity .3s ease; }
+    .marca-play {
+      font-family: var(--corpo); font-size: .58rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+      color: var(--escuro); background: var(--verde-neon); padding: 3px 7px; border-radius: 999px; text-shadow: none;
+      max-width: 0; overflow: hidden; opacity: 0; white-space: nowrap; transition: max-width .35s ease, opacity .3s ease;
+    }
+    .marca-link:hover::after, .marca-link:focus-visible::after { transform: scaleX(1); opacity: 1; }
+    .marca-link:hover .marca-play, .marca-link:focus-visible .marca-play { max-width: 120px; opacity: 1; }
     @keyframes deslizar { to { transform: translateX(-50%); } }
 
     /* ==========================================================
@@ -1071,7 +1081,9 @@
       },
 
       // EDITE AQUI: nomes das marcas com quem você já trabalhou (faixa que passa na capa)
-      marcas: ["Mascavo", "Coca-Cola", "Contém 1g", "L'Occitane au Brésil", "Amend", "Bioderma", "Darrow", "Amobeleza", "Canva", "Mercado Livre", "Vizzela", "Natura", "État Pur", "O Boticário", "Klasme", "Quem Disse, Berenice?", "Bruna Tavares", "Coza", "Coala", "Brinox", "HyperX", "Rainha", "SOUU Beauty", "Vic Beauté", "Pantene", "Elseve", "Avène", "Amakha Paris"],
+      // Para uma marca abrir o vídeo dela ao ser clicada na faixa, troque o nome por:
+      //   { nome: "Nome da marca", video: "link do YouTube" }
+      marcas: ["Mascavo", "Coca-Cola", "Contém 1g", "L'Occitane au Brésil", "Amend", "Bioderma", "Darrow", "Amobeleza", "Canva", "Mercado Livre", "Vizzela", "Natura", "État Pur", "O Boticário", "Klasme", "Quem Disse, Berenice?", "Bruna Tavares", { nome: "Coza", video: "https://youtube.com/shorts/A098WedX3Tg" }, { nome: "Coala", video: "https://studio.youtube.com/video/PFzhoWmZ6fY/edit" }, "Brinox", "HyperX", "Rainha", "SOUU Beauty", "Vic Beauté", "Pantene", "Elseve", "Avène", "Amakha Paris"],
 
       // EDITE AQUI: seção Sobre mim
       sobre: {
@@ -1343,8 +1355,16 @@
     $("#capaFoto").innerHTML = `${midia(cp)}${cp.imagem ? "" : `<span class="iniciais" aria-hidden="true">${esc(CONFIG.perfil.iniciais)}</span>`}`;
 
     // Faixa de marcas (a segunda cópia existe só para o movimento contínuo)
-    const listaMarcas = CONFIG.marcas.map((m) => `<li>${esc(m)}</li>`).join("");
-    $("#faixaMarcas").innerHTML = `<ul>${listaMarcas}</ul><ul aria-hidden="true">${listaMarcas}</ul>`;
+    const itemMarca = (m, oculta) => {
+      const nome = typeof m === "string" ? m : m.nome;
+      const id = typeof m === "string" ? "" : idYoutube(m.video);
+      if (!id) return `<li>${esc(nome)}</li>`;
+      return `<li><a class="marca-link" href="https://www.youtube.com/watch?v=${id}" data-video="${id}" data-titulo="${esc(nome)}"
+        ${oculta ? 'tabindex="-1"' : `aria-label="Assistir ao vídeo da ${esc(nome)}"`}>${esc(nome)}<span class="marca-play" aria-hidden="true">▶ ver vídeo</span></a></li>`;
+    };
+    const listaMarcas = CONFIG.marcas.map((m) => itemMarca(m, false)).join("");
+    const listaMarcasCopia = CONFIG.marcas.map((m) => itemMarca(m, true)).join("");
+    $("#faixaMarcas").innerHTML = `<ul>${listaMarcas}</ul><ul aria-hidden="true">${listaMarcasCopia}</ul>`;
 
     /* ---------- 2. Sobre ---------- */
     const sb = CONFIG.sobre;
