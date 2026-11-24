@@ -20,19 +20,19 @@
        ========================================================== */
     :root {
       /* Paleta gamer girly: branco, verde lima pastel aceso, lilás neon e preto */
-      --fundo: #f8f7fb;            /* branco levemente lilás */
-      --branco: #f8f7fb;
+      --fundo: #faf7fb;            /* branco levemente lilás */
+      --branco: #faf7fb;
       --fundo-2: rgba(255, 255, 255, .6);
       --superficie: #ffffff;       /* cards */
-      --superficie-2: #f0ebf8;
+      --superficie-2: #f6ecf8;
       --texto: #17141c;            /* preto: texto principal */
       --texto-suave: #5b5566;      /* texto de apoio */
       --escuro: #17141c;
-      --milk: #6a35c9;             /* lilás (tom escuro, legível no branco): números e destaques */
-      --milk-forte: #b57cff;
-      --neon: #b57cff;             /* lilás neon: botões, brilho e detalhes */
-      --neon-texto: #7d3ddb;       /* lilás neon para TEXTO no branco */
-      --brilho: 0 0 10px rgba(181, 124, 255, .6), 0 0 26px rgba(181, 124, 255, .38);
+      --milk: #8e2fb0;             /* lilás (tom escuro, legível no branco): números e destaques */
+      --milk-forte: #e07bf5;
+      --neon: #e07bf5;             /* lilás neon: botões, brilho e detalhes */
+      --neon-texto: #a23bbf;       /* lilás neon para TEXTO no branco */
+      --brilho: 0 0 10px rgba(224, 123, 245, .6), 0 0 26px rgba(224, 123, 245, .38);
       --salvia: #4e7a1c;           /* verde lima escuro, legível no branco */
       --salvia-linha: #b8e86a;     /* verde lima aceso: linhas */
       --salvia-fundo: rgba(198, 243, 107, .2);
@@ -65,7 +65,7 @@
     p { margin: 0; }
     ul { margin: 0; padding: 0; list-style: none; }
     button, input, textarea { font: inherit; color: inherit; }
-    ::selection { background: #e3d2ff; color: var(--escuro); }
+    ::selection { background: #f6d3ff; color: var(--escuro); }
 
     :focus-visible { outline: 2px solid var(--neon-texto); outline-offset: 3px; }
 
@@ -160,7 +160,7 @@
     .btn-vermelho { background: var(--neon); border-color: var(--neon); color: var(--escuro); }
     .btn-vermelho:hover, .btn-vermelho:focus-visible {
       background: var(--btn-hover-bg, #141214); border-color: var(--btn-hover-bg, #141214); color: var(--btn-hover-cor, #fff);
-      box-shadow: 0 0 30px rgba(181, 124, 255, .7);
+      box-shadow: 0 0 30px rgba(224, 123, 245, .7);
     }
     .btn-cinza { background: transparent; color: var(--texto); border-color: var(--texto); }
     .btn-cinza:hover, .btn-cinza:focus-visible { color: var(--neon-texto); border-color: var(--neon); text-shadow: var(--brilho); }
@@ -175,8 +175,8 @@
     /* Barra superior em verde botânico */
     .topo {
       position: fixed; inset: 0 0 auto 0; z-index: 100; height: var(--header-h);
-      --texto: #17141c; --neon-texto: #6a2fc4; --milk: #6a2fc4;
-      --brilho: 0 0 10px rgba(181, 124, 255, .9), 0 0 24px rgba(181, 124, 255, .55);
+      --texto: #17141c; --neon-texto: #8a1fa8; --milk: #8a1fa8;
+      --brilho: 0 0 10px rgba(224, 123, 245, .9), 0 0 24px rgba(224, 123, 245, .55);
       background: linear-gradient(90deg, rgba(222, 248, 172, .95), rgba(205, 244, 140, .95));
       box-shadow: 0 4px 30px rgba(198, 243, 107, .45);
       backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
@@ -213,16 +213,16 @@
     /* Capa: preto translúcido, com cores próprias para o texto claro */
     .capa {
       --texto: #f6f3f1; --texto-suave: #d6ced3; --borda: rgba(255, 255, 255, .16);
-      --milk: #d9c2ff; --neon-texto: #d2a6ff; --salvia: #c6f36b;
-      --brilho: 0 0 10px rgba(181, 124, 255, .75), 0 0 28px rgba(181, 124, 255, .5);
+      --milk: #f0c6ff; --neon-texto: #f2a8ff; --salvia: #c6f36b;
+      --brilho: 0 0 10px rgba(224, 123, 245, .75), 0 0 28px rgba(224, 123, 245, .5);
       --btn-hover-bg: #ffffff; --btn-hover-cor: #141214;
-      --lilas-neon: #c77dff; --lilas-brilho: 0 0 8px rgba(199, 125, 255, .9), 0 0 22px rgba(199, 125, 255, .6), 0 0 44px rgba(199, 125, 255, .35);
+      --lilas-neon: #e58cff; --lilas-brilho: 0 0 8px rgba(229, 140, 255, .9), 0 0 22px rgba(229, 140, 255, .6), 0 0 44px rgba(229, 140, 255, .35);
       color: var(--texto);
       position: relative; min-height: 100vh; min-height: 100svh;
       display: flex; flex-direction: column; justify-content: flex-end;
       padding-top: calc(var(--header-h) + 36px);
       background:
-        radial-gradient(ellipse 55% 60% at 80% 30%, rgba(181, 124, 255, .26), transparent 70%),
+        radial-gradient(ellipse 55% 60% at 80% 30%, rgba(224, 123, 245, .26), transparent 70%),
         radial-gradient(ellipse 45% 45% at 6% 100%, rgba(198, 243, 107, .14), transparent 70%),
         rgba(20, 16, 26, .93);
       overflow: hidden;
@@ -241,7 +241,7 @@
     .capa h1 span:hover { color: var(--neon-texto); text-shadow: var(--brilho); }
     /* KIESKI em lilás neon */
     .capa h1 .linha-2 { display: inline-block; color: var(--lilas-neon); text-shadow: var(--lilas-brilho); padding-right: .08em; }
-    .capa h1 .linha-2:hover { color: #e2b8ff; text-shadow: 0 0 12px rgba(199, 125, 255, 1), 0 0 34px rgba(199, 125, 255, .8), 0 0 60px rgba(199, 125, 255, .5); }
+    .capa h1 .linha-2:hover { color: #f6c4ff; text-shadow: 0 0 12px rgba(229, 140, 255, 1), 0 0 34px rgba(229, 140, 255, .8), 0 0 60px rgba(229, 140, 255, .5); }
     .capa .frase { margin-top: 28px; max-width: 540px; font-size: clamp(1.05rem, 2vw, 1.22rem); color: var(--texto-suave); line-height: 1.7; }
     .capa .frase strong { color: var(--milk); font-weight: 600; transition: color .3s ease, text-shadow .3s ease; }
     .capa .frase strong:hover { color: var(--neon-texto); text-shadow: var(--brilho); }
@@ -286,8 +286,8 @@
     /* "Já trabalhei com": faixa em lilás neon, estilo gamer */
     .faixa-marcas {
       position: relative; overflow: hidden; background: #0b0a0d;
-      border-top: 1px solid rgba(199, 125, 255, .55); border-bottom: 1px solid rgba(199, 125, 255, .55);
-      box-shadow: 0 0 18px rgba(199, 125, 255, .35), inset 0 0 22px rgba(199, 125, 255, .12);
+      border-top: 1px solid rgba(229, 140, 255, .55); border-bottom: 1px solid rgba(229, 140, 255, .55);
+      box-shadow: 0 0 18px rgba(229, 140, 255, .35), inset 0 0 22px rgba(229, 140, 255, .12);
     }
     .faixa-marcas::after {
       /* linhas de tela de monitor (scanlines) */
@@ -310,7 +310,7 @@
       color: var(--lilas-neon); text-shadow: var(--lilas-brilho);
       display: flex; align-items: center; gap: 26px; transition: color .3s ease, text-shadow .3s ease;
     }
-    .faixa-trilho li:hover { color: #ffffff; text-shadow: 0 0 10px rgba(181, 124, 255, 1), 0 0 30px rgba(181, 124, 255, .8), 0 0 50px rgba(181, 124, 255, .5); }
+    .faixa-trilho li:hover { color: #ffffff; text-shadow: 0 0 10px rgba(224, 123, 245, 1), 0 0 30px rgba(224, 123, 245, .8), 0 0 50px rgba(224, 123, 245, .5); }
     .faixa-trilho li::after { content: ""; width: 6px; height: 6px; background: var(--verde-neon); box-shadow: 0 0 10px var(--verde-neon); transform: rotate(45deg); }
     @keyframes deslizar { to { transform: translateX(-50%); } }
 
@@ -323,7 +323,7 @@
       --texto: #141214; --texto-suave: #5a525d; --borda: rgba(20, 18, 20, .12);
       --superficie: #ffffff; --superficie-2: #efe9ec;
       --milk: #6f5a78; --milk-forte: #8a7593;
-      --neon-texto: #7d3ddb; --brilho: 0 0 10px rgba(181, 124, 255, .6), 0 0 26px rgba(181, 124, 255, .38);
+      --neon-texto: #a23bbf; --brilho: 0 0 10px rgba(224, 123, 245, .6), 0 0 26px rgba(224, 123, 245, .38);
       --salvia: #4b6844; --salvia-linha: #8aa37f; --salvia-fundo: rgba(95, 124, 86, .1);
       color: var(--texto);
     }
@@ -354,7 +354,7 @@
     }
     .polaroid:hover .polaroid-foto {
       outline-color: var(--neon); outline-offset: 20px;
-      box-shadow: 0 30px 60px rgba(20, 18, 20, .22), 0 0 34px rgba(181, 124, 255, .25);
+      box-shadow: 0 30px 60px rgba(20, 18, 20, .22), 0 0 34px rgba(224, 123, 245, .25);
     }
     .polaroid.mexendo .polaroid-foto { transition: transform .12s linear, outline-offset .6s ease, outline-color .6s ease, box-shadow .6s ease; }
     .polaroid:hover .polaroid-foto .midia { transform: scale(1.07); filter: saturate(1.08) contrast(1.03); }
@@ -387,7 +387,7 @@
     /* ==========================================================
        3. CONTEÚDOS DE DESTAQUE
        ========================================================== */
-    .destaques-grade { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(16px, 3vw, 36px); max-width: 1040px; margin-inline: auto; }
+    .destaques-grade { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(16px, 3vw, 36px); max-width: 900px; margin-inline: auto; }
     .destaque {
       display: block; text-decoration: none; color: inherit;
       background: var(--superficie); overflow: hidden; position: relative; border: 1px solid var(--borda);
@@ -395,7 +395,7 @@
     }
     .destaque:hover, .destaque:focus-visible {
       transform: translateY(-6px); border-color: var(--neon);
-      box-shadow: 0 0 0 1px var(--neon), 0 24px 50px rgba(181, 124, 255, .22);
+      box-shadow: 0 0 0 1px var(--neon), 0 24px 50px rgba(224, 123, 245, .22);
     }
     .destaque-capa { aspect-ratio: 9 / 16; position: relative; overflow: hidden; }
     .destaque-capa .midia { transition: transform .7s ease; }
@@ -420,7 +420,7 @@
     .play svg { width: 26px; height: 26px; margin-left: 4px; fill: var(--escuro); transition: fill .3s ease; }
     .destaque:hover .play, .destaque:focus-visible .play,
     .trabalho:hover .play-mini, .trabalho:focus-visible .play-mini {
-      background: var(--neon); border-color: var(--neon); transform: scale(1.08); box-shadow: 0 0 26px rgba(181, 124, 255, .7);
+      background: var(--neon); border-color: var(--neon); transform: scale(1.08); box-shadow: 0 0 26px rgba(224, 123, 245, .7);
     }
     .destaque:hover .play svg, .destaque:focus-visible .play svg,
     .trabalho:hover .play-mini svg, .trabalho:focus-visible .play-mini svg { fill: #fff; }
@@ -446,10 +446,10 @@
     .filtros { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 40px; }
     /* Botões dos nichos: lilás neon; ao passar o mouse dão um salto e ficam verde lima */
     .filtro {
-      border: 1px solid var(--neon); background: rgba(181, 124, 255, .14); color: #5a24b8;
+      border: 1px solid var(--neon); background: rgba(224, 123, 245, .14); color: #8a1fa8;
       padding: 10px 18px; border-radius: 999px; cursor: pointer;
       font-weight: 600; font-size: .72rem; letter-spacing: .18em; text-transform: uppercase;
-      box-shadow: 0 0 10px rgba(181, 124, 255, .45), inset 0 0 8px rgba(181, 124, 255, .18);
+      box-shadow: 0 0 10px rgba(224, 123, 245, .45), inset 0 0 8px rgba(224, 123, 245, .18);
       transition: transform .45s cubic-bezier(.34, 1.7, .5, 1), background-color .3s ease, border-color .3s ease, color .3s ease, box-shadow .3s ease;
     }
     .filtro:hover, .filtro:focus-visible {
@@ -459,7 +459,7 @@
     }
     .filtro[aria-pressed="true"] {
       background: var(--neon); border-color: var(--neon); color: var(--escuro); text-shadow: none;
-      box-shadow: 0 0 14px rgba(181, 124, 255, .85), 0 0 30px rgba(181, 124, 255, .45);
+      box-shadow: 0 0 14px rgba(224, 123, 245, .85), 0 0 30px rgba(224, 123, 245, .45);
     }
     .filtro[aria-pressed="true"]:hover { background: var(--verde-neon); border-color: var(--verde-neon); box-shadow: 0 10px 24px rgba(198, 243, 107, .55), 0 0 18px rgba(198, 243, 107, .85); }
 
@@ -490,7 +490,7 @@
       background: var(--superficie); color: var(--texto); cursor: pointer; display: grid; place-items: center;
       transition: background-color .3s ease, border-color .3s ease, color .3s ease, box-shadow .3s ease;
     }
-    .seta:hover { border-color: var(--neon); color: var(--neon-texto); box-shadow: 0 0 16px rgba(181,124,255,.45); }
+    .seta:hover { border-color: var(--neon); color: var(--neon-texto); box-shadow: 0 0 16px rgba(224,123,245,.45); }
     .seta svg { width: 18px; height: 18px; }
     .trilho {
       display: grid; grid-auto-flow: column; grid-auto-columns: clamp(176px, 22vw, 272px);
@@ -514,7 +514,7 @@
     }
     .trabalho:hover, .trabalho:focus-visible {
       transform: scale(1.09); z-index: 3;
-      box-shadow: 0 0 0 2px var(--neon), 0 18px 40px rgba(181, 124, 255, .32);
+      box-shadow: 0 0 0 2px var(--neon), 0 18px 40px rgba(224, 123, 245, .32);
     }
     .trabalho .midia { position: absolute; inset: 0; }
     .trabalho img.midia { object-position: 50% 30%; }
@@ -541,6 +541,22 @@
     /* TikTok Shop */
     .tts-topo { display: grid; grid-template-columns: 1.1fr .9fr; gap: clamp(24px, 5vw, 64px); align-items: end; margin-bottom: clamp(20px, 4vw, 36px); }
     .tts-topo .cabecalho-secao { margin-bottom: 0; }
+    /* Título do TikTok Shop aceso em neon, com a trepadeira enroscada */
+    .tts-titulo { position: relative; display: inline-block; padding: 22px 12px; margin: -22px -12px; }
+    .tts-titulo .vinha { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+    .tts-titulo .vinha-tras { z-index: 0; opacity: .6; }
+    .tts-titulo .vinha-frente { z-index: 2; }
+    .tts-titulo .tts-neon { position: relative; z-index: 1; }
+    .tts-neon {
+      color: #b829b8;
+      text-shadow: 0 0 4px rgba(255, 170, 240, .9), 0 0 14px rgba(224, 123, 245, .85), 0 0 34px rgba(224, 123, 245, .55), 0 0 60px rgba(224, 123, 245, .3);
+      animation: neon-pisca 7s infinite;
+    }
+    .tts-neon:hover { color: #d23ad2; }
+    @keyframes neon-pisca {
+      0%, 17%, 21%, 24%, 60%, 64%, 100% { opacity: 1; }
+      19%, 22.5%, 62% { opacity: .62; }
+    }
     .tts-selo {
       display: inline-flex; align-items: center; gap: 8px; margin-bottom: 16px;
       background: var(--neon); color: var(--escuro); padding: 6px 12px 5px;
@@ -570,7 +586,7 @@
       background: transparent; color: var(--texto); font-size: 1.6rem; line-height: 1;
       transition: color .3s ease, border-color .3s ease, box-shadow .3s ease;
     }
-    .fechar-video:hover { color: var(--neon-texto); border-color: var(--neon); box-shadow: 0 0 16px rgba(181,124,255,.45); }
+    .fechar-video:hover { color: var(--neon-texto); border-color: var(--neon); box-shadow: 0 0 16px rgba(224,123,245,.45); }
     /* Player: a altura acompanha a tela, então o vídeo aparece inteiro sem rolar */
     .moldura-video {
       height: min(calc(100vh - 130px), 640px); aspect-ratio: 9 / 16; width: auto;
@@ -610,7 +626,7 @@
       display: block; font-family: var(--titulo); font-weight: 500; color: var(--milk);
       font-size: clamp(2.6rem, 5.5vw, 4.2rem); line-height: 1; transition: color .3s ease, text-shadow .3s ease;
     }
-    .contador:hover { transform: translateY(-8px) scale(1.06); background: var(--superficie); box-shadow: 0 22px 50px rgba(181, 124, 255, .2), 0 0 0 1px var(--neon); z-index: 2; }
+    .contador:hover { transform: translateY(-8px) scale(1.06); background: var(--superficie); box-shadow: 0 22px 50px rgba(224, 123, 245, .2), 0 0 0 1px var(--neon); z-index: 2; }
     .contador strong { transition: color .3s ease, text-shadow .3s ease, transform .4s cubic-bezier(.2, .7, .2, 1); }
     .contador:hover strong { color: var(--neon-texto); text-shadow: var(--brilho); transform: scale(1.12); }
     .contador span { display: block; margin-top: 12px; color: var(--texto-suave); font-weight: 500; font-size: .74rem; letter-spacing: .14em; text-transform: uppercase; }
@@ -618,7 +634,7 @@
     .subtitulo-bloco::after { content: ""; flex: 1; height: 1px; background: var(--borda); }
     .resultados { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
     .resultado { padding: 28px; background: var(--superficie); border-top: 2px solid var(--salvia-linha); transition: box-shadow .4s ease, border-color .4s ease, transform .4s cubic-bezier(.2, .7, .2, 1); }
-    .resultado:hover { border-color: var(--neon); box-shadow: 0 22px 50px rgba(181, 124, 255, .22); transform: translateY(-8px) scale(1.03); }
+    .resultado:hover { border-color: var(--neon); box-shadow: 0 22px 50px rgba(224, 123, 245, .22); transform: translateY(-8px) scale(1.03); }
     .resultado .nicho { font-size: .66rem; font-weight: 600; letter-spacing: .22em; text-transform: uppercase; color: var(--salvia); }
     .resultado strong { display: block; font-family: var(--titulo); font-weight: 500; font-size: 3rem; line-height: 1.1; margin-top: 10px; color: var(--milk); transition: color .3s ease, text-shadow .3s ease; }
     .resultado:hover strong { color: var(--neon-texto); text-shadow: var(--brilho); }
@@ -630,7 +646,7 @@
       padding: 30px 26px; display: flex; flex-direction: column; gap: 18px;
       transition: border-color .3s ease, box-shadow .3s ease;
     }
-    .depoimento:hover { border-color: var(--neon); box-shadow: 0 16px 40px rgba(181, 124, 255, .16); }
+    .depoimento:hover { border-color: var(--neon); box-shadow: 0 16px 40px rgba(224, 123, 245, .16); }
     .depoimento .aspas { font-family: var(--titulo); font-size: 4.4rem; line-height: .6; color: var(--salvia-linha); height: 28px; }
     .estrelas { color: var(--neon-texto); letter-spacing: 3px; font-size: .95rem; }
     .depoimento blockquote { margin: 0; color: var(--texto); font-size: 1.02rem; }
@@ -659,7 +675,7 @@
     }
     .campo textarea { min-height: 140px; resize: vertical; }
     .campo input::placeholder, .campo textarea::placeholder { color: #7d757f; }
-    .campo input:focus, .campo textarea:focus { outline: none; border-color: var(--neon); box-shadow: 0 0 0 3px rgba(181,124,255,.3), 0 0 18px rgba(181,124,255,.25); }
+    .campo input:focus, .campo textarea:focus { outline: none; border-color: var(--neon); box-shadow: 0 0 0 3px rgba(224,123,245,.3), 0 0 18px rgba(224,123,245,.25); }
     .form .btn { justify-self: start; }
     .aviso-form { display: none; background: #eaf7ee; border: 1px solid #6cc08a; color: #135c2e; padding: 12px 14px; font-weight: 600; }
     .aviso-form.mostrar { display: block; }
@@ -670,7 +686,7 @@
       background: var(--fundo); border: 1px solid var(--borda); padding: 14px 16px;
       transition: border-color .3s ease, transform .3s ease, box-shadow .3s ease; min-width: 0;
     }
-    .botao-contato:hover { border-color: var(--neon); transform: translateX(4px); box-shadow: 0 0 22px rgba(181,124,255,.3); }
+    .botao-contato:hover { border-color: var(--neon); transform: translateX(4px); box-shadow: 0 0 22px rgba(224,123,245,.3); }
     .botao-contato:hover b { color: var(--neon-texto); text-shadow: var(--brilho); }
     .botao-contato .icone { width: 44px; height: 44px; background: var(--texto); display: grid; place-items: center; flex-shrink: 0; transition: background-color .3s ease; }
     .botao-contato:hover .icone { background: var(--neon); }
@@ -1107,7 +1123,7 @@
         itens: [
           { titulo: "Demonstração com carrinho", formato: "Vídeo TikTok Shop", descricao: "Mostro o produto funcionando e levo o público direto para o carrinho.", video: "", imagem: "", alt: "Exemplo de vídeo de demonstração para TikTok Shop", gradiente: "linear-gradient(165deg,#3b2a31,#a8546f)" },
           { titulo: "Antes e depois que vende", formato: "Vídeo TikTok Shop", descricao: "Resultado real na tela em poucos segundos, com chamada para compra.", video: "", imagem: "", alt: "Exemplo de vídeo de antes e depois para TikTok Shop", gradiente: "linear-gradient(200deg,#2c3a2c,#7f9a7b)" },
-          { titulo: "Unboxing com oferta", formato: "Vídeo TikTok Shop", descricao: "Primeira impressão sincera destacando preço, cupom e frete.", video: "", imagem: "", alt: "Exemplo de vídeo de unboxing para TikTok Shop", gradiente: "linear-gradient(140deg,#4a2234,#b57cff)" }
+          { titulo: "Unboxing com oferta", formato: "Vídeo TikTok Shop", descricao: "Primeira impressão sincera destacando preço, cupom e frete.", video: "", imagem: "", alt: "Exemplo de vídeo de unboxing para TikTok Shop", gradiente: "linear-gradient(140deg,#4a2234,#e07bf5)" }
         ]
       },
 
@@ -1419,8 +1435,59 @@
     /* ---------- TikTok Shop ---------- */
     const tts = CONFIG.tiktokShop;
     $("#ttsCabecalho").innerHTML = `<p class="tts-selo">${icones.carrinho} ${esc(tts.selo)}</p>
-      <h2 class="titulo-secao" id="titulo-tiktokshop">${esc(tts.titulo)}</h2>
+      <div class="tts-titulo">
+        <svg class="vinha vinha-tras" aria-hidden="true"></svg>
+        <h2 class="titulo-secao tts-neon" id="titulo-tiktokshop">${esc(tts.titulo)}</h2>
+        <svg class="vinha vinha-frente" aria-hidden="true"></svg>
+      </div>
       <p class="sub-secao">${esc(tts.texto)}</p>`;
+
+    // Trepadeira de jiboia enroscada no título do TikTok Shop: passa por trás e pela frente das letras
+    function desenharVinha() {
+      const caixa = document.querySelector(".tts-titulo");
+      if (!caixa) return;
+      const w = caixa.offsetWidth, h = caixa.offsetHeight;
+      if (!w || !h) return;
+      const P = Math.max(150, Math.min(240, w / 4));          // largura de cada volta
+      const A = h / 2 + 4;                                     // a volta abraça o título inteiro
+      const yEm = (x) => h / 2 + A * Math.sin((2 * Math.PI * x) / P);
+      const naFrente = (x) => Math.cos((2 * Math.PI * x) / P) > 0;   // descendo = na frente das letras
+      const camadas = { frente: { fio: [], folhas: "", luzes: "" }, tras: { fio: [], folhas: "", luzes: "" } };
+      let trechoAtual = null, lado = null;
+      for (let x = -12; x <= w + 12; x += 3) {
+        const l = naFrente(x) ? "frente" : "tras";
+        if (l !== lado) { trechoAtual = []; camadas[l].fio.push(trechoAtual); lado = l; }
+        trechoAtual.push(`${x.toFixed(1)} ${yEm(x).toFixed(1)}`);
+      }
+      const cores = ["#7fb84f", "#94c95e", "#a9d871", "#c0e68e", "#6ea845"];
+      const folha = "M0 0 C2 -6 10 -8 14 -4 C16 -2 17 0 19 1 C16 3 13 7 8 7 C3 6 1 4 0 0 Z";
+      let i = 0;
+      for (let x = -6; x <= w + 6; x += 6 + (i % 4)) {
+        i++;
+        const l = naFrente(x) ? "frente" : "tras";
+        const ang = (i % 2 ? -50 : 130) + ((i * 23) % 60);
+        const tam = 0.3 + ((i * 37) % 28) / 100;
+        camadas[l].folhas += `<path d="${folha}" transform="translate(${x.toFixed(1)} ${yEm(x).toFixed(1)}) rotate(${ang}) scale(${tam.toFixed(2)})" fill="${cores[i % cores.length]}"/>`;
+      }
+      let j = 0;
+      for (let x = 4; x <= w; x += 20) {
+        j++;
+        const l = naFrente(x) ? "frente" : "tras";
+        camadas[l].luzes += `<g class="luz" style="animation-delay:-${((j * 0.41) % 3).toFixed(2)}s;animation-duration:${(1.8 + (j % 5) * 0.4).toFixed(2)}s">
+          <circle cx="${x}" cy="${yEm(x).toFixed(1)}" r="9" fill="url(#halo-vinha)"/><circle cx="${x}" cy="${yEm(x).toFixed(1)}" r="1.9" fill="#fffbe3"/></g>`;
+      }
+      const defs = `<defs><radialGradient id="halo-vinha"><stop offset="0" stop-color="#fff1a8"/><stop offset=".3" stop-color="#ffd76a" stop-opacity=".7"/><stop offset="1" stop-color="#ffc94a" stop-opacity="0"/></radialGradient></defs>`;
+      for (const l of ["frente", "tras"]) {
+        const svg = caixa.querySelector(l === "frente" ? ".vinha-frente" : ".vinha-tras");
+        svg.setAttribute("viewBox", `0 0 ${w} ${h}`);
+        const fios = camadas[l].fio.map((t) => `<path d="M${t.join(" L")}" fill="none" stroke="#b8a57c" stroke-width=".9"/>`).join("");
+        svg.innerHTML = (l === "tras" ? defs : "") + fios + camadas[l].folhas + camadas[l].luzes;
+      }
+    }
+    desenharVinha();
+    if (document.fonts) document.fonts.ready.then(desenharVinha);
+    let esperaVinha;
+    window.addEventListener("resize", () => { clearTimeout(esperaVinha); esperaVinha = setTimeout(desenharVinha, 200); });
     $("#ttsLista").innerHTML = tts.diferenciais.map((d) => `<li>${icones.check}<span>${esc(d)}</span></li>`).join("");
     $("#ttsTrilho").innerHTML = tts.itens.map((t) => cardTrabalho({ categoria: tts.selo, ...t })).join("");
 
@@ -1516,7 +1583,7 @@
       const aviso = $("#avisoForm");
       const invalido = [...form.elements].find((el) => el.willValidate && !el.checkValidity());
       if (invalido) {
-        aviso.style.cssText = "background:#f4ecff;border-color:#7d3ddb;color:#4d1f8f";
+        aviso.style.cssText = "background:#fbeaff;border-color:#a23bbf;color:#6e1c80";
         aviso.textContent = invalido.type === "email" && invalido.value
           ? "Confira o e-mail digitado, parece que falta alguma coisa."
           : "Preencha nome, e-mail e mensagem para eu poder te responder.";
