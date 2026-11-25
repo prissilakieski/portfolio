@@ -1227,7 +1227,7 @@
       sobre: {
         titulo: ["Sobre", "mim"],                       // a segunda palavra fica em itálico
         frase: "Vídeo real, que vende.",                 // linha fininha embaixo do título
-        cantoEsquerdo: ["Luz e equipamento", "profissional"],
+        cantoEsquerdo: [],                               // deixe vazio [] para não mostrar texto no canto esquerdo
         cantoDireito: [],                                // deixe vazio [] para não mostrar texto no canto direito
         // Post-its com as suas habilidades (curtos, para ler rápido). "cor": "pink", "lilas" ou "verde"
         postits: [
@@ -1555,7 +1555,7 @@
     /* ---------- 2. Sobre (colagem editorial) ---------- */
     const sb = CONFIG.sobre;
     $("#sobreTopo").innerHTML = `
-      <p class="colagem-canto">${sb.cantoEsquerdo.map(esc).join("<br>")}</p>
+      <p class="colagem-canto">${(sb.cantoEsquerdo || []).map(esc).join("<br>")}</p>
       <div class="colagem-titulo">
         <h2 id="titulo-sobre">${esc(sb.titulo[0])} <em>${esc(sb.titulo[1])}</em></h2>
         <p class="colagem-linha"><span>UGC</span><i aria-hidden="true"></i><span class="colagem-frase">${esc(sb.frase)}</span><i aria-hidden="true"></i><span>Micro influ</span></p>
