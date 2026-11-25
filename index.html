@@ -313,14 +313,33 @@
 
     /* Foto da capa integrada: ocupa o lado direito e se funde com o fundo pelas bordas */
     .capa-texto { max-width: min(640px, 54%); }
+    /* Capa estilo streaming: a foto é o "pôster" do lado direito, com bordas que somem suavemente
+       no fundo (esquerda, topo, base e um pouco na direita) e um leve zoom lento, como trailer em destaque */
     .capa-foto {
-      position: absolute; top: 0; right: 0; bottom: 0; z-index: 0; width: min(62vw, 1060px); pointer-events: none;
-      -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 40%), linear-gradient(to top, transparent 0%, #000 30%);
+      position: absolute; top: 0; right: 0; bottom: 0; z-index: 0; width: min(74vw, 1200px); pointer-events: none; opacity: .94;
+      -webkit-mask-image:
+        linear-gradient(to right, transparent 0%, rgba(0,0,0,.35) 14%, rgba(0,0,0,.8) 30%, #000 46%, #000 92%, rgba(0,0,0,.6) 100%),
+        linear-gradient(to top, transparent 0%, rgba(0,0,0,.6) 16%, #000 38%, #000 88%, rgba(0,0,0,.5) 100%);
       -webkit-mask-composite: source-in; mask-composite: intersect;
-      mask-image: linear-gradient(to right, transparent 0%, #000 40%), linear-gradient(to top, transparent 0%, #000 30%);
+      mask-image:
+        linear-gradient(to right, transparent 0%, rgba(0,0,0,.35) 14%, rgba(0,0,0,.8) 30%, #000 46%, #000 92%, rgba(0,0,0,.6) 100%),
+        linear-gradient(to top, transparent 0%, rgba(0,0,0,.6) 16%, #000 38%, #000 88%, rgba(0,0,0,.5) 100%);
     }
-    /* mais contraste e nitidez na foto da capa */
-    .capa-foto .midia { width: 100%; height: 100%; object-fit: cover; object-position: 50% 32%; filter: contrast(1.14) saturate(1.08) brightness(1.03); image-rendering: -webkit-optimize-contrast; }
+    .capa-foto .midia {
+      width: 100%; height: 100%; object-fit: cover; object-position: 50% 32%;
+      filter: contrast(1.1) saturate(1.06) brightness(.96); image-rendering: -webkit-optimize-contrast;
+      transform-origin: 62% 40%; animation: capa-zoom 24s ease-in-out infinite alternate;
+    }
+    @keyframes capa-zoom { from { transform: scale(1); } to { transform: scale(1.07); } }
+    /* sombra de cinema por cima da foto: escurece a esquerda (onde fica o texto) e a base, como nas plataformas de streaming */
+    .capa-sombra {
+      position: absolute; inset: 0; z-index: 0; pointer-events: none;
+      background:
+        linear-gradient(90deg, rgba(20, 16, 26, .92) 0%, rgba(20, 16, 26, .7) 26%, rgba(20, 16, 26, .18) 52%, transparent 70%),
+        linear-gradient(0deg, rgba(20, 16, 26, .95) 0%, rgba(20, 16, 26, .35) 22%, transparent 42%),
+        linear-gradient(180deg, rgba(20, 16, 26, .45) 0%, transparent 16%),
+        radial-gradient(ellipse 60% 70% at 72% 40%, transparent 55%, rgba(20, 16, 26, .35) 100%);
+    }
     .capa-foto .iniciais {
       position: absolute; inset: 0; display: grid; place-items: center; z-index: 2;
       font-family: var(--titulo); font-size: clamp(6rem, 16vw, 11rem); color: rgba(255,255,255,.5); pointer-events: none;
@@ -970,9 +989,11 @@
       .capa-texto { max-width: 100%; }
       .capa-foto {
         width: 100%; bottom: auto; height: 66svh;
-        -webkit-mask-image: linear-gradient(to top, transparent 0%, #000 45%); mask-image: linear-gradient(to top, transparent 0%, #000 45%);
+        -webkit-mask-image: linear-gradient(to top, transparent 0%, rgba(0,0,0,.6) 22%, #000 50%, #000 88%, rgba(0,0,0,.5) 100%);
+                mask-image: linear-gradient(to top, transparent 0%, rgba(0,0,0,.6) 22%, #000 50%, #000 88%, rgba(0,0,0,.5) 100%);
         -webkit-mask-composite: source-over; mask-composite: add;
       }
+      .capa-sombra { background: linear-gradient(0deg, rgba(20, 16, 26, .95) 0%, rgba(20, 16, 26, .5) 45%, transparent 66%), linear-gradient(180deg, rgba(20, 16, 26, .45) 0%, transparent 14%); }
       .capa-foto .iniciais { font-size: 7rem; }
       .sobre-grade { grid-template-columns: 1fr; }
       .sobre-foto { width: min(250px, 72%); margin-inline: auto; }
@@ -1019,11 +1040,8 @@
   <main id="conteudo">
     <!-- 1. CAPA -->
     <section class="capa" id="inicio" aria-labelledby="titulo-capa">
-      <div class="capa-buque" aria-hidden="true">
-        <img src="decoracao/buque-capa-1.png" alt="">
-        <img src="decoracao/buque-capa-3.png" alt="">
-      </div>
       <div class="capa-foto" id="capaFoto"></div>
+      <div class="capa-sombra" aria-hidden="true"></div>
       <div class="container capa-grade">
         <div class="capa-texto">
           <p class="selo revelar" id="capaSelo"></p>
