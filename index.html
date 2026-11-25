@@ -406,19 +406,19 @@
 
     .secao.tema-claro { padding-block: clamp(52px, 6vw, 84px); }
 
-    /* Sobre mim em estilo colagem editorial: papel azul acinzentado, título serifado fino,
+    /* Sobre mim em estilo colagem editorial: papel verde clarinho, título serifado fino,
        foto recortada em pedaços na esquerda e post-its com as habilidades espalhados */
     #sobre.sobre-colagem {
-      --texto: #1e2124; --texto-suave: #4c5357;
+      --texto: #1f2419; --texto-suave: #4d5844;
       color: var(--texto);
       background:
-        radial-gradient(ellipse 70% 60% at 20% 10%, rgba(255, 255, 255, .35), transparent 70%),
-        #dde4e6;
+        radial-gradient(ellipse 70% 60% at 20% 10%, rgba(255, 255, 255, .4), transparent 70%),
+        #e9f5d4;
       padding-block: clamp(48px, 5.5vw, 80px);
       overflow: hidden;
     }
     #destaques {
-      background: linear-gradient(180deg, #dde4e6 0, #e6eaec 140px, #eef0f1 280px, #f5f4f6 420px, var(--fundo) 560px);
+      background: linear-gradient(180deg, #e9f5d4 0, #eef7df 140px, #f3f8ea 280px, #f7f8f3 420px, var(--fundo) 560px);
     }
     #destaques { padding-top: clamp(36px, 4vw, 56px); }
 
@@ -455,30 +455,44 @@
 
     /* post-its */
     .postits { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(22px, 2.6vw, 36px) clamp(16px, 2.2vw, 30px); }
+    /* o post-it (li) fica preso pelo topo; a folha dentro dele levanta pela base com o vento */
     .postit {
-      position: relative; aspect-ratio: 1 / 1; max-width: 170px; width: 100%; justify-self: center;
-      display: flex; align-items: center; padding: 20px 18px;
-      font-family: "Caveat", "Segoe Print", cursive; font-size: clamp(1.25rem, 1.7vw, 1.55rem); line-height: 1.15; color: #2a2a2a;
-      box-shadow: 0 1px 2px rgba(0, 0, 0, .12), 0 14px 20px -12px rgba(0, 0, 0, .35);
-      transition: transform .4s cubic-bezier(.34, 1.4, .5, 1), box-shadow .4s ease, opacity .9s ease;
+      position: relative; aspect-ratio: 1 / 1; max-width: 170px; width: 100%; justify-self: center; perspective: 520px;
+      transition: transform .4s cubic-bezier(.34, 1.4, .5, 1), opacity .9s ease;
     }
-    .postit.amarelo { background: linear-gradient(160deg, #faf3c4, #f3e9a8); }
-    .postit.branco { background: linear-gradient(160deg, #ffffff, #f1f1ed); }
-    .postit::after {
+    .folha {
+      position: absolute; inset: 0; display: flex; align-items: center; padding: 20px 18px;
+      font-family: "Caveat", "Segoe Print", cursive; font-size: clamp(1.25rem, 1.7vw, 1.55rem); line-height: 1.15; color: #2a1f2e;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, .12), 0 14px 20px -12px rgba(0, 0, 0, .35);
+      transform-origin: 50% 0; animation: vento var(--d, 4.2s) ease-in-out var(--a, 0s) infinite;
+    }
+    .postit.pink .folha { background: linear-gradient(160deg, #ffd6f2, #ffbde8); }
+    .postit.lilas .folha { background: linear-gradient(160deg, #eedcff, #dcc0fb); }
+    .postit.verde .folha { background: linear-gradient(160deg, #e6fca8, #cff47c); }
+    .folha::after {
       /* pontinha dobrada no canto */
       content: ""; position: absolute; right: 0; bottom: 0; width: 18px; height: 18px;
       background: linear-gradient(135deg, rgba(0, 0, 0, .1) 0%, rgba(255, 255, 255, .6) 50%, transparent 51%);
     }
+    /* vento soprando por baixo: a base da folha levanta um pouco e volta, com a sombra crescendo junto */
+    @keyframes vento {
+      0%, 100% { transform: rotateX(0deg) skewX(0deg); box-shadow: 0 1px 2px rgba(0, 0, 0, .12), 0 14px 20px -12px rgba(0, 0, 0, .35); }
+      35% { transform: rotateX(-18deg) skewX(-1.2deg); box-shadow: 0 2px 3px rgba(0, 0, 0, .1), 0 26px 26px -14px rgba(0, 0, 0, .32); }
+      55% { transform: rotateX(-8deg) skewX(.6deg); }
+      75% { transform: rotateX(-13deg) skewX(-.4deg); box-shadow: 0 2px 3px rgba(0, 0, 0, .1), 0 22px 24px -14px rgba(0, 0, 0, .33); }
+    }
     .postit.revelar.visivel, .postit:not(.revelar) { transform: translateY(var(--y)) rotate(var(--g)); }
-    .postit.revelar.visivel:hover { transform: translateY(calc(var(--y) - 6px)) rotate(0deg) scale(1.05); box-shadow: 0 2px 3px rgba(0, 0, 0, .12), 0 22px 28px -14px rgba(0, 0, 0, .4); }
+    .postit.revelar.visivel:hover { transform: translateY(calc(var(--y) - 6px)) rotate(0deg) scale(1.05); }
+    .postit:hover .folha { animation-play-state: paused; }
     .fita {
-      position: absolute; top: -11px; left: 50%; width: 62px; height: 22px; transform: translateX(-50%) rotate(-3deg);
-      background: rgba(255, 255, 255, .55); box-shadow: 0 1px 2px rgba(0, 0, 0, .08);
+      position: absolute; z-index: 2; top: -11px; left: 50%; width: 62px; height: 22px; transform: translateX(-50%) rotate(-3deg);
+      background: rgba(255, 255, 255, .6); box-shadow: 0 1px 2px rgba(0, 0, 0, .08);
     }
 
     @media (max-width: 900px) {
       .colagem-corpo { grid-template-columns: clamp(180px, 30vw, 240px) minmax(0, 1fr); gap: 28px; }
-      .postit { max-width: 150px; font-size: 1.2rem; padding: 16px 14px; }
+      .postit { max-width: 150px; }
+      .folha { font-size: 1.2rem; padding: 16px 14px; }
       .postits { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
     @media (max-width: 640px) {
@@ -488,7 +502,8 @@
       .colagem-corpo { grid-template-columns: 1fr; gap: 32px; }
       .mosaico { width: min(230px, 70%); margin-inline: auto; }
       .postits { gap: 20px 14px; }
-      .postit { max-width: 140px; font-size: 1.12rem; padding: 14px 12px; }
+      .postit { max-width: 140px; }
+      .folha { font-size: 1.12rem; padding: 14px 12px; }
     }
 
     @keyframes letreiro-vintage {
@@ -1213,15 +1228,15 @@
         titulo: ["Sobre", "mim"],                       // a segunda palavra fica em itálico
         frase: "Vídeo real, que vende.",                 // linha fininha embaixo do título
         cantoEsquerdo: ["Luz e equipamento", "profissional"],
-        cantoDireito: ["Sempre com o", "produto de verdade"],
-        // Post-its com as suas habilidades (curtos, para ler rápido). "cor": "amarelo" ou "branco"
+        cantoDireito: [],                                // deixe vazio [] para não mostrar texto no canto direito
+        // Post-its com as suas habilidades (curtos, para ler rápido). "cor": "pink", "lilas" ou "verde"
         postits: [
-          { texto: "Gancho que prende nos 3 primeiros segundos", cor: "amarelo" },
-          { texto: "Roteiro pensado para vender", cor: "branco" },
-          { texto: "Legenda criativa que segura até sem som", cor: "amarelo" },
-          { texto: "Estética que valoriza o produto", cor: "branco" },
-          { texto: "Versões para teste A/B", cor: "amarelo" },
-          { texto: "Direito de uso para anúncios", cor: "branco" }
+          { texto: "Vídeos de conversão", cor: "pink" },
+          { texto: "Vídeos com +5mi de views", cor: "lilas" },
+          { texto: "Edição criativa e profissional", cor: "verde" },
+          { texto: "Estética que valoriza o produto", cor: "lilas" },
+          { texto: "Versões para teste A/B", cor: "verde" },
+          { texto: "Luz, áudio e equipamentos profissionais", cor: "pink" }
         ],
         imagem: "fotos/IMG_9381.jpg",
         alt: "Prissila Kieski em close, sorrindo e segurando um produto de maquiagem com pincel"
@@ -1545,7 +1560,7 @@
         <h2 id="titulo-sobre">${esc(sb.titulo[0])} <em>${esc(sb.titulo[1])}</em></h2>
         <p class="colagem-linha"><span>UGC</span><i aria-hidden="true"></i><span class="colagem-frase">${esc(sb.frase)}</span><i aria-hidden="true"></i><span>Micro influ</span></p>
       </div>
-      <p class="colagem-canto direita">${sb.cantoDireito.map(esc).join("<br>")}</p>`;
+      <p class="colagem-canto direita">${(sb.cantoDireito || []).map(esc).join("<br>")}</p>`;
 
     // Foto recortada em pedaços (3 colunas x 4 linhas), cada um levemente torto, como colagem de papel.
     // Ao passar o mouse, os pedaços se encaixam e a foto se monta.
@@ -1567,9 +1582,11 @@
     // Post-its com as habilidades, espalhados da esquerda para a direita
     const giroPost = [-4, 3, -2, 4, -3, 2];
     const altura = [0, 22, -8, 14, -14, 8];
+    const ritmo = [4.2, 5.1, 3.8, 4.7, 5.4, 4];       // cada post-it balança num tempo diferente
+    const cores = ["pink", "lilas", "verde"];
     $("#sobrePostits").innerHTML = sb.postits.map((p, i) => `
-      <li class="postit ${p.cor === "branco" ? "branco" : "amarelo"} revelar" style="--g:${giroPost[i % 6]}deg;--y:${altura[i % 6]}px;transition-delay:${i * 0.07}s">
-        ${i % 2 === 0 ? '<span class="fita" aria-hidden="true"></span>' : ""}<span>${esc(p.texto)}</span>
+      <li class="postit ${cores.includes(p.cor) ? p.cor : cores[i % 3]} revelar" style="--g:${giroPost[i % 6]}deg;--y:${altura[i % 6]}px;--d:${ritmo[i % 6]}s;--a:${(-i * 0.9).toFixed(1)}s;transition-delay:${i * 0.07}s">
+        ${i % 2 === 0 ? '<span class="fita" aria-hidden="true"></span>' : ""}<div class="folha"><span>${esc(p.texto)}</span></div>
       </li>`).join("");
 
     /* ---------- 3. Destaques ---------- */
