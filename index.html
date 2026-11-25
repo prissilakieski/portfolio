@@ -572,30 +572,75 @@
        3b. FORMATOS VALIDADOS
        ========================================================== */
     #formatos { padding-top: 0; }
-    .formatos-grade { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: clamp(12px, 1.6vw, 20px); }
-    .formato {
-      display: flex; flex-direction: column; gap: 12px; min-width: 0;
-      background: var(--superficie); border: 1px solid var(--borda); padding: 22px 18px 20px;
-      transition: transform .4s cubic-bezier(.34, 1.6, .5, 1), box-shadow .4s ease, border-color .4s ease;
+    #formatos .cabecalho-secao { margin-bottom: 24px; }
+    /* botões dos 5 formatos, logo abaixo do título */
+    .formatos-abas { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 22px; }
+    .formato-aba {
+      display: inline-flex; align-items: center; gap: 8px; cursor: pointer;
+      padding: 10px 16px; border: 1px solid rgba(20, 18, 20, .2); border-radius: 999px; background: var(--superficie);
+      font-family: var(--corpo); font-weight: 600; font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; color: var(--texto);
+      transition: background-color .3s ease, color .3s ease, border-color .3s ease, box-shadow .3s ease;
     }
-    .formato:hover {
-      transform: translateY(-8px); border-color: var(--verde-neon);
-      box-shadow: 0 0 0 2px var(--verde-neon), 0 0 22px rgba(198, 243, 107, .7), 0 22px 44px rgba(198, 243, 107, .25);
+    .formato-aba svg { width: 16px; height: 16px; flex-shrink: 0; }
+    .formato-aba:hover { border-color: var(--neon); color: var(--neon-texto); }
+    .formato-aba[aria-pressed="true"] {
+      background: var(--escuro); color: var(--verde-neon); border-color: var(--escuro);
+      box-shadow: 0 0 0 2px rgba(224, 123, 245, .5), 0 0 18px rgba(224, 123, 245, .45);
     }
+    /* painel: texto do formato na esquerda, vídeo de exemplo na direita */
+    .formato-painel {
+      display: grid; grid-template-columns: minmax(0, 1fr) clamp(170px, 20vw, 230px); gap: clamp(24px, 4vw, 56px); align-items: center;
+      max-width: 860px; background: var(--superficie); border: 1px solid var(--borda); padding: clamp(22px, 3vw, 36px);
+    }
+    .formato-texto { min-width: 0; display: flex; flex-direction: column; gap: 14px; }
+    .formato-texto.trocando { animation: formato-entra .45s ease; }
+    .formato-video.trocando { animation: formato-entra .45s ease .05s both; }
+    @keyframes formato-entra { from { opacity: 0; transform: translateX(14px); } to { opacity: 1; transform: none; } }
+    .formato-topo { display: flex; align-items: center; gap: 14px; }
     .formato-icone {
-      width: 46px; height: 46px; display: grid; place-items: center;
-      background: var(--escuro); color: var(--neon);
-      box-shadow: 0 0 14px rgba(224, 123, 245, .45);
+      width: 46px; height: 46px; display: grid; place-items: center; flex-shrink: 0;
+      background: var(--escuro); color: var(--neon); box-shadow: 0 0 14px rgba(224, 123, 245, .45);
     }
     .formato-icone svg { width: 24px; height: 24px; }
-    .formato h3 { font-family: var(--titulo); font-weight: 400; font-size: 1.45rem; line-height: 1.05; text-transform: uppercase; letter-spacing: .01em; }
-    .formato > p { color: var(--texto-suave); font-size: .9rem; line-height: 1.5; }
-    .formato dl { margin: auto 0 0; padding-top: 12px; border-top: 1px solid var(--borda); display: grid; gap: 8px; }
-    .formato dt { font-size: .62rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--salvia); }
-    .formato dd { margin: 2px 0 0; font-size: .84rem; line-height: 1.4; }
-    @media (max-width: 1120px) { .formatos-grade { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-    @media (max-width: 760px) { .formatos-grade { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-    @media (max-width: 520px) { .formatos-grade { grid-template-columns: 1fr; } }
+    .formato-contagem { font-size: .66rem; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: var(--texto-suave); font-variant-numeric: tabular-nums; }
+    .formato-texto h3 { font-family: var(--titulo); font-weight: 400; font-size: clamp(1.8rem, 3.4vw, 2.5rem); line-height: 1; text-transform: uppercase; letter-spacing: .01em; }
+    .formato-texto > p { color: var(--texto-suave); font-size: 1rem; line-height: 1.6; max-width: 46ch; }
+    .formato-texto dl { margin: 0; padding-top: 14px; border-top: 1px solid var(--borda); display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .formato-texto dt { font-size: .62rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--salvia); }
+    .formato-texto dd { margin: 4px 0 0; font-size: .9rem; line-height: 1.45; }
+    .formato-nav { display: flex; align-items: center; gap: 10px; margin-top: 4px; }
+    .formato-nav button {
+      display: inline-flex; align-items: center; gap: 8px; cursor: pointer;
+      padding: 11px 18px; border: 1px solid var(--escuro); border-radius: 999px; background: transparent; color: var(--texto);
+      font-family: var(--corpo); font-weight: 600; font-size: .72rem; letter-spacing: .16em; text-transform: uppercase;
+      transition: background-color .3s ease, color .3s ease, box-shadow .3s ease;
+    }
+    .formato-nav .proximo { background: var(--escuro); color: var(--verde-neon); }
+    .formato-nav button:hover { box-shadow: 0 0 0 2px rgba(224, 123, 245, .5), 0 0 18px rgba(224, 123, 245, .45); }
+    .formato-nav .anterior:hover { color: var(--neon-texto); }
+    .formato-aba:focus-visible, .formato-nav button:focus-visible, .formato-video:focus-visible { outline: 3px solid var(--neon); outline-offset: 3px; }
+    /* vídeo de exemplo */
+    .formato-video {
+      display: block; position: relative; aspect-ratio: 9 / 16; max-width: 100%; overflow: hidden; text-decoration: none; color: #fff;
+      background: linear-gradient(160deg, #2a1f33, var(--escuro)); border: 1px solid var(--borda);
+      transition: box-shadow .4s ease, border-color .4s ease;
+    }
+    .formato-video .midia { position: absolute; inset: 0; transition: transform .7s ease; }
+    a.formato-video:hover { border-color: var(--verde-neon); box-shadow: 0 0 0 2px var(--verde-neon), 0 0 22px rgba(198, 243, 107, .7); }
+    a.formato-video:hover .midia { transform: scale(1.05); }
+    .formato-video .play { width: 58px; height: 58px; margin: -29px 0 0 -29px; }
+    a.formato-video:hover .play { background: var(--verde-neon); border-color: var(--verde-neon); transform: scale(1.08); }
+    .formato-video .em-breve {
+      position: absolute; inset: 0; display: grid; place-content: center; gap: 10px; text-align: center; padding: 16px;
+      font-size: .66rem; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: rgba(255, 255, 255, .75);
+    }
+    .formato-video .em-breve svg { width: 34px; height: 34px; margin-inline: auto; color: var(--neon); }
+    @media (max-width: 700px) {
+      .formato-painel { grid-template-columns: 1fr; }
+      .formato-video { width: min(220px, 70%); margin-inline: auto; order: -1; }
+      .formato-texto dl { grid-template-columns: 1fr; }
+      .formato-nav button { flex: 1; justify-content: center; }
+    }
 
     /* ==========================================================
        4. TRABALHOS POR NICHO (catálogo) e TIKTOK SHOP
@@ -1012,7 +1057,8 @@
     <section class="secao" id="formatos" aria-labelledby="titulo-formatos">
       <div class="container">
         <div class="cabecalho-secao revelar" id="formatosCabecalho"></div>
-        <div class="formatos-grade" id="formatosGrade"></div>
+        <div class="formatos-abas revelar" id="formatosAbas" role="group" aria-label="Escolha um formato"></div>
+        <div class="formato-painel revelar" id="formatoPainel" aria-live="polite"></div>
       </div>
     </section>
 
@@ -1242,6 +1288,7 @@
 
       // EDITE AQUI: formatos de vídeo que você faz (aparecem logo abaixo dos destaques)
       // "icone" pode ser: dupla, rua, entrevista, curiosidade, vlog
+      // "video": link do vídeo que mostra o formato (YouTube, Instagram ou TikTok). Vazio = aparece "vídeo em breve"
       formatos: {
         kicker: "Formatos validados",
         titulo: "Formatos que funcionam",
@@ -1252,35 +1299,40 @@
             nome: "2 personagens",
             descricao: "Eu interpreto os dois lados de uma situação do dia a dia, e o produto resolve a cena.",
             onde: "Reels e TikTok, com humor e identificação",
-            ideal: "Mostrar a dor do cliente e a solução"
+            ideal: "Mostrar a dor do cliente e a solução",
+            video: ""   // LINK DO VÍDEO DE EXEMPLO AQUI (YouTube toca dentro do site)
           },
           {
             icone: "rua",
             nome: "Vídeo na rua",
             descricao: "Gravado na rua, no movimento real: comprando, testando ou usando o produto fora de casa.",
             onde: "Reels, TikTok e anúncios de alcance",
-            ideal: "Trazer vida real e prova de uso"
+            ideal: "Trazer vida real e prova de uso",
+            video: ""   // LINK DO VÍDEO DE EXEMPLO AQUI (YouTube toca dentro do site)
           },
           {
             icone: "entrevista",
             nome: "Estilo entrevista",
             descricao: "Pergunta e resposta com microfone na mão, como se alguém me entrevistasse sobre o produto.",
             onde: "Anúncios e Stories com caixinha de perguntas",
-            ideal: "Quebrar objeções e explicar benefícios"
+            ideal: "Quebrar objeções e explicar benefícios",
+            video: ""   // LINK DO VÍDEO DE EXEMPLO AQUI (YouTube toca dentro do site)
           },
           {
             icone: "curiosidade",
             nome: "Curiosidades",
             descricao: "\"Você sabia que...\": fatos rápidos sobre o produto, o ingrediente ou a marca.",
             onde: "Reels, TikTok e carrosséis de apoio",
-            ideal: "Educar o público e gerar salvamentos"
+            ideal: "Educar o público e gerar salvamentos",
+            video: ""   // LINK DO VÍDEO DE EXEMPLO AQUI (YouTube toca dentro do site)
           },
           {
             icone: "vlog",
             nome: "Estilo vlog",
             descricao: "Um pedaço da minha rotina com o produto entrando de forma natural no meu dia.",
             onde: "Reels, Stories e TikTok",
-            ideal: "Criar desejo e conexão com a marca"
+            ideal: "Criar desejo e conexão com a marca",
+            video: ""   // LINK DO VÍDEO DE EXEMPLO AQUI (YouTube toca dentro do site)
           }
         ]
       },
@@ -1559,16 +1611,57 @@
     const fm = CONFIG.formatos;
     if (fm && fm.itens && fm.itens.length) {
       $("#formatosCabecalho").innerHTML = cabecalho(fm, "titulo-formatos");
-      $("#formatosGrade").innerHTML = fm.itens.map((f, i) => `
-        <article class="formato revelar" style="transition-delay:${i * 0.08}s">
-          <span class="formato-icone">${iconesFormato[f.icone] || iconesFormato.vlog}</span>
-          <h3>${esc(f.nome)}</h3>
-          <p>${esc(f.descricao)}</p>
-          <dl>
-            <div><dt>Onde encaixa</dt><dd>${esc(f.onde)}</dd></div>
-            <div><dt>Ideal para</dt><dd>${esc(f.ideal)}</dd></div>
-          </dl>
-        </article>`).join("");
+      const total = fm.itens.length;
+      const icone = (f) => iconesFormato[f.icone] || iconesFormato.vlog;
+      $("#formatosAbas").innerHTML = fm.itens.map((f, i) =>
+        `<button type="button" class="formato-aba" data-formato="${i}" aria-pressed="false">${icone(f)}<span>${esc(f.nome)}</span></button>`).join("");
+
+      // vídeo de exemplo: YouTube abre dentro do site; outros links abrem em nova aba; vazio mostra "vídeo em breve"
+      function videoFormato(f) {
+        const id = idYoutube(f.video || "");
+        if (id) {
+          const capa = { imagem: `https://i.ytimg.com/vi/${id}/oardefault.jpg`, reserva: `https://i.ytimg.com/vi/${id}/hqdefault.jpg`, alt: `Exemplo do formato ${f.nome}` };
+          return `<a class="formato-video" href="https://www.youtube.com/watch?v=${id}" data-video="${id}" data-titulo="${esc(f.nome)}" aria-label="Assistir ao exemplo: ${esc(f.nome)}">
+            ${midia(capa)}<span class="play" aria-hidden="true">${icones.play}</span></a>`;
+        }
+        if (f.video) {
+          return `<a class="formato-video" href="${esc(f.video)}" target="_blank" rel="noopener" aria-label="Assistir ao exemplo: ${esc(f.nome)}. Abre em nova aba.">
+            <span class="em-breve">${icones.play.replace("<svg", '<svg style="fill:currentColor"')}<span>Assistir exemplo</span></span></a>`;
+        }
+        return `<div class="formato-video"><span class="em-breve">${icone(f)}<span>Vídeo em breve</span></span></div>`;
+      }
+
+      let atual = 0;
+      function mostrarFormato(i, animar) {
+        atual = (i + total) % total;
+        const f = fm.itens[atual];
+        $("#formatoPainel").innerHTML = `
+          <div class="formato-texto${animar ? " trocando" : ""}">
+            <div class="formato-topo"><span class="formato-icone">${icone(f)}</span>
+              <span class="formato-contagem">Formato ${atual + 1} de ${total}</span></div>
+            <h3>${esc(f.nome)}</h3>
+            <p>${esc(f.descricao)}</p>
+            <dl>
+              <div><dt>Onde encaixa</dt><dd>${esc(f.onde)}</dd></div>
+              <div><dt>Ideal para</dt><dd>${esc(f.ideal)}</dd></div>
+            </dl>
+            <div class="formato-nav">
+              <button type="button" class="anterior" aria-label="Formato anterior">‹ Anterior</button>
+              <button type="button" class="proximo" aria-label="Próximo formato: ${esc(fm.itens[(atual + 1) % total].nome)}">Próximo ›</button>
+            </div>
+          </div>
+          ${videoFormato(f).replace('class="formato-video"', `class="formato-video${animar ? " trocando" : ""}"`)}`;
+        document.querySelectorAll(".formato-aba").forEach((b) => b.setAttribute("aria-pressed", String(Number(b.dataset.formato) === atual)));
+      }
+      $("#formatosAbas").addEventListener("click", (e) => {
+        const b = e.target.closest(".formato-aba");
+        if (b) mostrarFormato(Number(b.dataset.formato), true);
+      });
+      $("#formatoPainel").addEventListener("click", (e) => {
+        if (e.target.closest(".proximo")) { mostrarFormato(atual + 1, true); $("#formatoPainel .proximo").focus(); }
+        else if (e.target.closest(".anterior")) { mostrarFormato(atual - 1, true); $("#formatoPainel .anterior").focus(); }
+      });
+      mostrarFormato(0, false);
     } else { $("#formatos").remove(); }
 
     /* ---------- 4. Trabalhos ---------- */
