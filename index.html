@@ -10,7 +10,7 @@
   <!-- Fontes do Google: Anton (títulos de impacto, estilo Netflix) e Archivo (corpo) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600;700;800&family=Sacramento&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Caveat:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600;700;800&family=Sacramento&display=swap" rel="stylesheet">
 
   <style>
     /* ==========================================================
@@ -427,13 +427,14 @@
     .colagem-canto.direita { text-align: right; }
     .colagem-titulo { text-align: center; }
     .colagem-titulo h2 {
-      font-family: "Cormorant Garamond", "Times New Roman", Georgia, serif; font-weight: 300;
-      font-size: clamp(3.2rem, 7.6vw, 6rem); line-height: .9; letter-spacing: -.02em; color: var(--texto);
+      /* mesma fonte e estilo do nome na capa: Anton em caixa alta, segunda palavra em lilás neon */
+      font-family: var(--titulo); font-weight: 400; text-transform: uppercase;
+      font-size: clamp(2.8rem, 6.4vw, 4.8rem); line-height: 1; letter-spacing: .01em; color: var(--texto);
     }
-    .colagem-titulo h2 em { font-style: italic; font-weight: 300; }
+    .colagem-titulo h2 em { font-style: normal; color: #b347d6; text-shadow: 0 0 10px rgba(224, 123, 245, .55), 0 0 26px rgba(224, 123, 245, .35); }
     .colagem-linha { display: flex; align-items: center; justify-content: center; gap: 14px; margin-top: 14px; color: var(--texto-suave); }
     .colagem-linha span { font-size: .64rem; font-weight: 500; letter-spacing: .16em; text-transform: uppercase; }
-    .colagem-linha .colagem-frase { font-family: "Cormorant Garamond", Georgia, serif; font-size: 1.12rem; letter-spacing: 0; text-transform: none; color: var(--texto); }
+    .colagem-linha .colagem-frase { font-family: var(--corpo); font-weight: 500; font-size: 1rem; letter-spacing: 0; text-transform: none; color: var(--texto); }
     .colagem-linha i { width: 44px; height: 1px; background: currentColor; opacity: .5; }
 
     .colagem-corpo { display: grid; grid-template-columns: clamp(230px, 25vw, 310px) minmax(0, 1fr); gap: clamp(32px, 5vw, 72px); align-items: center; max-width: 1080px; margin-inline: auto; }
@@ -462,7 +463,7 @@
     }
     .folha {
       position: absolute; inset: 0; display: flex; align-items: center; padding: 20px 18px;
-      font-family: "Caveat", "Segoe Print", cursive; font-size: clamp(1.25rem, 1.7vw, 1.55rem); line-height: 1.15; color: #2a1f2e;
+      font-family: var(--corpo); font-weight: 700; font-size: clamp(.95rem, 1.25vw, 1.1rem); line-height: 1.3; color: #2a1f2e; border-radius: 8px;
       box-shadow: 0 1px 2px rgba(0, 0, 0, .12), 0 14px 20px -12px rgba(0, 0, 0, .35);
       transform-origin: 50% 0; animation: vento var(--d, 4.2s) ease-in-out var(--a, 0s) infinite;
     }
@@ -492,7 +493,7 @@
     @media (max-width: 900px) {
       .colagem-corpo { grid-template-columns: clamp(180px, 30vw, 240px) minmax(0, 1fr); gap: 28px; }
       .postit { max-width: 150px; }
-      .folha { font-size: 1.2rem; padding: 16px 14px; }
+      .folha { font-size: .95rem; padding: 16px 14px; }
       .postits { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
     @media (max-width: 640px) {
@@ -503,7 +504,7 @@
       .mosaico { width: min(230px, 70%); margin-inline: auto; }
       .postits { gap: 20px 14px; }
       .postit { max-width: 140px; }
-      .folha { font-size: 1.12rem; padding: 14px 12px; }
+      .folha { font-size: .88rem; padding: 14px 12px; }
     }
 
     @keyframes letreiro-vintage {
@@ -1003,18 +1004,30 @@
       .faixa-marcas .rotulo { display: none; }
       .fileira-titulo small { display: block; margin: 4px 0 0; }
     }
+
+    /* ==========================================================
+       CANTOS ARREDONDADOS EM TODO O PORTFÓLIO
+       Botões e etiquetas em formato de pílula; cards e caixas com cantos suaves.
+       ========================================================== */
+    .btn, .botao-contato { border-radius: 999px; }
+    .kicker, .tag-alta, .destaque-rotulo, .trabalho-tag, .tts-selo { border-radius: 999px; }
+    .destaque, .trabalho, .servico, .resultado, .depoimento, .contador { border-radius: 20px; }
+    .destaque, .resultado, .depoimento { overflow: hidden; }
+    .contato-caixa, .janela-video { border-radius: 28px; }
+    .moldura-video { border-radius: 18px; }
+    .campo input, .campo textarea { border-radius: 14px; border: 1px solid var(--borda); }
+    .pedaco { border-radius: 6px; }
+    .papel { border-radius: 4px; }
+    .fita { border-radius: 2px; }
 </style>
 </head>
 <body>
   <!-- CORDÃO: fio com folhinhas de jiboia e luzinhas de fada, desenhado pelo JavaScript no lado direito -->
-  <div class="cordao" id="cordao" aria-hidden="true"></div>
   <a class="pular" href="#conteudo">Pular para o conteúdo</a>
 
 
   <!-- MENU FIXO (preenchido pelo JavaScript a partir do CONFIG) -->
   <header class="topo" id="topo">
-    <svg class="vinha-topo tras" id="vinhaTopoTras" aria-hidden="true"></svg>
-    <svg class="vinha-topo frente" id="vinhaTopoFrente" aria-hidden="true"></svg>
     <div class="container">
       <div class="marca-topo">
         <a class="logo" href="#inicio" id="logo"></a>
@@ -1969,129 +1982,6 @@
     }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
     document.querySelectorAll(".revelar").forEach((el) => observadorRevelar.observe(el));
 
-    /* ---------- Cordão de jiboia com fio de fada (lado direito, da capa ao rodapé) ---------- */
-    let alturaCordao = 0;
-    function desenharCordao() {
-      const el = $("#cordao");
-      if (!el) return;
-      const H = document.documentElement.scrollHeight;
-      if (Math.abs(H - alturaCordao) < 40) return;
-      alturaCordao = H;
-      const k = window.innerWidth < 600 ? 0.62 : 1;            // no celular fica mais fininho
-      const W = 70 * k;
-      const fioX = (y) => W * 0.55 + Math.sin(y / 140) * 10 * k + Math.sin(y / 53) * 3 * k;
-      const pontos = [];
-      for (let y = 0; y <= H; y += 8) pontos.push(`${fioX(y).toFixed(1)} ${y}`);
-
-      // folhinhas de jiboia (coração com ponta fina), bem cheias, agrupadas em trechos que balançam
-      const cores = ["#7fb84f", "#94c95e", "#a9d871", "#c0e68e", "#d6efab", "#6ea845"];
-      const folha = "M0 0 C2 -6 10 -8 14 -4 C16 -2 17 0 19 1 C16 3 13 7 8 7 C3 6 1 4 0 0 Z";
-      const TRECHO = 340;
-      let trechos = "", atual = "", inicioTrecho = 0, i = 0;
-      for (let y = 6; y < H; y += 7 + ((i * 7) % 6)) {
-        i++;
-        if (y - inicioTrecho > TRECHO) {
-          trechos += `<g class="trecho" style="animation-delay:-${(inicioTrecho / 97) % 6}s">${atual}</g>`;
-          atual = ""; inicioTrecho = y;
-        }
-        const lado = i % 2 ? 1 : -1;
-        const x = fioX(y) + lado * (1 + (i % 3)) * k;
-        const tam = (0.32 + ((i * 53) % 34) / 100) * k;       // folhas pequenas, de tamanhos variados
-        const ang = lado > 0 ? -40 + ((i * 17) % 70) : 150 + ((i * 13) % 70);
-        atual += `<path d="${folha}" transform="translate(${x.toFixed(1)} ${y}) rotate(${ang}) scale(${tam.toFixed(2)})" fill="${cores[(i * 5) % cores.length]}" fill-opacity=".93"/>`;
-      }
-      trechos += `<g class="trecho">${atual}</g>`;
-
-      // fio de fada: luzinhas amarelas acesas, cada uma piscando no seu ritmo
-      let luzes = "", j = 0;
-      for (let y = 12; y < H; y += 26) {
-        j++;
-        const x = fioX(y) + (j % 2 ? 3 : -3) * k;
-        luzes += `<g class="luz" style="animation-delay:-${((j * 0.37) % 3).toFixed(2)}s;animation-duration:${(1.8 + (j % 6) * 0.45).toFixed(2)}s">
-          <circle cx="${x.toFixed(1)}" cy="${y}" r="${11 * k}" fill="url(#halo-luz)"/><circle cx="${x.toFixed(1)}" cy="${y}" r="${2.1 * k}" fill="#fffbe3"/></g>`;
-      }
-      el.style.height = `${H}px`;
-      el.style.width = `${W}px`;
-      el.innerHTML = `<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">
-        <defs><radialGradient id="halo-luz"><stop offset="0" stop-color="#fff1a8" stop-opacity="1"/><stop offset=".25" stop-color="#ffd76a" stop-opacity=".75"/><stop offset=".6" stop-color="#ffc94a" stop-opacity=".22"/><stop offset="1" stop-color="#ffc94a" stop-opacity="0"/></radialGradient></defs>
-        <path d="M${pontos.join(" L")}" fill="none" stroke="#b8a57c" stroke-width="${0.9 * k}" opacity=".75"/>
-        ${trechos}${luzes}</svg>`;
-    }
-    desenharCordao();
-    window.addEventListener("load", desenharCordao);
-    let esperaCordao;
-    window.addEventListener("resize", () => { clearTimeout(esperaCordao); esperaCordao = setTimeout(() => { alturaCordao = 0; desenharCordao(); }, 250); });
-    if ("ResizeObserver" in window) new ResizeObserver(() => desenharCordao()).observe(document.body);
-
-    // Balanço do cordão enquanto a página rola: quanto mais rápido rola, mais ele balança, e depois acalma
-    if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      const raiz = document.documentElement;
-      let vento = 0, alvo = 0, ultimoY = window.scrollY, rodando = false;
-      const animarVento = () => {
-        vento += (alvo - vento) * 0.08;
-        alvo *= 0.92;
-        raiz.style.setProperty("--vento", vento.toFixed(2));
-        if (Math.abs(vento) > 0.02 || Math.abs(alvo) > 0.02) requestAnimationFrame(animarVento);
-        else { raiz.style.setProperty("--vento", "0"); rodando = false; }
-      };
-      window.addEventListener("scroll", () => {
-        const v = window.scrollY - ultimoY; ultimoY = window.scrollY;
-        alvo = Math.max(-7, Math.min(7, alvo + v * 0.07));
-        if (!rodando) { rodando = true; requestAnimationFrame(animarVento); }
-      }, { passive: true });
-    }
-
-    /* ---------- Cordão da barra de cima: começa no PORTFÓLIO, enrosca no menu e desce pela direita ---------- */
-    function desenharCordaoTopo() {
-      const topo = $("#topo"), tras = $("#vinhaTopoTras"), frente = $("#vinhaTopoFrente");
-      if (!topo || !tras) return;
-      const rt = topo.getBoundingClientRect();
-      const W = rt.width, H = rt.height, cy = H / 2;
-      const alvos = [$("#logo")];
-      if (window.innerWidth > 1120) alvos.push(...document.querySelectorAll("#menu a"));   // no celular o menu fica escondido
-      const pts = [];
-      // o cordão passa só por baixo dos botões, numa linha ondulada suave
-      const base = cy + 23;
-      const inicio = $("#logo").getBoundingClientRect().left - rt.left - 4;
-      const fimX = W - (window.innerWidth < 600 ? 21.5 : 33.5);
-      for (let xx = inicio; xx < fimX - 14; xx += 3) pts.push([xx, base + Math.sin(xx / 38) * 2.2 + Math.sin(xx / 11) * 0.8]);
-      // no canto direito desce e emenda com o cordão da lateral
-      for (let t = 0; t <= 1; t += 0.05) pts.push([fimX - 14 + 14 * Math.sin((t * Math.PI) / 2), base + (H - base + 2) * t * t]);
-      const camadas = { frente: [], tras: [] };
-      const cores = ["#7fb84f", "#94c95e", "#a9d871", "#c0e68e", "#d6efab", "#6ea845"];
-      const folha = "M0 0 C2 -6 10 -8 14 -4 C16 -2 17 0 19 1 C16 3 13 7 8 7 C3 6 1 4 0 0 Z";
-      let fio = { frente: [], tras: [] }, lado = null, atual = null, grupo = "", grupoLado = null, folhas = 0;
-      const fecharGrupo = () => { if (grupo) { camadas[grupoLado].push(`<g class="grupo" style="animation-delay:-${(folhas % 9) * 0.45}s">${grupo}</g>`); grupo = ""; } };
-      pts.forEach(([px, py], i) => {
-        const prox = pts[Math.min(i + 1, pts.length - 1)];
-        const l = prox[1] >= py ? "frente" : "tras";                     // descendo = na frente das palavras
-        if (l !== lado) { atual = []; fio[l].push(atual); if (atual.length === 0 && i > 0) atual.push(`${pts[i - 1][0].toFixed(1)} ${pts[i - 1][1].toFixed(1)}`); lado = l; }
-        atual.push(`${px.toFixed(1)} ${py.toFixed(1)}`);
-        if (i % 2 === 0) {
-          folhas++;
-          if (l !== grupoLado || folhas % 6 === 0) { fecharGrupo(); grupoLado = l; }
-          const ang = (folhas % 2 ? -45 : 135) + ((folhas * 29) % 70);
-          const tam = 0.28 + ((folhas * 37) % 26) / 100;
-          grupo += `<path d="${folha}" transform="translate(${px.toFixed(1)} ${py.toFixed(1)}) rotate(${ang}) scale(${tam.toFixed(2)})" fill="${cores[folhas % cores.length]}"/>`;
-        }
-        if (i % 9 === 4) {
-          grupo += `<g class="luz" style="animation-delay:-${((i * 0.37) % 3).toFixed(2)}s;animation-duration:${(1.8 + (i % 5) * 0.45).toFixed(2)}s">
-            <circle cx="${px.toFixed(1)}" cy="${py.toFixed(1)}" r="9" fill="url(#halo-topo)"/><circle cx="${px.toFixed(1)}" cy="${py.toFixed(1)}" r="1.9" fill="#fffbe3"/></g>`;
-        }
-      });
-      fecharGrupo();
-      const defs = `<defs><radialGradient id="halo-topo"><stop offset="0" stop-color="#fff1a8"/><stop offset=".28" stop-color="#ffd76a" stop-opacity=".75"/><stop offset="1" stop-color="#ffc94a" stop-opacity="0"/></radialGradient></defs>`;
-      for (const [svg, l] of [[tras, "tras"], [frente, "frente"]]) {
-        svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
-        const linhas = fio[l].map((t) => `<path d="M${t.join(" L")}" fill="none" stroke="#9c8a62" stroke-width=".9"/>`).join("");
-        svg.innerHTML = (l === "tras" ? defs : "") + linhas + camadas[l].join("");
-      }
-    }
-    desenharCordaoTopo();
-    window.addEventListener("load", desenharCordaoTopo);
-    if (document.fonts) document.fonts.ready.then(desenharCordaoTopo);
-    let esperaTopo;
-    window.addEventListener("resize", () => { clearTimeout(esperaTopo); esperaTopo = setTimeout(desenharCordaoTopo, 200); });
 
   </script>
 </body>
