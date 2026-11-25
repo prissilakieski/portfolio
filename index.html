@@ -316,7 +316,7 @@
     /* Capa estilo streaming: a foto é o "pôster" do lado direito, com bordas que somem suavemente
        no fundo (esquerda, topo, base e um pouco na direita) e um leve zoom lento, como trailer em destaque */
     .capa-foto {
-      position: absolute; top: 0; right: 0; bottom: 0; z-index: 0; width: min(74vw, 1200px); pointer-events: none; opacity: .94;
+      position: absolute; top: 0; right: 0; bottom: 0; z-index: 0; width: min(60vw, 940px); pointer-events: none; opacity: .94;
       -webkit-mask-image:
         linear-gradient(to right, transparent 0%, rgba(0,0,0,.35) 14%, rgba(0,0,0,.8) 30%, #000 46%, #000 92%, rgba(0,0,0,.6) 100%),
         linear-gradient(to top, transparent 0%, rgba(0,0,0,.6) 16%, #000 38%, #000 88%, rgba(0,0,0,.5) 100%);
@@ -330,7 +330,7 @@
       filter: contrast(1.1) saturate(1.06) brightness(.96); image-rendering: -webkit-optimize-contrast;
       transform-origin: 62% 40%; animation: capa-zoom 24s ease-in-out infinite alternate;
     }
-    @keyframes capa-zoom { from { transform: scale(1); } to { transform: scale(1.07); } }
+    @keyframes capa-zoom { from { transform: scale(1); } to { transform: scale(1.035); } }
     /* sombra de cinema por cima da foto: escurece a esquerda (onde fica o texto) e a base, como nas plataformas de streaming */
     .capa-sombra {
       position: absolute; inset: 0; z-index: 0; pointer-events: none;
@@ -956,7 +956,7 @@
       .menu {
         position: fixed; top: var(--header-h); left: 0; right: 0;
         flex-direction: column; gap: 0; padding: 8px var(--gutter) 24px;
-        background: rgba(226, 249, 182, .99); border-bottom: 1px solid rgba(23, 20, 28, .1);
+        background: rgba(20, 16, 26, .97); border-bottom: 1px solid rgba(224, 123, 245, .3);
         transform: translateY(-8px); opacity: 0; visibility: hidden;
         transition: opacity .25s ease, transform .25s ease, visibility .25s;
       }
@@ -1023,18 +1023,39 @@
     /* ==========================================================
        BARRA DE CIMA: botões redondos das redes (Instagram, TikTok, WhatsApp)
        ========================================================== */
+    /* barra de cima preta translúcida, com botões em roxo neon */
+    .topo {
+      --texto: #f6f3f1; --neon-texto: #f2a8ff; --milk: #f2a8ff; --borda: rgba(255, 255, 255, .14);
+      --brilho: 0 0 10px rgba(224, 123, 245, .9), 0 0 24px rgba(224, 123, 245, .55);
+      background: rgba(20, 16, 26, .72);
+      box-shadow: 0 1px 0 rgba(224, 123, 245, .22), 0 8px 30px rgba(0, 0, 0, .25);
+    }
+    .topo.rolado { background: rgba(20, 16, 26, .86); box-shadow: 0 1px 0 rgba(224, 123, 245, .3), 0 8px 34px rgba(0, 0, 0, .35); }
+    .topo .logo { color: #fff; }
+    .menu a { color: #f6e6ff; background: rgba(224, 123, 245, .12); border-color: rgba(224, 123, 245, .55); }
+    .menu a:hover, .menu a:focus-visible, .menu a.ativo {
+      color: #17141c; background: #e07bf5; border-color: #e07bf5;
+      box-shadow: 0 0 12px rgba(224, 123, 245, .8), 0 0 26px rgba(224, 123, 245, .4);
+    }
+    .btn-menu span, .btn-menu span::before, .btn-menu span::after { background: #fff; }
+    .btn-menu[aria-expanded="true"] span { background: transparent; }
+    @media (max-width: 1120px) {
+      .menu a, .menu a:hover, .menu a:focus-visible, .menu a.ativo { background: none; border-color: rgba(255, 255, 255, .12); box-shadow: none; }
+      .menu a { color: #f6e6ff; }
+      .menu a:hover, .menu a:focus-visible, .menu a.ativo { color: #f2a8ff; }
+    }
     .topo nav { margin-left: auto; }
     .redes-topo { display: flex; align-items: center; gap: 8px; margin: 0; padding: 0; list-style: none; }
     .redes-topo a {
       width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center;
-      background: #17141c; color: #fff; text-decoration: none;
-      box-shadow: 0 0 0 1px rgba(224, 123, 245, .5);
+      background: #e07bf5; color: #17141c; text-decoration: none;
+      box-shadow: 0 0 10px rgba(224, 123, 245, .55);
       transition: transform .35s cubic-bezier(.34, 1.7, .5, 1), background-color .3s ease, box-shadow .3s ease;
     }
     .redes-topo svg { width: 16px; height: 16px; fill: currentColor; }
     .redes-topo a:hover, .redes-topo a:focus-visible {
-      transform: translateY(-2px) scale(1.08); background: #e07bf5; color: #17141c;
-      box-shadow: 0 0 12px rgba(224, 123, 245, .9), 0 0 26px rgba(224, 123, 245, .5);
+      transform: translateY(-2px) scale(1.08); background: #ffffff; color: #17141c;
+      box-shadow: 0 0 14px rgba(224, 123, 245, .9), 0 0 28px rgba(224, 123, 245, .5);
     }
     @media (max-width: 1120px) { .redes-topo { margin-left: auto; } .redes-topo a { width: 32px; height: 32px; } }
     @media (max-width: 420px) { .btn-sazonal { padding: 5px 9px; letter-spacing: .12em; } .redes-topo { gap: 6px; } }
@@ -1278,7 +1299,8 @@
       menu: [
         { texto: "Destaques", alvo: "#destaques" },
         { texto: "Formatos", alvo: "#formatos" },
-        { texto: "TikTok Shop", alvo: "#tiktokshop" }
+        { texto: "TikTok Shop", alvo: "#tiktokshop" },
+        { texto: "Trabalhos", alvo: "#trabalhos" }
       ],
 
       // EDITE AQUI: textos da capa (primeira dobra)
