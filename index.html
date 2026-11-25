@@ -398,10 +398,16 @@
       background: linear-gradient(180deg,
         #eef8d9 0, #f0f8dd 120px, #f3f8e5 260px, #f6f8ee 400px, #f8f8f5 520px, var(--fundo) 640px);
     }
-    #sobre.parede-neon { padding-block: clamp(110px, 10vw, 150px); }   /* seção mais compacta */
-    #sobre .sobre-grade { grid-template-columns: minmax(200px, 300px) 1fr; gap: clamp(32px, 7vw, 100px); }
-    #sobre .titulo-secao { font-size: clamp(2rem, 4.4vw, 3.2rem); }
-    #sobre .sobre-texto p { font-size: 1rem; margin-top: 12px; }
+    #sobre.parede-neon { padding-block: clamp(64px, 7vw, 96px); overflow: hidden; }   /* seção compacta */
+    #destaques { padding-top: clamp(48px, 6vw, 80px); }
+    #sobre .sobre-grade { grid-template-columns: minmax(150px, 210px) 1fr; gap: clamp(28px, 5vw, 72px); max-width: 920px; }
+    #sobre .titulo-secao { font-size: clamp(1.8rem, 3.6vw, 2.6rem); }
+    #sobre .sobre-texto p { font-size: .97rem; margin-top: 10px; }
+    #sobre .sobre-texto p:first-of-type { margin-top: 14px; }
+    #sobre .entregas { margin-top: 16px; gap: 8px; }
+    #sobre .polaroid-foto { outline-offset: 8px; }
+    #sobre .polaroid:hover .polaroid-foto { outline-offset: 14px; }
+    #sobre .polaroid figcaption { margin-top: 20px; }
 
     /* Letreiro neon escrito à mão: "Sobre" em rosa e "mim" em verde claro, piscando */
     #sobre .sobre-texto .letreiro-sobre, .letreiro-sobre {
@@ -420,17 +426,19 @@
       animation: letreiro-vintage 6s infinite 2.3s;
     }
 
-    /* Fita de LED com curvas, com uma luz percorrendo (como LED em movimento) */
-    .led-fita { filter: drop-shadow(0 0 4px #ff8fe0) drop-shadow(0 0 12px rgba(255, 79, 201, .65)); }
-    .led-fita .tubo { stroke: #ff7ad9; stroke-width: 5; opacity: .85; }
-    .led-fita .nucleo { stroke: #fff3fb; stroke-width: 1.6; }
+    /* Fita de LED estilo setup gamer girl: entra pela esquerda, faz ondas suaves e sai pela direita,
+       com a cor mudando devagar (rosa, lilás, verde) e luzes percorrendo o fio */
+    .led-fita { filter: drop-shadow(0 0 4px rgba(255, 143, 224, .9)) drop-shadow(0 0 14px rgba(200, 110, 255, .55)); animation: led-flutua 9s ease-in-out infinite; }
+    .led-fita .tubo { stroke: url(#ledCor); stroke-width: 5; opacity: .9; }
+    .led-fita .nucleo { stroke: #fff6fd; stroke-width: 1.5; opacity: .9; }
     .led-fita .corrida {
-      stroke: #ffffff; stroke-width: 3.5; stroke-dasharray: 90 1400; opacity: .95;
+      stroke: #ffffff; stroke-width: 3.5; stroke-dasharray: 70 1000; opacity: .95;
       filter: drop-shadow(0 0 6px #ff9fe8) drop-shadow(0 0 14px #ff4fc9);
-      animation: led-corre 7s linear infinite;
+      animation: led-corre 6s linear infinite;
     }
-    .led-fita .corrida.segunda { animation-delay: -3.5s; stroke: #f4ffe0; filter: drop-shadow(0 0 6px #c6f36b) drop-shadow(0 0 14px #9be03f); }
-    @keyframes led-corre { from { stroke-dashoffset: 1490; } to { stroke-dashoffset: 0; } }
+    .led-fita .corrida.segunda { animation-delay: -3s; stroke: #f4ffe0; filter: drop-shadow(0 0 6px #c6f36b) drop-shadow(0 0 14px #9be03f); }
+    @keyframes led-corre { from { stroke-dashoffset: 1070; } to { stroke-dashoffset: 0; } }
+    @keyframes led-flutua { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(6px); } }
     #sobre > .container { position: relative; z-index: 2; }
     .neon-sobre { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; overflow: visible; }
     .neon-sobre path { fill: none; stroke-linecap: round; stroke-linejoin: round; }
@@ -559,6 +567,35 @@
     .destaque-insights { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--borda); display: grid; gap: 7px; }
     .destaque-insights li { display: flex; gap: 8px; align-items: flex-start; font-size: .84rem; line-height: 1.45; color: var(--texto); }
     .destaque-insights svg { width: 14px; height: 14px; color: var(--neon-texto); flex-shrink: 0; margin-top: 3px; }
+
+    /* ==========================================================
+       3b. FORMATOS VALIDADOS
+       ========================================================== */
+    #formatos { padding-top: 0; }
+    .formatos-grade { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: clamp(12px, 1.6vw, 20px); }
+    .formato {
+      display: flex; flex-direction: column; gap: 12px; min-width: 0;
+      background: var(--superficie); border: 1px solid var(--borda); padding: 22px 18px 20px;
+      transition: transform .4s cubic-bezier(.34, 1.6, .5, 1), box-shadow .4s ease, border-color .4s ease;
+    }
+    .formato:hover {
+      transform: translateY(-8px); border-color: var(--verde-neon);
+      box-shadow: 0 0 0 2px var(--verde-neon), 0 0 22px rgba(198, 243, 107, .7), 0 22px 44px rgba(198, 243, 107, .25);
+    }
+    .formato-icone {
+      width: 46px; height: 46px; display: grid; place-items: center;
+      background: var(--escuro); color: var(--neon);
+      box-shadow: 0 0 14px rgba(224, 123, 245, .45);
+    }
+    .formato-icone svg { width: 24px; height: 24px; }
+    .formato h3 { font-family: var(--titulo); font-weight: 400; font-size: 1.45rem; line-height: 1.05; text-transform: uppercase; letter-spacing: .01em; }
+    .formato > p { color: var(--texto-suave); font-size: .9rem; line-height: 1.5; }
+    .formato dl { margin: auto 0 0; padding-top: 12px; border-top: 1px solid var(--borda); display: grid; gap: 8px; }
+    .formato dt { font-size: .62rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--salvia); }
+    .formato dd { margin: 2px 0 0; font-size: .84rem; line-height: 1.4; }
+    @media (max-width: 1120px) { .formatos-grade { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+    @media (max-width: 760px) { .formatos-grade { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    @media (max-width: 520px) { .formatos-grade { grid-template-columns: 1fr; } }
 
     /* ==========================================================
        4. TRABALHOS POR NICHO (catálogo) e TIKTOK SHOP
@@ -971,6 +1008,14 @@
       </div>
     </section>
 
+    <!-- 3b. FORMATOS VALIDADOS -->
+    <section class="secao" id="formatos" aria-labelledby="titulo-formatos">
+      <div class="container">
+        <div class="cabecalho-secao revelar" id="formatosCabecalho"></div>
+        <div class="formatos-grade" id="formatosGrade"></div>
+      </div>
+    </section>
+
     <!-- TIKTOK SHOP: vídeos exclusivos para venda pelo carrinho do TikTok -->
     <section class="secao" id="tiktokshop" aria-labelledby="titulo-tiktokshop">
       <div class="container">
@@ -1088,6 +1133,7 @@
       menu: [
         { texto: "Sobre", alvo: "#sobre" },
         { texto: "Destaques", alvo: "#destaques" },
+        { texto: "Formatos", alvo: "#formatos" },
         { texto: "TikTok Shop", alvo: "#tiktokshop" },
         { texto: "Trabalhos", alvo: "#trabalhos" },
         { texto: "Números", alvo: "#numeros" },
@@ -1190,6 +1236,51 @@
             link: "https://youtube.com/shorts/2w2vQI1opVw",
             imagem: "",
             alt: "Close de Prissila aplicando blush em bastão na bochecha"
+          }
+        ]
+      },
+
+      // EDITE AQUI: formatos de vídeo que você faz (aparecem logo abaixo dos destaques)
+      // "icone" pode ser: dupla, rua, entrevista, curiosidade, vlog
+      formatos: {
+        kicker: "Formatos validados",
+        titulo: "Formatos que funcionam",
+        texto: "Cinco formatos que já testei e sei que prendem a atenção. Veja qual combina com o perfil da sua marca.",
+        itens: [
+          {
+            icone: "dupla",
+            nome: "2 personagens",
+            descricao: "Eu interpreto os dois lados de uma situação do dia a dia, e o produto resolve a cena.",
+            onde: "Reels e TikTok, com humor e identificação",
+            ideal: "Mostrar a dor do cliente e a solução"
+          },
+          {
+            icone: "rua",
+            nome: "Vídeo na rua",
+            descricao: "Gravado na rua, no movimento real: comprando, testando ou usando o produto fora de casa.",
+            onde: "Reels, TikTok e anúncios de alcance",
+            ideal: "Trazer vida real e prova de uso"
+          },
+          {
+            icone: "entrevista",
+            nome: "Estilo entrevista",
+            descricao: "Pergunta e resposta com microfone na mão, como se alguém me entrevistasse sobre o produto.",
+            onde: "Anúncios e Stories com caixinha de perguntas",
+            ideal: "Quebrar objeções e explicar benefícios"
+          },
+          {
+            icone: "curiosidade",
+            nome: "Curiosidades",
+            descricao: "\"Você sabia que...\": fatos rápidos sobre o produto, o ingrediente ou a marca.",
+            onde: "Reels, TikTok e carrosséis de apoio",
+            ideal: "Educar o público e gerar salvamentos"
+          },
+          {
+            icone: "vlog",
+            nome: "Estilo vlog",
+            descricao: "Um pedaço da minha rotina com o produto entrando de forma natural no meu dia.",
+            onde: "Reels, Stories e TikTok",
+            ideal: "Criar desejo e conexão com a marca"
           }
         ]
       },
@@ -1456,6 +1547,29 @@
         </div>
       </a>`;
     }).join("");
+
+    /* ---------- 3b. Formatos validados ---------- */
+    const iconesFormato = {
+      dupla: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="8" r="3"/><circle cx="16.5" cy="9" r="2.5"/><path d="M2.5 20c0-3.3 2.5-5.5 5.5-5.5s5.5 2.2 5.5 5.5M14 14.7c.8-.4 1.6-.6 2.5-.6 2.8 0 5 2 5 5"/></svg>',
+      rua: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/></svg>',
+      entrevista: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="2.5" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21M8.5 21h7"/></svg>',
+      curiosidade: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21.5h4M12 2.5a6.5 6.5 0 0 0-4 11.6c.6.5 1 1.2 1 2V16h6v-.1c0-.8.4-1.5 1-2a6.5 6.5 0 0 0-4-11.4Z"/></svg>',
+      vlog: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="6" width="13" height="12" rx="2"/><path d="m15.5 10.5 6-3.5v10l-6-3.5"/></svg>'
+    };
+    const fm = CONFIG.formatos;
+    if (fm && fm.itens && fm.itens.length) {
+      $("#formatosCabecalho").innerHTML = cabecalho(fm, "titulo-formatos");
+      $("#formatosGrade").innerHTML = fm.itens.map((f, i) => `
+        <article class="formato revelar" style="transition-delay:${i * 0.08}s">
+          <span class="formato-icone">${iconesFormato[f.icone] || iconesFormato.vlog}</span>
+          <h3>${esc(f.nome)}</h3>
+          <p>${esc(f.descricao)}</p>
+          <dl>
+            <div><dt>Onde encaixa</dt><dd>${esc(f.onde)}</dd></div>
+            <div><dt>Ideal para</dt><dd>${esc(f.ideal)}</dd></div>
+          </dl>
+        </article>`).join("");
+    } else { $("#formatos").remove(); }
 
     /* ---------- 4. Trabalhos ---------- */
     // Card de um trabalho (usado no catálogo e no TikTok Shop)
@@ -1869,7 +1983,7 @@
     let esperaTopo;
     window.addEventListener("resize", () => { clearTimeout(esperaTopo); esperaTopo = setTimeout(desenharCordaoTopo, 200); });
 
-    /* ---------- LED neon do Sobre mim: coração no canto superior direito, fio até o canto inferior esquerdo ---------- */
+    /* ---------- LED neon do Sobre mim: fita estilo setup gamer girl, entra pela esquerda e sai pela direita ---------- */
     function desenharNeonSobre() {
       const sec = $("#sobre"), svg = $("#neonSobre");
       if (!sec || !svg) return;
@@ -1877,22 +1991,29 @@
       if (!W || !H) return;
       svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
       const f = (n) => n.toFixed(1);
-      // fita de LED solta, com curvas grandes como a da referência: S na esquerda, ondas no topo e uma volta na direita
-      const led = `M-10 ${f(H * .8)}
-        C60 ${f(H * .8)} 78 ${f(H * .64)} 42 ${f(H * .56)}
-        C6 ${f(H * .48)} 10 ${f(H * .36)} 46 ${f(H * .3)}
-        C82 ${f(H * .24)} 30 130 62 92
-        C92 58 ${f(W * .12)} 34 ${f(W * .2)} 62
-        C${f(W * .27)} 88 ${f(W * .31)} 104 ${f(W * .36)} 132
-        C${f(W * .41)} 160 ${f(W * .47)} 150 ${f(W * .52)} 96
-        C${f(W * .57)} 42 ${f(W * .64)} 30 ${f(W * .7)} 70
-        C${f(W * .76)} 112 ${f(W * .8)} 150 ${f(W * .86)} 118
-        C${f(W * .91)} 90 ${f(W * .93)} 44 ${f(W * .9)} 40
-        C${f(W * .86)} 36 ${f(W * .84)} 120 ${f(W * .87)} 200
-        C${f(W * .9)} 280 ${f(W * .82)} 330 ${f(W * .86)} ${f(H * .58)}
-        C${f(W * .9)} ${f(H * .7)} ${f(W * .96)} ${f(H * .72)} ${f(W + 10)} ${f(H * .76)}`;      svg.innerHTML = `<g class="led-fita"><path class="tubo" d="${led}" pathLength="1490"/><path class="nucleo" d="${led}" pathLength="1490"/>
-        <path class="corrida" d="${led}" pathLength="1490"/><path class="corrida segunda" d="${led}" pathLength="1490"/></g>`;
-    }    desenharNeonSobre();
+      // m = espaço livre nas laterais (fora do texto), para o fio passar sem cobrir a leitura
+      const m = Math.max(24, (W - 920) / 2);
+      // pontos por onde o fio passa: sobe pela esquerda, desliza em ondas suaves no topo e desce pela direita
+      const P = [
+        [-80, H * .9], [m * .35, H * .8], [m * .55, H * .55], [m * .3, H * .3], [m * .8, 40],
+        [W * .38, 24], [W * .55, 50], [W * .72, 22], [W - m * .7, 46],
+        [W - m * .35, H * .38], [W - m * .55, H * .66], [W - m * .2, H * .86], [W + 80, H * .93]
+      ];
+      // curva contínua e macia passando por todos os pontos (sem quinas)
+      let d = `M${f(P[0][0])} ${f(P[0][1])}`;
+      for (let i = 0; i < P.length - 1; i++) {
+        const a = P[i - 1] || P[i], b = P[i], c = P[i + 1], e = P[i + 2] || c;
+        d += ` C${f(b[0] + (c[0] - a[0]) / 6)} ${f(b[1] + (c[1] - a[1]) / 6)} ${f(c[0] - (e[0] - b[0]) / 6)} ${f(c[1] - (e[1] - b[1]) / 6)} ${f(c[0])} ${f(c[1])}`;
+      }
+      const calmo = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      svg.innerHTML = `<defs><linearGradient id="ledCor" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="${f(W)}" y2="0" spreadMethod="repeat">
+          <stop offset="0" stop-color="#ff5fcf"/><stop offset=".33" stop-color="#b86bff"/><stop offset=".66" stop-color="#b5ec5a"/><stop offset="1" stop-color="#ff5fcf"/>
+          ${calmo ? "" : `<animateTransform attributeName="gradientTransform" type="translate" from="0 0" to="${f(W)} 0" dur="10s" repeatCount="indefinite"/>`}
+        </linearGradient></defs>
+        <g class="led-fita"><path class="tubo" d="${d}" pathLength="1070"/><path class="nucleo" d="${d}" pathLength="1070"/>
+        <path class="corrida" d="${d}" pathLength="1070"/><path class="corrida segunda" d="${d}" pathLength="1070"/></g>`;
+    }
+    desenharNeonSobre();
     window.addEventListener("load", desenharNeonSobre);
     if (document.fonts) document.fonts.ready.then(desenharNeonSobre);
     let esperaNeon;
