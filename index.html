@@ -1019,6 +1019,77 @@
     .pedaco { border-radius: 6px; }
     .papel { border-radius: 4px; }
     .fita { border-radius: 2px; }
+
+    /* ==========================================================
+       BARRA DE CIMA: botões redondos das redes (Instagram, TikTok, WhatsApp)
+       ========================================================== */
+    .topo nav { margin-left: auto; }
+    .redes-topo { display: flex; align-items: center; gap: 8px; margin: 0; padding: 0; list-style: none; }
+    .redes-topo a {
+      width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center;
+      background: #17141c; color: #fff; text-decoration: none;
+      box-shadow: 0 0 0 1px rgba(224, 123, 245, .5);
+      transition: transform .35s cubic-bezier(.34, 1.7, .5, 1), background-color .3s ease, box-shadow .3s ease;
+    }
+    .redes-topo svg { width: 16px; height: 16px; fill: currentColor; }
+    .redes-topo a:hover, .redes-topo a:focus-visible {
+      transform: translateY(-2px) scale(1.08); background: #e07bf5; color: #17141c;
+      box-shadow: 0 0 12px rgba(224, 123, 245, .9), 0 0 26px rgba(224, 123, 245, .5);
+    }
+    @media (max-width: 1120px) { .redes-topo { margin-left: auto; } .redes-topo a { width: 32px; height: 32px; } }
+    @media (max-width: 420px) { .btn-sazonal { padding: 5px 9px; letter-spacing: .12em; } .redes-topo { gap: 6px; } }
+
+    /* ==========================================================
+       SOBRE MIM: título como letreiro de neon, igual ao "UGC" da capa
+       ========================================================== */
+    .colagem-titulo h2.letreiro-sobre {
+      display: inline-block; font-family: var(--titulo); font-weight: 400; text-transform: uppercase;
+      font-size: clamp(2rem, 4.6vw, 3.4rem); letter-spacing: .14em; line-height: 1;
+      padding: .32em .5em .28em .64em; border: 3px solid #ffc4f2; border-radius: 12px;
+      background: #17141c; color: #fff2fc;
+      text-shadow: 0 0 4px #fff, 0 0 10px #f7a6f0, 0 0 22px #e07bf5, 0 0 44px #e07bf5;
+      box-shadow: 0 0 6px #ffd6f5, 0 0 16px rgba(224, 123, 245, .85), 0 0 36px rgba(224, 123, 245, .5), inset 0 0 14px rgba(224, 123, 245, .55);
+      animation: letreiro 5s infinite;
+    }
+
+    /* ==========================================================
+       BORA CRIAR JUNTOS + RODAPÉ no estilo da capa: preto e roxo neon, fácil de ler
+       ========================================================== */
+    #contato, .rodape {
+      --texto: #f6f3f1; --texto-suave: #d6ced3; --borda: rgba(255, 255, 255, .16);
+      --milk: #f0c6ff; --neon-texto: #f2a8ff; --salvia: #c6f36b; --fundo: rgba(255, 255, 255, .06);
+      --brilho: 0 0 10px rgba(224, 123, 245, .75), 0 0 28px rgba(224, 123, 245, .5);
+      --btn-hover-bg: #ffffff; --btn-hover-cor: #141214;
+      color: var(--texto);
+    }
+    #contato {
+      background:
+        radial-gradient(ellipse 55% 60% at 85% 20%, rgba(224, 123, 245, .26), transparent 70%),
+        radial-gradient(ellipse 45% 45% at 5% 100%, rgba(224, 123, 245, .14), transparent 70%),
+        #14101a;
+    }
+    .rodape { background: #14101a; border-top: 1px solid rgba(224, 123, 245, .25); }
+    #contato .titulo-secao { color: #fff; font-size: clamp(2.6rem, 6.4vw, 4.8rem); }
+    #contato .titulo-secao:hover { color: #f2a8ff; }
+    #contato .kicker { background: rgba(224, 123, 245, .14); color: #f2a8ff; border-color: rgba(224, 123, 245, .55); }
+    #contato .contato-caixa {
+      background: rgba(255, 255, 255, .04); border: 1px solid rgba(224, 123, 245, .35); border-top: 1px solid rgba(224, 123, 245, .35);
+      box-shadow: 0 0 0 1px rgba(224, 123, 245, .08), 0 30px 80px -30px rgba(224, 123, 245, .45);
+    }
+    #contato .contato-direto p { color: #e4dde6; font-size: 1.05rem; line-height: 1.65; }
+    #contato .botao-contato { background: rgba(255, 255, 255, .06); border-color: rgba(255, 255, 255, .14); color: #fff; box-shadow: none; }
+    #contato .botao-contato:hover { box-shadow: 0 0 18px rgba(224, 123, 245, .35); }
+    .rodape .redes a { box-shadow: none; }
+    .rodape .redes a:hover { box-shadow: 0 0 14px rgba(224, 123, 245, .45); }
+    #contato .botao-contato .icone { background: #e07bf5; border-radius: 50%; box-shadow: 0 0 14px rgba(224, 123, 245, .6); }
+    #contato .botao-contato .icone svg { fill: #17141c; }
+    #contato .botao-contato span { color: #d6ced3; }
+    #contato .campo label { color: #f2a8ff; }
+    #contato .campo input, #contato .campo textarea { background: rgba(255, 255, 255, .07); border-color: rgba(255, 255, 255, .18); color: #fff; }
+    #contato .campo input::placeholder, #contato .campo textarea::placeholder { color: #b5abba; }
+    .rodape .logo { color: #fff; }
+    .rodape .redes a { border-color: rgba(255, 255, 255, .25); color: #fff; }
+    .rodape .direitos { color: #b5abba; }
 </style>
 </head>
 <body>
@@ -1037,6 +1108,7 @@
       <nav aria-label="Menu principal">
         <ul class="menu" id="menu"></ul>
       </nav>
+      <ul class="redes-topo" id="redesTopo" aria-label="Minhas redes"></ul>
     </div>
   </header>
 
@@ -1204,13 +1276,9 @@
 
       // EDITE AQUI: os links do menu (o texto e a seção para onde cada um rola)
       menu: [
-        { texto: "Sobre", alvo: "#sobre" },
         { texto: "Destaques", alvo: "#destaques" },
         { texto: "Formatos", alvo: "#formatos" },
-        { texto: "TikTok Shop", alvo: "#tiktokshop" },
-        { texto: "Trabalhos", alvo: "#trabalhos" },
-        { texto: "Números", alvo: "#numeros" },
-        { texto: "Contato", alvo: "#contato" }
+        { texto: "TikTok Shop", alvo: "#tiktokshop" }
       ],
 
       // EDITE AQUI: textos da capa (primeira dobra)
@@ -1245,7 +1313,7 @@
         // Post-its com as suas habilidades (curtos, para ler rápido). "cor": "pink", "lilas" ou "verde"
         postits: [
           { texto: "Vídeos de conversão", cor: "pink" },
-          { texto: "Vídeos com +5mi de views", cor: "lilas" },
+          { texto: "Vídeo com +5mi de views pra marca", cor: "lilas" },
           { texto: "Edição criativa e profissional", cor: "verde" },
           { texto: "Estética que valoriza o produto", cor: "lilas" },
           { texto: "Versões para teste A/B", cor: "verde" },
@@ -1570,7 +1638,7 @@
     $("#sobreTopo").innerHTML = `
       <p class="colagem-canto">${(sb.cantoEsquerdo || []).map(esc).join("<br>")}</p>
       <div class="colagem-titulo">
-        <h2 id="titulo-sobre">${esc(sb.titulo[0])} <em>${esc(sb.titulo[1])}</em></h2>
+        <h2 id="titulo-sobre" class="letreiro-sobre">${esc(sb.titulo[0])} ${esc(sb.titulo[1])}</h2>
         <p class="colagem-linha"><span>UGC</span><i aria-hidden="true"></i><span class="colagem-frase">${esc(sb.frase)}</span><i aria-hidden="true"></i><span>Micro influ</span></p>
       </div>
       <p class="colagem-canto direita">${(sb.cantoDireito || []).map(esc).join("<br>")}</p>`;
@@ -1920,6 +1988,12 @@
       aviso.classList.add("mostrar");
       form.reset();
     });
+
+    /* Botões redondos das redes na barra de cima */
+    $("#redesTopo").innerHTML = `
+      <li><a href="${esc(c.instagram)}" target="_blank" rel="noopener" aria-label="Instagram ${esc(c.usuario)}" title="Instagram">${icones.instagram}</a></li>
+      <li><a href="${esc(c.tiktok)}" target="_blank" rel="noopener" aria-label="TikTok ${esc(c.usuario)}" title="TikTok">${icones.tiktok}</a></li>
+      <li><a href="${linkWhats}" target="_blank" rel="noopener" aria-label="WhatsApp ${esc(c.whatsapp)}" title="WhatsApp">${icones.whatsapp}</a></li>`;
 
     /* ---------- 8. Rodapé ---------- */
     $("#logoRodape").textContent = CONFIG.perfil.nome;
