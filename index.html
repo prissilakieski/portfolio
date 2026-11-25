@@ -1716,8 +1716,7 @@
           <p class="destaque-numero">${esc(d.numero)}</p>
           <span class="destaque-rotulo">${esc(d.rotulo)}</span>
           <h3 class="destaque-titulo">${esc(d.titulo)}</h3>
-          <p class="destaque-contexto">${esc(d.contexto)}</p>
-          ${d.insights ? `<ul class="destaque-insights">${d.insights.map((x) => `<li>${icones.check}<span>${esc(x)}</span></li>`).join("")}</ul>` : ""}
+          ${d.insights ? `<ul class="destaque-insights">${d.insights.slice(0, 2).map((x) => `<li>${icones.check}<span>${esc(x)}</span></li>`).join("")}</ul>` : ""}
         </div>
       </a>`;
     }).join("");
