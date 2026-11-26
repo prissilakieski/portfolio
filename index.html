@@ -656,6 +656,7 @@
       transition: box-shadow .4s ease, border-color .4s ease;
     }
     .formato-video .midia { position: absolute; inset: 0; transition: transform .7s ease; }
+    .formato-video img[src="fotos/capa-2-personagens.png"] { object-position: 36% 50%; }   /* centraliza o rosto no print */
     a.formato-video:hover { border-color: var(--verde-neon); box-shadow: 0 0 0 2px var(--verde-neon), 0 0 22px rgba(198, 243, 107, .7); }
     a.formato-video:hover .midia { transform: scale(1.05); }
     .formato-video .play { width: 58px; height: 58px; margin: -29px 0 0 -29px; }
@@ -1460,7 +1461,8 @@
             descricao: "Eu interpreto os dois lados de uma situação do dia a dia, e o produto resolve a cena.",
             onde: "Reels e TikTok, com humor e identificação",
             ideal: "Mostrar a dor do cliente e a solução",
-            video: "https://youtube.com/shorts/ayTnlB3XMZU"   // LINK DO VÍDEO DE EXEMPLO AQUI (YouTube toca dentro do site)
+            video: "https://youtube.com/shorts/ayTnlB3XMZU",   // LINK DO VÍDEO DE EXEMPLO AQUI (YouTube toca dentro do site)
+            imagem: "fotos/capa-2-personagens.png"              // CAPA PRÓPRIA (vazio = capa do YouTube)
           },
           {
             icone: "rua",
@@ -1822,7 +1824,10 @@
       function videoFormato(f) {
         const id = idYoutube(f.video || "");
         if (id) {
-          const capa = { imagem: `https://i.ytimg.com/vi/${id}/oardefault.jpg`, reserva: `https://i.ytimg.com/vi/${id}/hqdefault.jpg`, alt: `Exemplo do formato ${f.nome}` };
+          // "imagem" no formato = capa própria (ex.: "fotos/minha-capa.png"); vazio = capa do YouTube
+          const capa = f.imagem
+            ? { imagem: f.imagem, alt: `Exemplo do formato ${f.nome}` }
+            : { imagem: `https://i.ytimg.com/vi/${id}/oardefault.jpg`, reserva: `https://i.ytimg.com/vi/${id}/hqdefault.jpg`, alt: `Exemplo do formato ${f.nome}` };
           return `<a class="formato-video" href="https://www.youtube.com/watch?v=${id}" data-video="${id}" data-titulo="${esc(f.nome)}" aria-label="Assistir ao exemplo: ${esc(f.nome)}">
             ${midia(capa)}<span class="play" aria-hidden="true">${icones.play}</span></a>`;
         }
