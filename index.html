@@ -544,6 +544,16 @@
     .destaque-capa { aspect-ratio: 9 / 16; position: relative; overflow: hidden; }
     .destaque-capa .midia { transition: transform .7s ease; }
     .destaque:hover .destaque-capa .midia { transform: scale(1.05); }
+    /* nome da marca em verde neon no canto de baixo do vídeo, com sombra escura para ler em qualquer capa */
+    .destaque-capa::after {
+      content: ""; position: absolute; inset: auto 0 0 0; height: 34%; z-index: 1; pointer-events: none;
+      background: linear-gradient(0deg, rgba(20, 16, 26, .82) 0%, rgba(20, 16, 26, .35) 55%, transparent 100%);
+    }
+    .destaque-marca {
+      position: absolute; left: 18px; bottom: 16px; z-index: 2; max-width: calc(100% - 36px);
+      font-family: var(--titulo); font-size: clamp(1.6rem, 2.6vw, 2.2rem); line-height: 1; text-transform: uppercase; letter-spacing: .02em;
+      color: var(--verde-neon); text-shadow: 0 0 10px rgba(198, 243, 107, .7), 0 0 26px rgba(198, 243, 107, .35), 0 2px 10px rgba(0, 0, 0, .6);
+    }
     .ranking {
       position: absolute; top: 8px; left: 16px; z-index: 2;
       font-family: var(--titulo); font-size: 4.2rem; line-height: 1; color: #fff;
@@ -1388,6 +1398,7 @@
         itens: [
           {
             // Vídeos reais. Quando tiver os números (views, salvamentos, vendas), troque "numero" e "rotulo".
+            marca: "Eucerin",   // nome da marca escrito em verde no canto de baixo do vídeo
             numero: "60s",
             rotulo: "olho no olho",
             titulo: "Recomendação que conecta",
@@ -1403,6 +1414,7 @@
             alt: "Prissila falando para a câmera, de blusa branca e colar de corações"
           },
           {
+            marca: "Canva",
             numero: "23s",
             rotulo: "de roteiro afiado",
             titulo: "Gancho que para o scroll",
@@ -1417,6 +1429,7 @@
             alt: "Prissila falando para a câmera com a legenda agora e um cursor animado apontando"
           },
           {
+            marca: "SOUU Beauty",
             numero: "15s",
             rotulo: "de close que vende",
             titulo: "Blush em close",
@@ -1779,6 +1792,7 @@
           <span class="ranking" aria-hidden="true">${i + 1}</span>
           <span class="tag-alta" aria-hidden="true">Top ${i + 1}</span>
           <span class="play" aria-hidden="true">${icones.play}</span>
+          ${d.marca ? `<span class="destaque-marca">${esc(d.marca)}</span>` : ""}
         </div>
         <div class="destaque-info">
           <p class="destaque-numero">${esc(d.numero)}</p>
