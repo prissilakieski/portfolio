@@ -836,7 +836,7 @@
     /* ==========================================================
        6. NÚMEROS E DEPOIMENTOS
        ========================================================== */
-    .contadores { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 1px solid var(--milk); border-bottom: 1px solid var(--borda); }
+    .contadores { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); border-top: 1px solid var(--milk); border-bottom: 1px solid var(--borda); }
     .contador { text-align: center; padding: 38px 14px; position: relative; transition: transform .4s cubic-bezier(.2, .7, .2, 1), background-color .4s ease, box-shadow .4s ease; }
     .contador + .contador { border-left: 1px solid var(--borda); }
     .contador strong {
@@ -1237,7 +1237,7 @@
       <div class="container">
         <div class="cabecalho-secao revelar" id="numerosCabecalho"></div>
         <ul class="contadores" id="contadores"></ul>
-        <h3 class="subtitulo-bloco revelar">Resultados de campanha</h3>
+        <h3 class="subtitulo-bloco revelar" id="resultadosTitulo">Resultados de campanha</h3>
         <div class="resultados" id="resultados"></div>
         <h3 class="subtitulo-bloco revelar">O que as marcas dizem</h3>
         <div class="compilado revelar" id="compilado"></div>
@@ -1447,7 +1447,7 @@
             descricao: "Eu interpreto os dois lados de uma situação do dia a dia, e o produto resolve a cena.",
             onde: "Reels e TikTok, com humor e identificação",
             ideal: "Mostrar a dor do cliente e a solução",
-            video: ""   // LINK DO VÍDEO DE EXEMPLO AQUI (YouTube toca dentro do site)
+            video: "https://youtube.com/shorts/ayTnlB3XMZU"   // LINK DO VÍDEO DE EXEMPLO AQUI (YouTube toca dentro do site)
           },
           {
             icone: "rua",
@@ -1505,11 +1505,15 @@
           { titulo: "Corretivo para olheiras", categoria: "Beleza", subcategoria: "Maquiagem", formato: "Vídeo UGC", descricao: "Aplicação do corretivo na região dos olhos, mostrando cobertura e como fica na pele.", video: "https://studio.youtube.com/video/qQLcM92ZqBE/edit", imagem: "", alt: "Prissila aplicando corretivo na olheira" },
           { titulo: "Maquiagem do dia a dia", categoria: "Beleza", subcategoria: "Maquiagem", formato: "Vídeo UGC falado", descricao: "Conversa sincera com a câmera mostrando a maquiagem pronta e como os produtos funcionam na rotina.", video: "https://youtube.com/shorts/THLBVXsUIrU", imagem: "", alt: "Prissila maquiada falando para a câmera com um estojo de maquiagem na mão" },
           { titulo: "Pele e boca naturais", categoria: "Beleza", subcategoria: "Maquiagem", formato: "Vídeo UGC falado", descricao: "Resenha de maquiagem com acabamento leve, destacando pele iluminada e batom rosado.", video: "https://youtube.com/shorts/ADJ-v0icSxg", imagem: "", alt: "Prissila de jaqueta de couro com maquiagem natural falando para a câmera" },
+          { titulo: "Lápis com tutorial", categoria: "Beleza", subcategoria: "Maquiagem", formato: "Vídeo UGC falado", descricao: "Passo a passo falado com legenda, ensinando a aplicar o lápis do jeito certo e sem exagero.", video: "https://youtube.com/shorts/MgbuCYCvlSU", imagem: "", alt: "Prissila mostrando um lápis de maquiagem para a câmera" },
+          { titulo: "Multistick Dark Rose", categoria: "Beleza", subcategoria: "Maquiagem", formato: "Vídeo UGC", descricao: "Um produto só para olhos, bochecha e boca, aplicado de perto mostrando a cor e o acabamento.", video: "https://youtube.com/shorts/9LDXw_7YHEA", imagem: "", alt: "Prissila aplicando multistick no rosto com a legenda Dark Rose" },
 
           // Beleza > Skincare
           { titulo: "Hidratação facial", categoria: "Beleza", subcategoria: "Skincare", formato: "Vídeo UGC", descricao: "Pele hidratada e com viço, mostrando o resultado do cuidado diário de perto.", video: "https://studio.youtube.com/video/NlWBiOitbHQ/edit", imagem: "", alt: "Prissila sorrindo com a pele hidratada e o texto Hidratação na tela" },
           { titulo: "Resenha de skincare", categoria: "Beleza", subcategoria: "Skincare", formato: "Vídeo UGC falado", descricao: "Conversa direta com a câmera explicando o produto e por que ele é fácil de usar.", video: "https://studio.youtube.com/video/PtehG-xT9Kg/edit", imagem: "", alt: "Prissila falando para a câmera sobre um produto de skincare" },
           { titulo: "Spray pós-procedimento", categoria: "Beleza", subcategoria: "Skincare", formato: "Vídeo UGC falado", descricao: "Apresentação do HOCL Spray, explicando o cuidado pós-procedimento estético de um jeito simples e confiável.", video: "https://youtube.com/shorts/_sYfLoATw6M", imagem: "", alt: "Prissila sorrindo e mostrando o frasco do HOCL Spray pós-procedimento" },
+          { titulo: "Pele com glow", categoria: "Beleza", subcategoria: "Skincare", formato: "Vídeo UGC falado", descricao: "Gravado no carro, mostrando a pele iluminada de perto no clima de conversa entre amigas.", video: "https://youtube.com/shorts/nBEXBQs-iUg", imagem: "", alt: "Prissila no carro com a pele iluminada sorrindo para a câmera" },
+          { titulo: "Ritual de firmeza", categoria: "Beleza", subcategoria: "Skincare", formato: "Vídeo UGC", descricao: "Cuidado em frente ao espelho com legenda e música, num clima de autocuidado e resultado na pele.", video: "https://youtube.com/shorts/L4aHovPW8Og", imagem: "", alt: "Prissila de roupão no reflexo do espelho com a palavra Firmeza na tela" },
 
           // Beleza > Cabelo
           { titulo: "Tônico capilar em spray", categoria: "Beleza", subcategoria: "Cabelo", formato: "Vídeo UGC falado", descricao: "Explicação animada de como aplicar o produto no couro cabeludo, com legenda e muita energia.", video: "https://youtube.com/shorts/Bg_wx5VT6sE", imagem: "", alt: "Prissila de coque falando para a câmera com um frasco spray capilar" },
@@ -1531,11 +1535,15 @@
           // Casa e decor
           { titulo: "Odorizante de ambientes", categoria: "Casa e decor", formato: "Vídeo UGC falado", descricao: "Formas de usar o odorizante Chá Branco pela casa e nos tecidos, de um jeito leve e convidativo.", video: "https://studio.youtube.com/video/PFzhoWmZ6fY/edit", imagem: "", alt: "Prissila segurando um odorizante de ambientes Chá Branco" },
           { titulo: "Perfume para a casa", categoria: "Casa e decor", formato: "Vídeo UGC falado", descricao: "Decorando a mesa com flores e mostrando como deixar a casa perfumada e acolhedora.", video: "https://youtube.com/shorts/hPk7euFc0fA", imagem: "", alt: "Prissila arrumando um vaso de rosas brancas ao lado de um perfume de ambientes" },
+          { titulo: "Panela do fogão à mesa", categoria: "Casa e decor", formato: "Vídeo UGC falado", descricao: "Versão com trilha e legenda mostrando a panela bonita o bastante para ir direto do fogão para a mesa.", video: "https://youtube.com/shorts/CzgTYoJ6-JU", imagem: "", alt: "Prissila na cozinha segurando uma panela bege com a legenda ele vai direto pra mesa" },
+          { titulo: "Panela em POV", categoria: "Casa e decor", formato: "Vídeo UGC", descricao: "A mesma panela em formato POV, com câmera baixa na bancada e cara de rotina real na cozinha.", video: "https://youtube.com/shorts/h5o_XjoNdVA", imagem: "", alt: "Prissila na cozinha apoiando uma panela bege na bancada" },
 
           { titulo: "Boleira de bambu", categoria: "Casa e decor", formato: "Vídeo UGC", descricao: "Mesa posta com bolo caseiro destacando o bambu tratado com verniz, num clima aconchegante de casa.", video: "https://youtube.com/shorts/UjPcrUjsobA", imagem: "", alt: "Boleira de bambu com bolo sobre toalha xadrez" },
           { titulo: "Potes herméticos de bambu", categoria: "Casa e decor", formato: "Vídeo UGC", descricao: "Organização da despensa mostrando fechamento hermético, bambu tratado e material resistente.", video: "https://youtube.com/shorts/A098WedX3Tg", imagem: "", alt: "Mão segurando a tampa de bambu de um pote hermético" },
           // Tech, apps e lançamentos > Apps e lançamentos
           { titulo: "Lançamento de app", categoria: "Tech, apps e lançamentos", subcategoria: "Apps e lançamentos", formato: "Vídeo UGC falado", descricao: "Conversa direta com a câmera apresentando a novidade, com legenda e chamada para fechar negócio.", video: "https://studio.youtube.com/video/xdVyrysYcyc/edit", imagem: "", alt: "Prissila falando para a câmera com a legenda Fechar o negócio" },
+          { titulo: "Cartão para empreendedoras", categoria: "Tech, apps e lançamentos", subcategoria: "Apps e lançamentos", formato: "Vídeo UGC falado", descricao: "Apresentação do cartão empresarial pelo app, explicando como separar as despesas da empresa.", video: "https://youtube.com/shorts/uHQTs8ifYSY", imagem: "", alt: "Prissila na frente da tela de um app de banco com um cartão roxo" },
+          { titulo: "IA de busca", categoria: "Tech, apps e lançamentos", subcategoria: "Apps e lançamentos", formato: "Vídeo UGC falado", descricao: "Explicação simples e animada de uma ferramenta de inteligência artificial, com legenda e linguagem do dia a dia.", video: "https://youtube.com/shorts/T-21oElYnqk", imagem: "", alt: "Prissila de cabelo ruivo falando para a câmera com a legenda ela é uma IA de busca" },
 
         ]
       },
@@ -1577,19 +1585,17 @@
       numeros: {
         kicker: "Prova social",
         titulo: "Números e depoimentos",
-        texto: "Resultados de verdade, medidos pelas próprias marcas.",
+        texto: "Avaliações reais das marcas com quem já trabalhei.",
         // Contadores animados: "valor" é o número final, "casas" é quantas casas decimais mostrar
+        // Só números reais (tirados das avaliações). Para adicionar outro, copie uma linha e troque.
         contadores: [
           { valor: 5, casas: 1, prefixo: "", sufixo: "/5", rotulo: "nota média das marcas" },
-          { valor: 87, casas: 0, prefixo: "", sufixo: "%", rotulo: "das marcas recontratam" },
-          { valor: 5, casas: 0, prefixo: "", sufixo: " dias", rotulo: "prazo médio de entrega" },
-          { valor: 2.4, casas: 1, prefixo: "+", sufixo: "M", rotulo: "maior alcance orgânico" }
+          { valor: 12, casas: 0, prefixo: "", sufixo: "", rotulo: "avaliações de marcas" },
+          { valor: 100, casas: 0, prefixo: "", sufixo: "%", rotulo: "das avaliações com 5 estrelas" }
         ],
-        // Resultados de campanha
-        resultados: [
-          { nicho: "Beleza", valor: "3,8%", metrica: "de CTR no anúncio", texto: "Mais que o dobro da média do segmento em campanha de skincare." },
-          { nicho: "Casa", valor: "4,2x", metrica: "de retorno sobre anúncio", texto: "Criativo campeão no lançamento de eletroportátil." },
-        ],
+        // Resultados de campanha (CTR, retorno etc.). Vazio = o bloco não aparece no site.
+        // Exemplo: { nicho: "Beleza", valor: "3,8%", metrica: "de CTR no anúncio", texto: "Explicação curta." }
+        resultados: [],
         // Compilado: resumo do que as marcas mais elogiam nas avaliações abaixo
         // "vezes" = em quantas avaliações o elogio aparece
         compilado: {
@@ -1999,6 +2005,7 @@
           aria-label="${esc(n.prefixo + formatar(n.valor, n.casas) + n.sufixo)}">${esc(n.prefixo)}0${esc(n.sufixo)}</strong>
         <span>${esc(n.rotulo)}</span>
       </li>`).join("");
+    if (!nm.resultados.length) { $("#resultadosTitulo").style.display = "none"; $("#resultados").style.display = "none"; }
     $("#resultados").innerHTML = nm.resultados.map((r, i) => `
       <article class="resultado revelar" style="transition-delay:${i * 0.1}s">
         <span class="nicho">${esc(r.nicho)}</span>
