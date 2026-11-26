@@ -317,22 +317,22 @@
     .capa-texto { max-width: min(640px, 54%); }
     /* Capa estilo streaming: a foto é o "pôster" do lado direito, com bordas que somem suavemente
        no fundo (esquerda, topo, base e um pouco na direita) e um leve zoom lento, como trailer em destaque */
-    .capa-foto {
-      position: absolute; top: 0; right: 0; bottom: 0; z-index: 0; width: min(60vw, 940px); pointer-events: none; opacity: .94;
-      -webkit-mask-image:
-        linear-gradient(to right, transparent 0%, rgba(0,0,0,.35) 14%, rgba(0,0,0,.8) 30%, #000 46%, #000 92%, rgba(0,0,0,.6) 100%),
-        linear-gradient(to top, transparent 0%, rgba(0,0,0,.6) 16%, #000 38%, #000 88%, rgba(0,0,0,.5) 100%);
-      -webkit-mask-composite: source-in; mask-composite: intersect;
-      mask-image:
-        linear-gradient(to right, transparent 0%, rgba(0,0,0,.35) 14%, rgba(0,0,0,.8) 30%, #000 46%, #000 92%, rgba(0,0,0,.6) 100%),
-        linear-gradient(to top, transparent 0%, rgba(0,0,0,.6) 16%, #000 38%, #000 88%, rgba(0,0,0,.5) 100%);
-    }
+    /* A foto é horizontal: fica inteira na altura da capa (abaixo do menu), sem cortar o rosto,
+       com o rosto posicionado no lado direito da tela. As bordas somem no fundo escuro. */
+    .capa-foto { position: absolute; inset: var(--header-h) 0 0 0; z-index: 0; pointer-events: none; overflow: hidden; }
     .capa-foto .midia {
-      width: 100%; height: 100%; object-fit: cover; object-position: 50% 32%;
-      filter: contrast(1.1) saturate(1.06) brightness(.96); image-rendering: -webkit-optimize-contrast;
-      transform-origin: 62% 40%; animation: capa-zoom 24s ease-in-out infinite alternate;
+      position: absolute; top: 0; left: 74%; height: 100%; width: auto; max-width: none; aspect-ratio: 2309 / 1320;
+      translate: -49% 0;   /* centro do rosto (49% da foto) alinhado a 74% da tela */
+      filter: contrast(1.08) saturate(1.06) brightness(.96); image-rendering: -webkit-optimize-contrast;
+      -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,.5) 18%, #000 34%), linear-gradient(to top, transparent 0%, #000 16%);
+      -webkit-mask-composite: source-in; mask-composite: intersect;
+              mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,.5) 18%, #000 34%), linear-gradient(to top, transparent 0%, #000 16%);
+      /* movimento de streaming: entra com fade e aproximação, depois segue num zoom e deslize bem lentos (efeito Ken Burns) */
+      transform-origin: 50% 40%;
+      animation: capa-entrada 1.8s cubic-bezier(.2, .7, .2, 1) both, capa-kenburns 22s ease-in-out 1.8s infinite alternate;
     }
-    @keyframes capa-zoom { from { transform: scale(1); } to { transform: scale(1.035); } }
+    @keyframes capa-entrada { from { opacity: 0; transform: scale(1.12); } to { opacity: .96; transform: scale(1); } }
+    @keyframes capa-kenburns { from { opacity: .96; transform: scale(1) translate(0, 0); } to { opacity: .96; transform: scale(1.07) translate(-1.6%, -1%); } }
     /* sombra de cinema por cima da foto: escurece a esquerda (onde fica o texto) e a base, como nas plataformas de streaming */
     .capa-sombra {
       position: absolute; inset: 0; z-index: 0; pointer-events: none;
@@ -1001,13 +1001,17 @@
       .capa-grade { padding-top: 40svh; }
       .capa-texto { max-width: 100%; }
       .capa-foto {
-        width: 100%; bottom: auto; height: 66svh;
+        width: 100%; top: 0; bottom: auto; height: 66svh;
         -webkit-mask-image: linear-gradient(to top, transparent 0%, rgba(0,0,0,.6) 22%, #000 50%, #000 88%, rgba(0,0,0,.5) 100%);
                 mask-image: linear-gradient(to top, transparent 0%, rgba(0,0,0,.6) 22%, #000 50%, #000 88%, rgba(0,0,0,.5) 100%);
         -webkit-mask-composite: source-over; mask-composite: add;
       }
       .capa-sombra { background: linear-gradient(0deg, rgba(20, 16, 26, .95) 0%, rgba(20, 16, 26, .5) 45%, transparent 66%), linear-gradient(180deg, rgba(20, 16, 26, .45) 0%, transparent 14%); }
       .capa-foto .iniciais { font-size: 7rem; }
+      .capa-foto .midia {
+        left: 0; width: 100%; aspect-ratio: auto; translate: none; object-fit: cover; object-position: 49% 30%;
+        -webkit-mask-image: none; mask-image: none;
+      }
       .sobre-grade { grid-template-columns: 1fr; }
       .sobre-foto { width: min(250px, 72%); margin-inline: auto; }
       .destaques-grade { grid-template-columns: 1fr; max-width: 380px; margin-inline: auto; }
