@@ -1222,17 +1222,6 @@
       </div>
     </section>
 
-    <!-- TIKTOK SHOP: vídeos exclusivos para venda pelo carrinho do TikTok -->
-    <section class="secao" id="tiktokshop" aria-labelledby="titulo-tiktokshop">
-      <div class="container">
-        <div class="tts-topo">
-          <div class="cabecalho-secao revelar" id="ttsCabecalho"></div>
-          <ul class="tts-lista revelar" id="ttsLista"></ul>
-        </div>
-        <div class="trilho revelar" id="ttsTrilho"></div>
-      </div>
-    </section>
-
     <!-- 4. TRABALHOS POR NICHO -->
     <section class="secao" id="trabalhos" aria-labelledby="titulo-trabalhos">
       <div class="container">
@@ -1343,7 +1332,7 @@
       menu: [
         { texto: "Destaques", alvo: "#destaques" },
         { texto: "Formatos", alvo: "#formatos" },
-        { texto: "TikTok Shop", alvo: "#tiktokshop" },
+        { texto: "TikTok Shop", alvo: "#trabalhos", filtro: "TikTok Shop" },   // abre Trabalhos já filtrado no TikTok Shop
         { texto: "Trabalhos", alvo: "#trabalhos" }
       ],
 
@@ -1714,7 +1703,7 @@
     /* ---------- Menu ---------- */
     $("#logo").textContent = CONFIG.perfil.textoLogo;
     $("#logo").setAttribute("aria-label", `${CONFIG.perfil.textoLogo} de ${CONFIG.perfil.nome}, voltar ao início`);
-    $("#menu").innerHTML = CONFIG.menu.map((m) => `<li><a href="${m.alvo}">${esc(m.texto)}</a></li>`).join("");
+    $("#menu").innerHTML = CONFIG.menu.map((m) => `<li><a href="${m.alvo}"${m.filtro ? ` data-filtro="${esc(m.filtro)}"` : ""}>${esc(m.texto)}</a></li>`).join("");
 
     /* ---------- 1. Capa ---------- */
     const cp = CONFIG.capa;
@@ -1897,7 +1886,7 @@
     $("#trabalhosCabecalho").innerHTML = cabecalho(tb, "titulo-trabalhos");
     $("#filtros").innerHTML = ["Todos", ...tb.categorias]
       .map((cat, i) => `<button type="button" class="filtro" data-filtro="${esc(cat)}" aria-pressed="${i === 0}">${esc(cat)}</button>`).join("")
-      + `<a class="filtro filtro-tts" href="#tiktokshop">${icones.carrinho} TikTok Shop</a>`;
+      + `<button type="button" class="filtro filtro-tts" data-filtro="${esc(CONFIG.tiktokShop.selo)}" aria-pressed="false">${icones.carrinho} ${esc(CONFIG.tiktokShop.selo)}</button>`;
 
     // Subnichos de cada nicho, na ordem em que aparecem na lista de trabalhos
     const subnichos = {};
@@ -1914,6 +1903,9 @@
       subnichos[cat].forEach((sub) => fileiras.push({ cat, sub, itens: doNicho.filter((t) => t.subcategoria === sub) }));
       if (semSub.length) fileiras.push({ cat, sub: "", itens: semSub });
     });
+    // Vídeos do TikTok Shop: fileira própria dentro de Trabalhos (aparece em "Todos" e no botão TikTok Shop)
+    const tts = CONFIG.tiktokShop;
+    if (tts.itens.length) fileiras.push({ cat: tts.selo, sub: "", itens: tts.itens.map((t) => ({ categoria: tts.selo, ...t })) });
 
     $("#catalogo").innerHTML = fileiras.map(({ cat, sub, itens }, idx) => {
       const idTrilho = `trilho-${idx}`;
@@ -1965,6 +1957,8 @@
       const botao = e.target.closest(".filtro-sub");
       if (botao) aplicarFiltro(nichoAtual, botao.dataset.sub);
     });
+    // Link "TikTok Shop" do menu: rola até Trabalhos e já aplica o filtro
+    document.querySelectorAll("#menu a[data-filtro]").forEach((a) => a.addEventListener("click", () => aplicarFiltro(a.dataset.filtro, "")));
 
     /* ---------- Player de vídeo (janela que abre por cima do site) ---------- */
     const janela = $("#janelaVideo");
@@ -1988,16 +1982,6 @@
     janela.addEventListener("close", () => { molduraVideo.innerHTML = ""; });
     $("#fecharVideo").addEventListener("click", () => janela.close());
     janela.addEventListener("click", (e) => { if (e.target === janela) janela.close(); });
-
-    /* ---------- TikTok Shop ---------- */
-    const tts = CONFIG.tiktokShop;
-    $("#ttsCabecalho").innerHTML = `<p class="tts-selo">${icones.carrinho} ${esc(tts.selo)}</p>
-      <h2 class="titulo-secao tts-neon" id="titulo-tiktokshop">${esc(tts.titulo)}</h2>
-      <p class="sub-secao">${esc(tts.texto)}</p>`;
-
-
-    $("#ttsLista").innerHTML = tts.diferenciais.map((d) => `<li>${icones.check}<span>${esc(d)}</span></li>`).join("");
-    $("#ttsTrilho").innerHTML = tts.itens.map((t) => cardTrabalho({ categoria: tts.selo, ...t })).join("");
 
     // Cliques nos cards com vídeo (em qualquer parte do site) e nas setas das fileiras
     document.addEventListener("click", (e) => {
