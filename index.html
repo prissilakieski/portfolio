@@ -853,6 +853,26 @@
     .resultado:hover strong { color: var(--neon-texto); text-shadow: var(--brilho); }
     .resultado .metrica { font-weight: 600; }
     .resultado p { color: var(--texto-suave); margin-top: 8px; font-size: .95rem; }
+    .compilado {
+      background: var(--superficie); border: 1px solid var(--borda); border-left: 3px solid var(--neon);
+      border-radius: 20px; padding: clamp(22px, 4vw, 34px); margin-bottom: 22px;
+    }
+    .compilado-resumo { margin: 0 0 18px; font-size: 1.08rem; color: var(--texto); max-width: 70ch; }
+    .compilado-pontos { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 10px; }
+    .compilado-pontos li {
+      display: flex; align-items: baseline; gap: 8px; padding: 8px 14px; border-radius: 999px;
+      border: 1px solid var(--neon); background: rgba(224, 123, 245, .1);
+    }
+    .compilado-pontos b { font-weight: 600; font-size: .92rem; }
+    .compilado-pontos span { color: var(--texto-suave); font-size: .8rem; }
+    .ver-todas-caixa { display: flex; justify-content: center; margin-top: 26px; }
+    .ver-todas {
+      font: inherit; font-weight: 600; font-size: .78rem; letter-spacing: .16em; text-transform: uppercase; cursor: pointer;
+      color: var(--texto); background: transparent; border: 1px solid var(--neon); border-radius: 999px; padding: 14px 28px;
+      transition: background .3s ease, box-shadow .3s ease;
+    }
+    .ver-todas:hover, .ver-todas:focus-visible { background: rgba(224, 123, 245, .16); box-shadow: 0 0 24px rgba(224, 123, 245, .35); }
+    .depoimento[hidden] { display: none; }
     .depoimentos { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
     .depoimento {
       margin: 0; background: var(--superficie); border: 1px solid var(--borda);
@@ -1213,7 +1233,11 @@
         <h3 class="subtitulo-bloco revelar">Resultados de campanha</h3>
         <div class="resultados" id="resultados"></div>
         <h3 class="subtitulo-bloco revelar">O que as marcas dizem</h3>
+        <div class="compilado revelar" id="compilado"></div>
         <div class="depoimentos" id="depoimentos"></div>
+        <div class="ver-todas-caixa" id="verTodasCaixa" hidden>
+          <button type="button" class="ver-todas" id="verTodas" aria-expanded="false" aria-controls="depoimentos"></button>
+        </div>
       </div>
     </section>
 
@@ -1552,7 +1576,7 @@
         texto: "Resultados de verdade, medidos pelas próprias marcas.",
         // Contadores animados: "valor" é o número final, "casas" é quantas casas decimais mostrar
         contadores: [
-          { valor: 4.9, casas: 1, prefixo: "", sufixo: "/5", rotulo: "nota média das marcas" },
+          { valor: 5, casas: 1, prefixo: "", sufixo: "/5", rotulo: "nota média das marcas" },
           { valor: 87, casas: 0, prefixo: "", sufixo: "%", rotulo: "das marcas recontratam" },
           { valor: 5, casas: 0, prefixo: "", sufixo: " dias", rotulo: "prazo médio de entrega" },
           { valor: 2.4, casas: 1, prefixo: "+", sufixo: "M", rotulo: "maior alcance orgânico" }
@@ -1563,11 +1587,36 @@
           { nicho: "Casa", valor: "4,2x", metrica: "de retorno sobre anúncio", texto: "Criativo campeão no lançamento de eletroportátil." },
           { nicho: "Comida", valor: "32%", metrica: "menos custo por venda", texto: "Redução de custo após troca dos criativos antigos pelos vídeos UGC." }
         ],
-        // Depoimentos de clientes
+        // Compilado: resumo do que as marcas mais elogiam nas avaliações abaixo
+        // "vezes" = em quantas avaliações o elogio aparece
+        compilado: {
+          resumo: "12 avaliações, todas com nota 5. O que mais aparece: vídeos criativos e bem produzidos, entregues no prazo e alinhados com a proposta de cada marca. As marcas também elogiam a edição caprichada, a comunicação clara e o jeito natural e espontâneo na frente da câmera.",
+          pontos: [
+            { rotulo: "Qualidade e capricho", vezes: 7 },
+            { rotulo: "Criatividade", vezes: 5 },
+            { rotulo: "Prazos cumpridos", vezes: 5 },
+            { rotulo: "Alinhada à proposta da marca", vezes: 4 },
+            { rotulo: "Edição impecável", vezes: 3 },
+            { rotulo: "Profissionalismo", vezes: 3 },
+            { rotulo: "Recomendam a parceria", vezes: 3 },
+            { rotulo: "Comunicação clara", vezes: 2 },
+            { rotulo: "Naturalidade e autenticidade", vezes: 2 }
+          ]
+        },
+        // Depoimentos de clientes (avaliações reais, nota 5). Os 6 primeiros aparecem direto; o resto abre no botão "Ver todas"
         depoimentos: [
-          { texto: "A Prissila entende de venda. O primeiro vídeo dela já virou nosso anúncio principal e o custo por compra caiu muito. Profissional, rápida e muito criativa.", nome: "Mariana Costa", empresa: "Bella Pele" },
-          { texto: "Briefing entendido de primeira, entrega antes do prazo e conteúdo com uma naturalidade que a gente não conseguia com produção tradicional. Já fechamos o pacote mensal.", nome: "Rafael Moreira", empresa: "Casa Serena" },
-          { texto: "Os ganchos que ela cria são certeiros. Testamos três versões e todas performaram bem. Atendimento atencioso do começo ao fim.", nome: "Juliana Prado", empresa: "Fit Natural" }
+          { texto: "A experiência de trabalhar com a Prissila foi excelente. Ela apresentou um conteúdo criativo, bem estruturado e visualmente atraente, transmitindo de forma autêntica a mensagem da marca. Manteve uma comunicação clara e prestativa durante todo o processo, cumprindo prazos e se mostrando aberta às orientações. Sua dedicação e profissionalismo tornaram o trabalho conjunto muito satisfatório.", nome: "Migração Digital Serviços" },
+          { texto: "Conteúdo excelente, criativo e muito bem produzido! A UGC entendeu perfeitamente a proposta da marca e entregou um trabalho de ótima qualidade! Ficamos muito satisfeitos com o resultado e recomendamos a parceria.", nome: "Tropical Especiarias" },
+          { texto: "Incrível! O vídeo nos surpreendeu muito positivamente, de forma dinâmica, complexa e bem editado! Amamos", nome: "PGB Inteligência Criativa" },
+          { texto: "Amamos a entrega do conteúdo! Criatividade, qualidade e cumprimento dos prazos foram impecáveis. Super recomendo e indicaria para futuras campanhas.", nome: "Seu Influencer" },
+          { texto: "Prissila foi muito comunicativa e criativa, entregando vídeos dinâmicos e bem alinhados com a proposta da marca. Ótimo trabalho!", nome: "Indexnet Publicidade Digital" },
+          { texto: "Excelente creator! Muito criativa e rápida! Super natural e espontânea! Recomendamos", nome: "Bronzer Brasil" },
+          { texto: "Prissila entregou vídeos de qualidade! Super alinhados com a necessidade da marca!", nome: "CNA" },
+          { texto: "Entrega de material com edição impecável. Extremamente pontual e profissional.", nome: "Andressa Freire Marketing" },
+          { texto: "Amamos o trabalho da Prissila! Conteúdo muito bem feito e entregue no prazo. Excelente creator! ✨", nome: "Seu Influencer" },
+          { texto: "Edição, qualidade e empenho na entrega, excelentes!", nome: "Meu Tudu" },
+          { texto: "Muito boa no que faz, entrega impecável.", nome: "Touti Cosmetics" },
+          { texto: "Prissila é ótima! Super profissional e talentosa.", nome: "Ápice34" }
         ]
       },
 
@@ -1954,16 +2003,38 @@
         <span class="metrica">${esc(r.metrica)}</span>
         <p>${esc(r.texto)}</p>
       </article>`).join("");
+    if (nm.compilado) {
+      const cp = nm.compilado;
+      $("#compilado").innerHTML = `
+        <p class="compilado-resumo">${esc(cp.resumo)}</p>
+        <ul class="compilado-pontos">
+          ${cp.pontos.map((p) => `<li><b>${esc(p.rotulo)}</b><span>em ${p.vezes} avaliações</span></li>`).join("")}
+        </ul>`;
+    }
+    const VISIVEIS = 6;
     $("#depoimentos").innerHTML = nm.depoimentos.map((d, i) => `
-      <figure class="depoimento revelar" style="transition-delay:${i * 0.1}s">
+      <figure class="depoimento revelar${i >= VISIVEIS ? " depoimento-extra" : ""}" style="transition-delay:${(i % 3) * 0.1}s"${i >= VISIVEIS ? " hidden" : ""}>
         <span class="aspas" aria-hidden="true">&ldquo;</span>
         <span class="estrelas" role="img" aria-label="Avaliação 5 de 5 estrelas">★★★★★</span>
         <blockquote>${esc(d.texto)}</blockquote>
         <figcaption>
           <span class="avatar" aria-hidden="true">${esc(d.nome.split(" ").map((p) => p[0]).slice(0, 2).join(""))}</span>
-          <div><b>${esc(d.nome)}</b><span>${esc(d.empresa)}</span></div>
+          <div><b>${esc(d.nome)}</b>${d.empresa ? `<span>${esc(d.empresa)}</span>` : ""}</div>
         </figcaption>
       </figure>`).join("");
+    if (nm.depoimentos.length > VISIVEIS) {
+      const botao = $("#verTodas");
+      const rotulo = (aberto) => aberto ? "Mostrar menos" : `Ver todas as ${nm.depoimentos.length} avaliações`;
+      botao.textContent = rotulo(false);
+      $("#verTodasCaixa").hidden = false;
+      botao.addEventListener("click", () => {
+        const abrir = botao.getAttribute("aria-expanded") !== "true";
+        document.querySelectorAll(".depoimento-extra").forEach((el) => { el.hidden = !abrir; if (abrir) el.classList.add("visivel"); });
+        botao.setAttribute("aria-expanded", String(abrir));
+        botao.textContent = rotulo(abrir);
+        if (!abrir) $("#depoimentos").scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    }
 
     function animarContador(el) {
       const final = parseFloat(el.dataset.valor);
