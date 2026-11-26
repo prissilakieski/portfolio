@@ -319,7 +319,11 @@
        no fundo (esquerda, topo, base e um pouco na direita) e um leve zoom lento, como trailer em destaque */
     /* A foto é horizontal: fica inteira na altura da capa (abaixo do menu), sem cortar o rosto,
        com o rosto posicionado no lado direito da tela. As bordas somem no fundo escuro. */
-    .capa-foto { position: absolute; inset: var(--header-h) 0 0 0; z-index: 0; pointer-events: none; overflow: hidden; }
+    /* altura presa ao tamanho da tela visível: mesmo que o texto deixe a capa mais alta, o rosto inteiro aparece assim que abre */
+    .capa-foto {
+      position: absolute; top: var(--header-h); left: 0; right: 0; z-index: 0; pointer-events: none; overflow: hidden;
+      height: calc(100vh - var(--header-h)); height: calc(100svh - var(--header-h));
+    }
     .capa-foto .midia {
       position: absolute; top: 0; left: 74%; height: 100%; width: auto; max-width: none; aspect-ratio: 2309 / 1320;
       translate: -49% 0;   /* centro do rosto (49% da foto) alinhado a 74% da tela */
