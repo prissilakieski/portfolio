@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Prissila Kieski | Criadora de Conteúdo UGC</title>
-  <meta name="description" content="Prissila Kieski, criadora de conteúdo UGC. Vídeos autênticos que vendem para marcas de beleza, casa, comida, moda e fitness.">
+  <meta name="description" content="Prissila Kieski, criadora de conteúdo UGC. Vídeos autênticos que vendem para marcas de beleza, moda, casa e decor e tech.">
   <meta name="theme-color" content="#1f1b1e">
 
   <!-- Fontes do Google: Anton (títulos de impacto, estilo Netflix) e Archivo (corpo) -->
@@ -845,7 +845,7 @@
     .contador span { display: block; margin-top: 12px; color: var(--texto-suave); font-weight: 500; font-size: .74rem; letter-spacing: .14em; text-transform: uppercase; }
     .subtitulo-bloco { font-family: var(--titulo); font-weight: 400; font-size: 1.8rem; margin: 48px 0 20px; display: flex; align-items: center; gap: 16px; }
     .subtitulo-bloco::after { content: ""; flex: 1; height: 1px; background: var(--borda); }
-    .resultados { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+    .resultados { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; }
     .resultado { padding: 28px; background: var(--superficie); border-top: 2px solid var(--salvia-linha); transition: box-shadow .4s ease, border-color .4s ease, transform .4s cubic-bezier(.2, .7, .2, 1); }
     .resultado:hover { border-color: var(--neon); box-shadow: 0 22px 50px rgba(224, 123, 245, .22); transform: translateY(-8px) scale(1.03); }
     .resultado .nicho { font-size: .66rem; font-weight: 600; letter-spacing: .22em; text-transform: uppercase; color: var(--salvia); }
@@ -1145,7 +1145,6 @@
     <div class="container">
       <div class="marca-topo">
         <a class="logo" href="#inicio" id="logo"></a>
-        <a class="btn-sazonal" href="sazonal.html" target="_blank" rel="noopener">Sazonal</a>
       </div>
       <button class="btn-menu" id="btnMenu" aria-expanded="false" aria-controls="menu" aria-label="Abrir menu"><span></span></button>
       <nav aria-label="Menu principal">
@@ -1485,7 +1484,7 @@
         kicker: "Catálogo",
         titulo: "Trabalhos por nicho",
         texto: "Escolha um nicho e depois o subnicho para ver exatamente o tipo de vídeo que a sua marca precisa.",
-        categorias: ["Beleza", "Moda e acessórios", "Casa e decor", "Tech, apps e lançamentos", "Comida"],
+        categorias: ["Beleza", "Moda e acessórios", "Casa e decor", "Tech, apps e lançamentos"],
         itens: [
           // VÍDEOS DO YOUTUBE: cole no campo "video" o link do vídeo (pode ser o link do YouTube Studio,
           // do youtube.com/watch, do youtube.com/shorts ou do youtu.be). A capa é puxada sozinha do YouTube.
@@ -1530,9 +1529,6 @@
           // Tech, apps e lançamentos > Apps e lançamentos
           { titulo: "Lançamento de app", categoria: "Tech, apps e lançamentos", subcategoria: "Apps e lançamentos", formato: "Vídeo UGC falado", descricao: "Conversa direta com a câmera apresentando a novidade, com legenda e chamada para fechar negócio.", video: "https://studio.youtube.com/video/xdVyrysYcyc/edit", imagem: "", alt: "Prissila falando para a câmera com a legenda Fechar o negócio" },
 
-          // Nichos abaixo ainda são exemplos: troque pelos seus vídeos quando tiver          { titulo: "Granola artesanal", categoria: "Comida", formato: "Vídeo UGC · 25s", descricao: "Café da manhã real com foco em sabor e textura.", imagem: "", alt: "Trabalho de comida com granola", gradiente: "linear-gradient(190deg,#f5d0da,#fae9ee)" },
-          { titulo: "Receita na air fryer", categoria: "Comida", formato: "Anúncio · 30s", descricao: "Receita prática que vende o eletro e a ideia.", imagem: "", alt: "Trabalho de comida com receita na air fryer", gradiente: "linear-gradient(140deg,#f7dde4,#f3c9d4)" },
-          { titulo: "Café especial", categoria: "Comida", formato: "Fotos de produto", descricao: "Ensaio com luz natural para site e redes.", imagem: "", alt: "Trabalho de comida com café especial", gradiente: "linear-gradient(210deg,#fbeef2,#eab0c0)" },
         ]
       },
 
@@ -1585,7 +1581,6 @@
         resultados: [
           { nicho: "Beleza", valor: "3,8%", metrica: "de CTR no anúncio", texto: "Mais que o dobro da média do segmento em campanha de skincare." },
           { nicho: "Casa", valor: "4,2x", metrica: "de retorno sobre anúncio", texto: "Criativo campeão no lançamento de eletroportátil." },
-          { nicho: "Comida", valor: "32%", metrica: "menos custo por venda", texto: "Redução de custo após troca dos criativos antigos pelos vídeos UGC." }
         ],
         // Compilado: resumo do que as marcas mais elogiam nas avaliações abaixo
         // "vezes" = em quantas avaliações o elogio aparece
