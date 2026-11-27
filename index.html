@@ -661,6 +661,11 @@
     a.formato-video:hover .midia { transform: scale(1.05); }
     .formato-video .play { width: 58px; height: 58px; margin: -29px 0 0 -29px; }
     a.formato-video:hover .play { background: var(--verde-neon); border-color: var(--verde-neon); transform: scale(1.08); }
+    .formato-video .formato-marca-sombra {
+      position: absolute; inset: auto 0 0 0; height: 34%; z-index: 1; pointer-events: none;
+      background: linear-gradient(0deg, rgba(20, 16, 26, .82) 0%, rgba(20, 16, 26, .35) 55%, transparent 100%);
+    }
+    .formato-video .destaque-marca { left: 16px; bottom: 14px; font-size: clamp(1.4rem, 2.2vw, 1.9rem); }
     .formato-video .em-breve {
       position: absolute; inset: 0; display: grid; place-content: center; gap: 10px; text-align: center; padding: 16px;
       font-size: .66rem; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: rgba(255, 255, 255, .75);
@@ -1437,7 +1442,8 @@
       },
 
       // EDITE AQUI: formatos de vídeo que você faz (aparecem logo abaixo dos destaques)
-      // "icone" pode ser: dupla, rua, entrevista, curiosidade, vlog
+      // "icone" pode ser: dupla, rua, tutorial, entrevista, curiosidade, vlog
+      // "marca": nome da marca que aparece no canto de baixo do vídeo (opcional)
       // "video": link do vídeo que mostra o formato (YouTube, Instagram ou TikTok). Vazio = aparece "vídeo em breve"
       formatos: {
         kicker: "Formatos validados",
@@ -1462,11 +1468,11 @@
             video: ""   // LINK DO VÍDEO DE EXEMPLO AQUI (YouTube toca dentro do site)
           },
           {
-            icone: "entrevista",
-            nome: "Estilo entrevista",
-            descricao: "Pergunta e resposta com microfone na mão, como se alguém me entrevistasse sobre o produto.",
-            onde: "Anúncios e Stories com caixinha de perguntas",
-            ideal: "Quebrar objeções e explicar benefícios",
+            icone: "tutorial",
+            nome: "Tutorial",
+            descricao: "Passo a passo mostrando como usar o produto, do primeiro uso até o resultado.",
+            onde: "Reels, TikTok e anúncios de conversão",
+            ideal: "Ensinar a usar e tirar dúvidas antes da compra",
             video: ""   // LINK DO VÍDEO DE EXEMPLO AQUI (YouTube toca dentro do site)
           },
           {
@@ -1475,7 +1481,8 @@
             descricao: "\"Você sabia que...\": fatos rápidos sobre o produto, o ingrediente ou a marca.",
             onde: "Reels, TikTok e carrosséis de apoio",
             ideal: "Educar o público e gerar salvamentos",
-            video: ""   // LINK DO VÍDEO DE EXEMPLO AQUI (YouTube toca dentro do site)
+            video: "https://youtube.com/shorts/nffZppVJ-fs",   // LINK DO VÍDEO DE EXEMPLO AQUI (YouTube toca dentro do site)
+            marca: "Sem Parar"                                  // NOME DA MARCA no canto de baixo do vídeo (vazio = sem nome)
           },
           {
             icone: "vlog",
@@ -1796,6 +1803,7 @@
       dupla: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="8" r="3"/><circle cx="16.5" cy="9" r="2.5"/><path d="M2.5 20c0-3.3 2.5-5.5 5.5-5.5s5.5 2.2 5.5 5.5M14 14.7c.8-.4 1.6-.6 2.5-.6 2.8 0 5 2 5 5"/></svg>',
       rua: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/></svg>',
       entrevista: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="2.5" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21M8.5 21h7"/></svg>',
+      tutorial: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 6h11M10 12h11M10 18h11"/><path d="M3.5 6.5 5 8l2.5-3M3.5 12.5 5 14l2.5-3"/><circle cx="5" cy="18" r="1.3"/></svg>',
       curiosidade: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21.5h4M12 2.5a6.5 6.5 0 0 0-4 11.6c.6.5 1 1.2 1 2V16h6v-.1c0-.8.4-1.5 1-2a6.5 6.5 0 0 0-4-11.4Z"/></svg>',
       vlog: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="6" width="13" height="12" rx="2"/><path d="m15.5 10.5 6-3.5v10l-6-3.5"/></svg>'
     };
@@ -1816,7 +1824,7 @@
             ? { imagem: f.imagem, alt: `Exemplo do formato ${f.nome}` }
             : { imagem: `https://i.ytimg.com/vi/${id}/oardefault.jpg`, reserva: `https://i.ytimg.com/vi/${id}/hqdefault.jpg`, alt: `Exemplo do formato ${f.nome}` };
           return `<a class="formato-video" href="https://www.youtube.com/watch?v=${id}" data-video="${id}" data-titulo="${esc(f.nome)}" aria-label="Assistir ao exemplo: ${esc(f.nome)}">
-            ${midia(capa)}<span class="play" aria-hidden="true">${icones.play}</span></a>`;
+            ${midia(capa)}<span class="play" aria-hidden="true">${icones.play}</span>${f.marca ? `<span class="formato-marca-sombra" aria-hidden="true"></span><span class="destaque-marca">${esc(f.marca)}</span>` : ""}</a>`;
         }
         if (f.video) {
           return `<a class="formato-video" href="${esc(f.video)}" target="_blank" rel="noopener" aria-label="Assistir ao exemplo: ${esc(f.nome)}. Abre em nova aba.">
