@@ -665,7 +665,7 @@
       position: absolute; inset: auto 0 0 0; height: 34%; z-index: 1; pointer-events: none;
       background: linear-gradient(0deg, rgba(20, 16, 26, .82) 0%, rgba(20, 16, 26, .35) 55%, transparent 100%);
     }
-    .formato-video .destaque-marca { left: 16px; bottom: 14px; font-size: clamp(1.4rem, 2.2vw, 1.9rem); }
+    .formato-video .destaque-marca { left: 16px; bottom: 14px; font-size: clamp(1.4rem, 2.2vw, 1.9rem); text-wrap: balance; }
     .formato-video .em-breve {
       position: absolute; inset: 0; display: grid; place-content: center; gap: 10px; text-align: center; padding: 16px;
       font-size: .66rem; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: rgba(255, 255, 255, .75);
@@ -1442,13 +1442,13 @@
       },
 
       // EDITE AQUI: formatos de vídeo que você faz (aparecem logo abaixo dos destaques)
-      // "icone" pode ser: dupla, rua, tutorial, entrevista, curiosidade, vlog
+      // "icone" pode ser: dupla, rua, tutorial, entrevista, curiosidade, vlog, surpresa
       // "marca": nome da marca que aparece no canto de baixo do vídeo (opcional)
       // "video": link do vídeo que mostra o formato (YouTube, Instagram ou TikTok). Vazio = aparece "vídeo em breve"
       formatos: {
         kicker: "Formatos validados",
         titulo: "Formatos que funcionam",
-        texto: "Cinco formatos que já testei e sei que prendem a atenção. Veja qual combina com o perfil da sua marca.",
+        texto: "Seis formatos que já testei e sei que prendem a atenção. Veja qual combina com o perfil da sua marca.",
         itens: [
           {
             icone: "dupla",
@@ -1457,7 +1457,8 @@
             onde: "Reels e TikTok, com humor e identificação",
             ideal: "Mostrar a dor do cliente e a solução",
             video: "https://youtube.com/shorts/ayTnlB3XMZU",   // LINK DO VÍDEO DE EXEMPLO AQUI (YouTube toca dentro do site)
-            imagem: "fotos/capa-2-personagens.png"              // CAPA PRÓPRIA (vazio = capa do YouTube)
+            imagem: "fotos/capa-2-personagens.png",             // CAPA PRÓPRIA (vazio = capa do YouTube)
+            marca: "Rodrigo Goes F. Milhas"
           },
           {
             icone: "rua",
@@ -1473,7 +1474,8 @@
             descricao: "Passo a passo mostrando como usar o produto, do primeiro uso até o resultado.",
             onde: "Reels, TikTok e anúncios de conversão",
             ideal: "Ensinar a usar e tirar dúvidas antes da compra",
-            video: ""   // LINK DO VÍDEO DE EXEMPLO AQUI (YouTube toca dentro do site)
+            video: "https://youtube.com/shorts/MgbuCYCvlSU",   // LINK DO VÍDEO DE EXEMPLO AQUI (YouTube toca dentro do site)
+            marca: "Klasme"
           },
           {
             icone: "curiosidade",
@@ -1490,7 +1492,17 @@
             descricao: "Um pedaço da minha rotina com o produto entrando de forma natural no meu dia.",
             onde: "Reels, Stories e TikTok",
             ideal: "Criar desejo e conexão com a marca",
-            video: ""   // LINK DO VÍDEO DE EXEMPLO AQUI (YouTube toca dentro do site)
+            video: "https://youtube.com/shorts/PG9kNxP4cIU",   // LINK DO VÍDEO DE EXEMPLO AQUI (YouTube toca dentro do site)
+            marca: "Coca Cola"
+          },
+          {
+            icone: "surpresa",
+            nome: "Quebra de expectativa",
+            descricao: "O vídeo começa indo para um lado e vira de repente, surpreendendo quem assiste e segurando até o final.",
+            onde: "Reels, TikTok e anúncios de alcance",
+            ideal: "Prender a atenção nos primeiros segundos",
+            video: "https://youtube.com/shorts/JmdXe6LTwNM",   // LINK DO VÍDEO DE EXEMPLO AQUI (YouTube toca dentro do site)
+            marca: "Invawork"
           }
         ]
       },
@@ -1552,6 +1564,7 @@
           { titulo: "Lançamento de app", categoria: "Tech, apps e lançamentos", subcategoria: "Apps e lançamentos", formato: "Vídeo UGC falado", descricao: "Conversa direta com a câmera apresentando a novidade, com legenda e chamada para fechar negócio.", video: "https://studio.youtube.com/video/xdVyrysYcyc/edit", imagem: "", alt: "Prissila falando para a câmera com a legenda Fechar o negócio" },
           { titulo: "Cartão para empreendedoras", categoria: "Tech, apps e lançamentos", subcategoria: "Apps e lançamentos", formato: "Vídeo UGC falado", descricao: "Apresentação do cartão empresarial pelo app, explicando como separar as despesas da empresa.", video: "https://youtube.com/shorts/uHQTs8ifYSY", imagem: "", alt: "Prissila na frente da tela de um app de banco com um cartão roxo" },
           { titulo: "IA de busca", categoria: "Tech, apps e lançamentos", subcategoria: "Apps e lançamentos", formato: "Vídeo UGC falado", descricao: "Explicação simples e animada de uma ferramenta de inteligência artificial, com legenda e linguagem do dia a dia.", video: "https://youtube.com/shorts/T-21oElYnqk", imagem: "", alt: "Prissila de cabelo ruivo falando para a câmera com a legenda ela é uma IA de busca" },
+          { titulo: "Marketing que desperta desejo", categoria: "Tech, apps e lançamentos", subcategoria: "Apps e lançamentos", formato: "Vídeo UGC falado", descricao: "Vídeo com legenda dinâmica e cenas que dão água na boca para explicar um conceito de marketing de um jeito simples.", video: "https://youtube.com/shorts/agnHfOGvwd0", imagem: "", alt: "Prissila levando uma garfada de macarrão à boca com a palavra Desejo na tela" },
 
         ]
       },
@@ -1804,6 +1817,7 @@
       rua: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/></svg>',
       entrevista: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="2.5" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21M8.5 21h7"/></svg>',
       tutorial: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 6h11M10 12h11M10 18h11"/><path d="M3.5 6.5 5 8l2.5-3M3.5 12.5 5 14l2.5-3"/><circle cx="5" cy="18" r="1.3"/></svg>',
+      surpresa: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2.5 4.5 13.5H12l-1 8 8.5-11H12l1-8Z"/></svg>',
       curiosidade: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21.5h4M12 2.5a6.5 6.5 0 0 0-4 11.6c.6.5 1 1.2 1 2V16h6v-.1c0-.8.4-1.5 1-2a6.5 6.5 0 0 0-4-11.4Z"/></svg>',
       vlog: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="6" width="13" height="12" rx="2"/><path d="m15.5 10.5 6-3.5v10l-6-3.5"/></svg>'
     };
